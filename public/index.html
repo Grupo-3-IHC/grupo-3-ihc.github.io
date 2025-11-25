@@ -192,16 +192,16 @@
             <textarea name="mensaje" rows="4" placeholder="Escribe tu mensaje..."></textarea>
           </label>
 
-          <div class="checkboxes">
-            <label class="consent">
-              <input type="checkbox" name="consent" required>
-              Autorizo el tratamiento de mis datos para alertas y comunicaciones de InstAlert.
-            </label>
-            <label class="consent optional">
-              <input type="checkbox" name="marketing">
-              Acepto recibir noticias y promociones (opcional).
-            </label>
-          </div>
+        <div class="checkboxes">
+  <div class="checkbox-row">
+    <input type="checkbox" name="consent" required>
+    <label for="consent">Autorizo el tratamiento de mis datos para alertas y comunicaciones de InstAlert.</label>
+  </div>
+  <div class="checkbox-row">
+    <input type="checkbox" name="marketing" id="marketing">
+    <label for="marketing">Acepto recibir noticias y promociones (opcional).</label>
+  </div>
+</div>
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Enviar</button>

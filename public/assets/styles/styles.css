@@ -69,7 +69,21 @@ body {
 .contact-form input, .contact-form textarea {
   width:100%; padding:.6rem; border-radius:8px; border:1px solid #ccc; font-size:0.95rem;
 }
-.checkboxes { margin: .6rem 0 1rem; display:flex; flex-direction:column; gap:.5rem; }
+.checkboxes { margin: .2rem 0 1rem; display:flex; flex-direction:column; gap:.5rem; }
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  max-width: 500px;
+}
+.checkbox-row label {
+  line-height: 1.4;
+  margin-top: 0;
+  word-break: break-word;
+}
+.checkbox-row input[type="checkbox"] {
+  margin: 0;
+}
 .form-actions { display:flex; gap:.6rem; }
 .form-msg { margin-top:.6rem; color: #0b6b31; }
 
