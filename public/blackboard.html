@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Web</title>
+    <link rel="stylesheet" href="blackboard.css">
+</head>
+<body>
+
+<!-- Barra superior -->
+<nav class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn">blackboard</button>
+        <button class="nav-btn">Comunidad</button>
+        <button class="nav-btn">Mapa</button>
+        <button class="nav-btn">Configuración</button>
+    </div>
+    <button class="profile-btn">Perfil</button>
+</nav>
+
+<header class="header">
+    <h1>Hola, Álvaro</h1>
+</header>
+
+<!-- 🔥 Botón de Pánico debajo del saludo -->
+<div class="panic-container">
+    <button class="panic-btn">BOTÓN DE PÁNICO</button>
+</div>
+
+<main class="grid-container">
+
+    <!-- Columna Izquierda -->
+    <section class="left-column">
+
+        <div class="card">
+            <h2>Zona actual</h2>
+            <p>Miraflores Calle 42</p>
+        </div>
+
+        <div class="card map">
+            <img src="/img/mapa_real.png" alt="Mapa">
+        </div>
+
+        <div class="card notify">
+            <h2>Notificaciones</h2>
+            <div class="notification-item">
+                <strong>Ubicación:</strong> Callao <br>
+                <strong>Tipo:</strong> Robo armado
+            </div>
+            <div class="notification-item">
+                <strong>Ubicación:</strong> Comas
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Columna Derecha -->
+    <section class="right-column">
+
+        <div class="card device-status">
+            <h2>Estado del dispositivo</h2>
+            <p><span class="dot"></span> Estado: Lorem</p>
+            <p>Batería: X%</p>
+            <p>Última sincronización</p>
+        </div>
+
+        <div class="card messages">
+            <h2>Mensajes</h2>
+            <div class="message-item">
+                <img src="https://via.placeholder.com/60" class="avatar">
+                <p>¡Hola!, ¿cómo estás?</p>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="blackboard.js"></script>
+</body>
