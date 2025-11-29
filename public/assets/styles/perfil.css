@@ -1,0 +1,218 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f5f5;
+}
+
+/* Top bar */
+.topbar {
+    background: #b4efe9;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.back-arrow {
+    position: absolute;
+    left: 20px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Perfil */
+.profile-container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.profile-main {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.profile-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    margin-bottom: 5px;
+}
+
+.followers {
+    color: #40b5a8;
+    font-weight: bold;
+}
+
+.bio {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.btn-edit {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Secciones */
+.content-section {
+    width: 80%;
+    margin: 40px auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Grid general */
+.grid {
+    display: grid;
+    gap: 25px;
+}
+
+/* 3 columnas si hay espacio */
+.posts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.reports-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* Cards */
+.post-card, .report-card {
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.post-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.stats-row {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Buttons */
+.btn-small {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.report-info {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.horizontal-scroll {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+    border-radius: 10px;
+}
+
+.post-card, .report-card {
+    flex: 0 0 300px; /* ancho fijo para que se deslice */
+    scroll-snap-align: start;
+}
+
+/* =======================
+       MODAL
+======================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 450px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-modal {
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.form-modal input,
+.form-modal textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.btn-opcion {
+    width: 48%;
+    padding: 10px;
+    margin: 4px 1%;
+    border: none;
+    background: #b3e6de;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-amplio {
+    width: 98%;
+}

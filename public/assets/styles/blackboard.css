@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* Barra superior */
+.top-nav {
+    width: 100%;
+    background: white;
+    padding: 16px 0px;
+    display: flex;
+    justify-content: space-between;   /* Esto permite que Perfil quede a la derecha */
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    background: #e8efff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-left: 20px;
+}
+
+.nav-btn:hover {
+    background: #c9dbff;
+}
+
+/* Botón Perfil */
+.profile-btn {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.profile-btn:hover {
+    background: #3c78bc;
+}
+
+.header {
+    background: linear-gradient(to bottom, #a3e7e8, #d6f3ed);
+    padding: 10px;
+    text-align: center;
+    font-size: 28px;
+}
+
+/* GRID PRINCIPAL */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/*Zona actual*/
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Mapa */
+.map img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* Estado del dispositivo */
+.device-status {
+    border-left: 5px solid #7fe68b;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background: #51d46e;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Notificaciones */
+.notification-item {
+    margin-top: 12px;
+    padding: 15px;
+    background: #ffeaea;
+    border-left: 4px solid #ff7979;
+    border-radius: 10px;
+}
+
+/* Mensajes */
+.messages .message-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #eaf6ff;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.panic-container {
+    text-align: center;
+    margin: 25px 0;
+}
+
+/* Botón de pánico llamativo */
+.panic-btn {
+    background: #ff3b3b;
+    color: white;
+    padding: 18px;
+    border: none;
+    font-size: 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.35);
+    transition: 0.2s;
+    aspect-ratio: 1 / 1;
+}
+
+.panic-btn:hover {
+    background: #d62828;
+    transform: scale(1.05);
+}
