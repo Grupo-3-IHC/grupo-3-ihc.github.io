@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: #69c7c0; /* Primary Mint Color */
+    background: #70CDC3; /* Primary Mint Color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,3 +178,4 @@ body {
 }
 
 .links a:hover { opacity: 1; }
+
