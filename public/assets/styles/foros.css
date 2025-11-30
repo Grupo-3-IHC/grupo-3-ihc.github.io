@@ -531,3 +531,191 @@ body {
     background: #cc0000;
     filter: brightness(0.9);
 }
+
+
+/* =======================
+   BOTÓN ADMINISTRADOR
+======================= */
+.btn-admin {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  border: 2px solid lightgray;
+  background: #ffffff;
+  height: 2.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .3s;
+  font-size: 0.9rem;
+}
+
+.btn-admin:hover {
+  transform: translateY(-3px);
+}
+
+/* estado ACTIVO */
+.btn-admin.on {
+  border-color: #A1E3DC;
+  background: #E0FFFB;
+  font-weight: 600;
+}
+
+/* =======================
+   POPUP ADMIN (INFO SENSIBLE)
+======================= */
+.admin-popup {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  background: #ffffff;
+  border: 2px solid #A1E3DC;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  display: none;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 260px;
+  z-index: 1000;
+}
+
+/* modo error (sin permisos) */
+.admin-popup.error {
+  border-color: #f87171;
+  color: #b91c1c;
+}
+
+
+/* =======================
+   MAIN CONTENT LAYOUT (TWO COLUMNS)
+======================= */
+.main-content-layout {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.main-content {
+  /* La columna principal (posts) ocupará más espacio */
+  flex: 3;
+  min-width: 0; /* Asegura que el contenido se encoja correctamente */
+}
+
+.weekly-summary-card {
+  /* La columna del resumen ocupará menos espacio */
+  flex: 1;
+  min-width: 250px; /* Ancho mínimo para la tarjeta */
+  max-width: 300px; /* Ancho máximo para la tarjeta */
+  
+  /* Estilos de la tarjeta */
+  background: white;
+  border: 2px solid #D9D9D9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: fit-content; /* Se ajusta a su contenido */
+  position: sticky; /* Se mantiene visible al hacer scroll */
+  top: 1rem;
+}
+
+.weekly-summary-card h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #A1E3DC;
+  padding-bottom: 0.5rem;
+}
+
+.summary-date-range {
+  font-size: 0.85rem;
+  color: #9e9e9e;
+  margin-bottom: 1.5rem;
+}
+
+.summary-stats {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.stat-item h3 {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stat-item.danger .stat-value {
+  color: #d9534f; /* Rojo */
+}
+
+.stat-item.warning .stat-value {
+  color: #f0ad4e; /* Amarillo/Naranja */
+}
+
+.stat-item.safe .stat-value {
+  color: #00C1AA; /* Verde/Cian */
+}
+
+.zone-list {
+  list-style: disc;
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.suggestion {
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.4;
+  color: #333 !important; /* Sobrescribe el color para un mejor contraste */
+}
+
+
+/* =======================
+   RESPONSIVE ADJUSTMENTS FOR NEW LAYOUT
+======================= */
+@media (max-width: 950px) {
+  /* Cuando el viewport es más pequeño, el resumen desaparece */
+  .weekly-summary-card {
+    display: none;
+  }
+
+  /* La columna principal debe ocupar todo el ancho */
+  .main-content {
+    flex: 1;
+  }
+
+  .main-content-layout {
+    /* Elimina el margen superior para compactar el diseño */
+    margin-top: 0;
+  }
+
+  /* Ajustar el contenedor de posts para que ocupe todo el wrapper */
+  .post-container {
+    max-width: none;
+    padding: 0; /* Para aprovechar el padding del wrapper */
+  }
+
+  /* Ajustar los anchos máximos internos del contenido para que usen el 100% del main-content */
+  .navbar-foros {
+    max-width: none;
+  }
+  .search-form {
+    max-width: none;
+  }
+  .btn-relevante-reciente {
+    max-width: none;
+  }
+}
+
+/* Ajustes a elementos existentes para que respeten la nueva columna */
+/* Eliminamos el max-width de 700px en post-container para que se ajuste mejor al diseño de 2 columnas. */
+.post-container {
+  max-width: none; /* Antes era 700px. Lo eliminamos para que el contenido fluya. */
+  margin-left: 0;
+  margin-right: 0;
+}
