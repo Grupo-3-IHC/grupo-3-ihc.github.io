@@ -1,121 +1,325 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/styles/modo-trayecto-activo.css">
-  <link rel="stylesheet" href="assets/styles/barrabaja.css">
   <title>Modo Trayecto Activo</title>
+  
+  <style>
+    /* =========================================
+       1. CONFIGURACIÓN BASE
+       ========================================= */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: #e0e0e0;
+        background-image: url('assets/images/map1.png'); 
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        transition: background-image 0.5s ease-in-out;
+    }
+
+    /* =========================================
+       2. HEADER
+       ========================================= */
+    .header {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        background-color: #A1E3DC;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-sizing: border-box;
+        height: 60px; /* Altura fija para calcular el top de las alertas */
+    }
+    .header h1 { margin: 0; color: white; font-size: 1.2rem; }
+    .back-btn {
+        position: absolute; left: 1rem; color: white;
+        text-decoration: none; font-size: 1.5rem; cursor: pointer;
+    }
+
+    /* =========================================
+       3. CONTENEDOR DE ALERTAS (SOLUCIÓN OVERLAP)
+       ========================================= */
+    .hidden { display: none !important; }
+
+    /* Este contenedor apila las alertas una tras otra */
+    .notifications-stack {
+        position: fixed;
+        top: 70px; /* Justo debajo del header */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 450px;
+        z-index: 200;
+        display: flex;
+        flex-direction: column; /* Apilar verticalmente */
+        gap: 10px; /* Espacio entre alertas */
+        pointer-events: none; /* Permitir clic a través de los huecos */
+    }
+
+    /* Estilos base para las tarjetas de alerta */
+    .alert-card {
+        pointer-events: auto; /* Reactivar clics en las tarjetas */
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-sizing: border-box;
+        padding: 15px;
+        position: relative;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilos Específicos */
+    .zone-alert {
+        background: rgba(230, 230, 230, 0.95);
+        border-left: 5px solid #ff4444;
+    }
+    .zone-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .zone-title { font-weight: bold; font-size: 1rem; }
+    .zone-time { font-size: 0.75rem; color: #666; }
+
+    .panic-alert {
+        background: #dcdcdc; /* Gris un poco más oscuro */
+    }
+    .panic-title { font-weight: 900; font-size: 1.1rem; margin-bottom: 5px; }
+    .panic-sub { font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase; }
+
+    .route-toast {
+        background: #A1E3DC; 
+        color: #004040; 
+        padding: 10px 20px;
+        border-radius: 20px; 
+        font-weight: bold; 
+        text-align: center;
+        align-self: center; /* Centrar el toast más pequeño */
+        width: auto;
+    }
+
+    /* Modal Inactividad (Sigue siendo pantalla completa) */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); z-index: 300;
+        display: flex; justify-content: center; align-items: center;
+        pointer-events: auto;
+    }
+    .modal-card {
+        background: #e0e0e0; width: 85%; max-width: 400px; padding: 20px; border-radius: 15px;
+        text-align: center;
+    }
+    .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
+    .btn-modal { flex: 1; padding: 10px; border: none; background: #bbb; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+
+    /* =========================================
+       4. CONTROLES FLOTANTES (UI)
+       ========================================= */
+    .floating-ui-container {
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 50;
+    }
+
+    .info-card {
+        background: white; padding: 15px; border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .info-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.95rem; color: #444; }
+    .info-row span:last-child { font-weight: bold; color: #000; }
+
+    .action-row { display: flex; gap: 15px; }
+    .btn-action {
+        flex: 1; padding: 12px; border: none; border-radius: 12px;
+        font-weight: bold; cursor: pointer; color: white; font-size: 1rem;
+        transition: transform 0.1s;
+    }
+    .btn-action:active { transform: scale(0.98); }
+    .btn-dark { background: #333; }
+    .btn-mint { background: #A1E3DC; }
+
+    .extra-row { display: flex; justify-content: space-between; align-items: center; }
+    .btn-small {
+        padding: 10px 20px; background: #333; color: white;
+        border: none; border-radius: 10px; font-size: 0.9rem; 
+        cursor: pointer; font-weight: 500;
+    }
+    .recalc-badge {
+        background: white; padding: 8px 15px; border-radius: 10px;
+        display: flex; align-items: center; gap: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        font-size: 0.85rem; font-weight: bold; cursor: pointer; color: #333;
+    }
+    .recalc-icon { font-size: 1.2rem; line-height: 1; }
+
+    .location-shared {
+        display: flex; justify-content: center; align-items: center; gap: 8px;
+        background: rgba(255,255,255,0.9); padding: 8px 15px; border-radius: 20px;
+        align-self: center; font-size: 0.9rem; font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 5px;
+    }
+    .led-indicator { width: 12px; height: 12px; background: red; border-radius: 50%; animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity: 0.5; } }
+
+    /* =========================================
+       5. BARRA INFERIOR
+       ========================================= */
+    .bottom-bar {
+        position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
+        background: white; border-top: 1px solid #ddd;
+        display: flex; justify-content: space-around; align-items: center;
+        z-index: 100; box-sizing: border-box;
+    }
+    .btn {
+        display: flex; justify-content: center; align-items: center;
+        width: 40px; height: 40px; border-radius: 10px; transition: background 0.3s;
+    }
+    .btn:hover { background-color: #f0f0f0; }
+    .icon { width: 24px; height: 24px; object-fit: contain; }
+    .alerta-btn {
+        background-color: #FF0000; border-radius: 50%; width: 55px; height: 55px;
+        transform: translateY(-20px); border: 4px solid white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        display: flex; justify-content: center; align-items: center;
+    }
+    .alerta-btn:hover { background-color: #cc0000; }
+    .alerta-btn .icon { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+
+  </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-  <a href="map.html" class="back-btn">←</a>
-  <h1>Modo Trayecto</h1>
-</header>
+    <header class="header">
+        <a href="map.html" class="back-btn">←</a>
+        <h1>Modo Trayecto</h1>
+    </header>
 
-<!-- ===== CONTENIDO PRINCIPAL ===== -->
-<div class="content">
+    <div class="notifications-stack">
+        
+        <div id="alertZone" class="alert-card zone-alert hidden">
+            <div class="zone-header">
+                <span class="zone-title">Alerta de Zona</span>
+                <span class="zone-time">Hace 1 min</span>
+            </div>
+            <div>Has ingresado a una zona peligrosa</div>
+        </div>
 
-  <!-- TARJETA DE INFORMACIÓN -->
-  <div class="info-card">
+        <div id="alertPanic" class="alert-card panic-alert hidden">
+            <div class="zone-header">
+                <span class="panic-title">¡ALERTA!</span>
+                <span class="zone-time">Hace 1 min</span>
+            </div>
+            <div class="panic-sub">Botón de pánico activado automáticamente</div>
+            <div>Alerta enviada a contactos de confianza...</div>
+        </div>
 
-    <div class="info-row">
-      <span>Distancia</span>
-      <span>45 km</span>
+        <div id="toastRoute" class="alert-card route-toast hidden">
+            📍 Ruta sugerida activada
+        </div>
+
     </div>
 
-    <div class="info-row">
-      <span>Tiempo Estimado</span>
-      <span>1:30 h</span>
+    <div id="modalInactivity" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="zone-header">
+                <span class="zone-title">Alerta de Inactividad</span>
+                <span class="zone-time">Hace 1 min</span>
+            </div>
+            <p style="text-align: left; margin-top: 10px;">Se detectó inactividad tuya, ¿estás bien?</p>
+            <div class="modal-btns">
+                <button class="btn-modal" onclick="closeMe('modalInactivity')">Si</button>
+                <button class="btn-modal" onclick="closeMe('modalInactivity')">No</button>
+            </div>
+        </div>
     </div>
 
-    <div class="info-row">
-      <span>Ruta Actual</span>
-      <span>A</span>
+    <div class="floating-ui-container">
+        
+        <div class="info-card">
+            <div class="info-row"><span>Distancia</span><span>45 km</span></div>
+            <div class="info-row"><span>Tiempo</span><span>1:30 h</span></div>
+            <div class="info-row"><span>Ruta Actual</span><span>A</span></div>
+            <div class="info-row"><span>Destino</span><span>Amposta...</span></div>
+        </div>
+
+        <div class="action-row">
+            <button class="btn-action btn-dark" onclick="window.location.href='map.html'">Cancelar modo</button>
+            <button class="btn-action btn-mint" onclick="window.location.href='map.html'">He llegado</button>
+        </div>
+
+        <div class="extra-row">
+            <button class="btn-small" onclick="alert('El viaje se ha extendido 15 minutos.')">Extender viaje</button>
+            
+            <div class="recalc-badge" id="btnRecalcular">
+                <span class="recalc-icon">↻</span>
+                <span style="line-height: 1.1; text-align: left;">Recalcular<br>rutas</span>
+            </div>
+        </div>
+
+        <div class="location-shared">
+            📍 Ubicación compartida <div class="led-indicator"></div>
+        </div>
     </div>
-
-    <div class="info-row">
-      <span>Destino</span>
-      <span>Ampos...</span>
-    </div>
-
-  </div>
-
-  <!-- BOTONES PRINCIPALES -->
-  <div class="action-buttons">
-    <button class="btn-cancelar">Cancelar modo</button>
-    <button class="btn-llegado">He llegado</button>
-  </div>
-
-  <!-- SEGUNDA FILA DE BOTONES -->
-  <div class="second-buttons">
-    <button class="btn-extender">Extender viaje</button>
-
-    <button class="btn-recalcular">
-      <img src="assets/images/refresh.png" alt="">
-      <span>Recalcular ruta</span>
-    </button>
-  </div>
-
-  <!-- SWITCH UBICACIÓN COMPARTIDA -->
-  <div class="ubicacion-option">
-    <label class="switch">
-      <input type="checkbox">
-      <span class="slider"></span>
-    </label>
-    <span>Ubicación compartida</span>
-  </div>
-
-</div>
-
 
     <div class="bottom-bar">
-        <a href="_.html" class="btn">
-            <img src="assets/images/home.png" class="icon">
-        </a>
-
-        <a href="_.html" class="btn">
-            <img src="assets/images/msg.png" class="icon">
-        </a>
-
-        <a href="_.html" class="btn alerta-btn">
-            <img src="assets/images/button.png" class="icon alerta">
-        </a>
-
-        <a href="_.html" class="btn">
-            <img src="assets/images/map.png" class="icon">
-        </a>
-
-        <a href="_.html" class="btn">
-            <img src="assets/images/config.png" class="icon">
-        </a>
+        <a href="dashboard.html" class="btn"><img src="assets/images/home.png" class="icon"></a>
+        <a href="comunidad.html" class="btn"><img src="assets/images/msg.png" class="icon"></a>
+        <a href="panicSvadm.html" class="alerta-btn"><img src="assets/images/button.png" class="icon alerta"></a>
+        <a href="map.html" class="btn"><img src="assets/images/map.png" class="icon"></a>
+        <a href="config.html" class="btn"><img src="assets/images/config.png" class="icon"></a>
     </div>
 
-    <!-- ========= SCRIPT PARA CAMBIAR EL MAPA ========= -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const btnRecalcular = document.querySelector(".btn-recalcular");
-    if (!btnRecalcular) return;
+    <script>
+        function closeMe(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // rutas de las imágenes de mapa (desde el HTML)
-    const maps = [
-      'url("assets/images/map1.png")',
-      'url("assets/images/map2.png")'
-    ];
+        document.addEventListener("DOMContentLoaded", function () {
+            // Recuperar configuración o USAR MODO DEMO
+            let settings = JSON.parse(localStorage.getItem("trayectoSettings"));
+            if (!settings) settings = { sugerir: true, inactividad: true, supervision: true, contactos: true };
 
-    let currentIndex = 0;
+            if (settings.contactos) setTimeout(() => document.getElementById("alertPanic").classList.remove("hidden"), 500);
+            if (settings.inactividad) setTimeout(() => document.getElementById("modalInactivity").classList.remove("hidden"), 1500);
+            if (settings.supervision) document.getElementById("alertZone").classList.remove("hidden");
+            if (settings.sugerir) {
+                const toast = document.getElementById("toastRoute");
+                toast.classList.remove("hidden");
+                setTimeout(() => toast.classList.add("hidden"), 3000);
+            }
 
-    btnRecalcular.addEventListener("click", function () {
-      // siguiente mapa (cíclico)
-      currentIndex = (currentIndex + 1) % maps.length;
-      document.body.style.backgroundImage = maps[currentIndex];
-    });
-  });
-</script>
+            // Recalcular Mapa
+            const btnRecalcular = document.getElementById("btnRecalcular");
+            const maps = [
+                'url("assets/images/map1.png")', 
+                'url("assets/images/map2.png")' 
+            ];
+            let currentMap = 0;
+
+            btnRecalcular.addEventListener("click", function() {
+                currentMap = (currentMap + 1) % maps.length;
+                document.body.style.backgroundImage = maps[currentMap];
+            });
+        });
+    </script>
+
 </body>
 </html>
-
