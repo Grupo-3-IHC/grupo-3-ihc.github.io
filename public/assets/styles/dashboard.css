@@ -1,190 +1,222 @@
+/* ---------- Estilos base ---------- */
+
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
+    color: #333;
 }
 
-/* Barra superior */
-.top-nav {
-    width: 100%;
-    background: white;
-    padding: 16px 0px;
-    display: flex;
-    justify-content: space-between;   /* Esto permite que Perfil quede a la derecha */
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.nav-left {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-btn {
-    background: #e8efff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-left: 20px;
-}
-
-.nav-btn:hover {
-    background: #c9dbff;
-}
-
-/* Botón Perfil */
-.profile-btn {
-    background: #4a90e2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 20px;
-}
-
-.profile-btn:hover {
-    background: #3c78bc;
-}
+/* ---------- Header superior ---------- */
 
 .header {
-    background: linear-gradient(to bottom, #a3e7e8, #d6f3ed);
-    padding: 10px;
+    width: 100%;
+    padding: 32px 16px;
     text-align: center;
-    font-size: 28px;
-    color: white;
+    background: linear-gradient(90deg, #9be7ff, #b2f2e9);
+    box-sizing: border-box;
 }
 
-/* GRID PRINCIPAL */
+.header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 32px;
+}
+
+/* ---------- Layout principal ---------- */
+
 .grid-container {
+    max-width: 1200px;
+    margin: 24px auto 80px auto; /* deja espacio para la bottom-bar */
+    padding: 0 16px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; /* Increased from 40px to 80px */
-    max-width: 1400px;
-    margin: 30px auto;
-    padding: 20px;
-}   
-/*Zona actual*/
+    grid-template-columns: 2fr 1.5fr;
+    grid-gap: 24px;
+    box-sizing: border-box;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Cards ---------- */
+
 .card {
     background: #ffffff;
-    padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    
-    /* Add this line below */
-    margin-bottom: 40px; 
+    padding: 16px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
-/* Mapa */
-.map img {
+
+.card h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+/* ---------- Zona actual ---------- */
+
+.current-zone p {
+    margin: 4px 0;
+}
+
+/* ---------- Mapa ---------- */
+
+.map-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.map-image {
+    display: block;
     width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* ---------- Notificaciones ---------- */
+
+.notifications .notif-item {
+    background: #ffe6e6;
     border-radius: 12px;
-    margin-bottom: 20px;
+    padding: 10px 12px;
+    margin-top: 10px;
 }
 
-/* Estado del dispositivo */
+/* ---------- Estado del dispositivo ---------- */
+
 .device-status {
-    border-left: 5px solid #7fe68b;
+    border-top: 4px solid #2ecc71;
 }
 
-.dot {
-    width: 12px;
-    height: 12px;
+.device-status .dot {
     display: inline-block;
-    background: #51d46e;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    margin-right: 8px;
+    background: #2ecc71;
+    margin-right: 6px;
 }
 
-/* Notificaciones */
-.notification-item {
-    margin-top: 12px;
-    padding: 15px;
-    background: #ffeaea;
-    border-left: 4px solid #ff7979;
-    border-radius: 10px;
-}
+/* ---------- Mensajes ---------- */
 
-/* Mensajes */
 .messages .message-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    background: #eaf6ff;
-    padding: 12px;
+    gap: 12px;
+    background: #e8f4ff;
     border-radius: 12px;
+    padding: 10px 12px;
 }
 
-.avatar {
-    width: 60px;
-    height: 60px;
+.messages .avatar {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-.panic-container {
-    text-align: center;
-    margin: 25px 0;
+/* ---------- Horarios de riesgo ---------- */
+
+.risk-config .risk-row {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0;
 }
 
-/* Botón de pánico llamativo */
-.panic-btn {
-    background: #ff3b3b;
-    color: white;
-    padding: 18px;
+.risk-field {
+    flex: 1;
+}
+
+.risk-config label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.risk-config input[type="time"] {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.risk-save-btn {
+    margin-top: 8px;
+    padding: 8px 16px;
     border: none;
-    font-size: 16px;
-    border-radius: 14px;
+    border-radius: 999px;
+    background: #2f80ed;
+    color: #fff;
     cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.35);
-    transition: 0.2s;
-    aspect-ratio: 1 / 1;
+    font-size: 14px;
 }
 
-.panic-btn:hover {
-    background: #d62828;
-    transform: scale(1.05);
+.risk-save-btn:hover {
+    filter: brightness(0.95);
 }
+
+.risk-message {
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Tarjeta de alerta preventiva */
+
+.risk-warning {
+    border-left: 5px solid #ffb347;
+    background: #fff8e6;
+}
+
+#risk-warning-text {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+/* ---------- Barra inferior ---------- */
 
 .bottom-bar {
     position: fixed;
-    bottom: 0;
     left: 0;
-    right: 0;
-
-    height: 70px;
-    background: white;
-
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-
-    border-top: 1px solid #ccc;
+    padding: 8px 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
 }
 
-.btn {
-    display: flex;
+.bottom-bar .btn {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-
-    padding: 8px;
-    border-radius: 10px;
-    transition: background 0.2s, filter 0.2s;
-}
-
-.btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-    filter: brightness(0.9);
+    text-decoration: none;
 }
 
 .icon {
     width: 28px;
     height: 28px;
 }
+
+/* Botón de pánico centrado y rojo */
 
 .alerta-btn {
     background: red;
