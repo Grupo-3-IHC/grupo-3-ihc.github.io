@@ -23,10 +23,12 @@ const editUbicacion   = document.getElementById('editUbicacion');
 const editImagen      = document.getElementById('editImagen');
 const btnGuardarBorrador = document.getElementById('btnGuardarBorrador');
 const autoUbicacionChk   = document.getElementById('autoUbicacion');
+const modoPrivadoChk   = document.getElementById('modoPrivado');
 
 const cardsGrid      = document.querySelector('#view-list .mis-pub-grid');
 const draftsGrid     = document.getElementById('drafts-grid');
 const deletedGrid    = document.getElementById('deleted-grid');
+const previewCard   = document.getElementById('previewCard');
 const draftCountSpan = document.getElementById('draftCount');
 
 // Modales
@@ -68,6 +70,7 @@ let currentView       = 'list';
 let previousView      = 'list';
 let isCreating        = false;
 let editingFromDrafts = false;
+let publishConfirmed = false;
 
 const histories   = new WeakMap(); // card -> [{date,summary}]
 const commentsMap = new WeakMap(); // card -> [comments]
@@ -75,38 +78,91 @@ let currentCommentsCard = null;
 let replyingToCommentId = null;
 let commentIdCounter    = 1;
 
-
+// ===== UTILIDADES =====
 // ===== DETECCIÓN DE PUBLICACIONES SIMILARES =====
 function detectarPublicacionSimilar(titulo, descripcion, ubicacion) {
   const cards = Array.from(document.querySelectorAll('#view-list .mis-pub-card'));
   const normalizar = (txt) =>
     txt.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const nuevaDesc = normalizar(descripcion);
-  const nuevaUbic = normalizar(ubicacion);
+  const nuevaDesc = normalizar(descripcion || "");
+  const nuevaUbic = normalizar(ubicacion || "");
   for (const card of cards) {
-    const descExistente = normalizar(card.querySelector('.campo-descripcion').textContent);
-    const ubicExistente = normalizar(card.querySelector('.campo-ubicacion').textContent);
+    const descNode = card.querySelector('.campo-descripcion');
+    const ubicNode = card.querySelector('.campo-ubicacion');
+    if (!descNode || !ubicNode) continue;
+    const descExistente = normalizar(descNode.textContent);
+    const ubicExistente = normalizar(ubicNode.textContent);
     const mismaUbicacion =
-      nuevaUbic.includes(ubicExistente) || ubicExistente.includes(nuevaUbic);
+      nuevaUbic && (nuevaUbic.includes(ubicExistente) || ubicExistente.includes(nuevaUbic));
     const descParecida =
-      nuevaDesc.includes(descExistente.substring(0, 30)) ||
-      descExistente.includes(nuevaDesc.substring(0, 30));
+      nuevaDesc && (
+        nuevaDesc.includes(descExistente.substring(0, 30)) ||
+        descExistente.includes(nuevaDesc.substring(0, 30))
+      );
     if (mismaUbicacion && descParecida) {
-      return card; 
+      return card;
     }
   }
   return null;
 }
 
 function mostrarAlertaSimilar(card) {
-  const titulo = card.querySelector('.campo-titulo').textContent;
-  const estado = card.dataset.status;
-  modalTexto.textContent =
-    `Ya existe un reporte similar registrado: "${titulo}". Estado actual: ${estado}.`;
-  modal.classList.remove('hidden');
+  const tituloNode = card.querySelector('.campo-titulo');
+  const titulo = tituloNode ? tituloNode.textContent.trim() : '(sin título)';
+  const estado = card.dataset.status || 'desconocido';
+  showInfo(`Ya existe un reporte similar registrado: "${titulo}". Estado actual: ${estado}.`);
 }
 
-// ===== UTILIDADES =====
+// ===== VISTA PREVIA & MODO PRIVADO =====
+function generarVistaPrevia() {
+  if (!previewCard) return;
+  const titulo = editTitulo.value;
+  const descripcion = editDescripcion.value;
+  const etiquetas = editEtiquetas.value;
+  const ubicacion = editUbicacion.value;
+  const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
+
+  const ubicacionMostrar = privado ? "Ubicación no publicada" : (ubicacion || "Sin ubicación");
+  const autorMostrar = privado ? "Anónim@" : "Tú";
+
+  previewCard.innerHTML = `
+    <div class="mis-pub-card-header">
+      <div class="title-status">
+        <h3>Vista previa</h3>
+        <span class="status-badge status-aprobada">Publicación</span>
+      </div>
+    </div>
+    <div class="mis-pub-card-body">
+      <p><strong>Autor:</strong> ${autorMostrar}</p>
+      <p><strong>Título:</strong> ${titulo}</p>
+      <p><strong>Descripción:</strong> ${descripcion}</p>
+      <p><strong>Etiquetas:</strong> ${etiquetas}</p>
+      <p><strong>Ubicación:</strong> ${ubicacionMostrar}</p>
+    </div>
+    <div class="preview-actions" style="margin-top:1rem; display:flex; gap:.5rem;">
+      <button id="btnPreviewPublicar" type="button" class="edit-confirmar">Publicar ahora</button>
+      <button id="btnPreviewCancelar" type="button" class="edit-borrador">Cancelar</button>
+    </div>
+  `;
+  previewCard.classList.remove("hidden");
+
+  const btnPubNow = document.getElementById('btnPreviewPublicar');
+  const btnCancel = document.getElementById('btnPreviewCancelar');
+
+  if (btnPubNow) {
+    btnPubNow.onclick = () => {
+      publishConfirmed = true;
+      editForm.requestSubmit();
+    };
+  }
+  if (btnCancel) {
+    btnCancel.onclick = () => {
+      publishConfirmed = false;
+      previewCard.classList.add('hidden');
+    };
+  }
+}
+
 function formatDateTime(date) {
   const d = String(date.getDate()).padStart(2, '0');
   const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -654,6 +710,8 @@ draftsButton.addEventListener('click', () => showDraftsView());
 deletedButton.addEventListener('click', () => showDeletedView());
 
 newPostButton.addEventListener('click', () => {
+  publishConfirmed = false;
+  if (previewCard) previewCard.classList.add('hidden');
   isCreating = true;
   editingCard = null;
   editingFromDrafts = false;
@@ -855,11 +913,52 @@ function createNewDraftCard(imgSrc) {
 // ===== SUBMIT PUBLICAR =====
 editForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const sim = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim){ mostrarAlertaSimilar(sim); return; }
 
   if (isCreating) {
+    if (!publishConfirmed) {
+      generarVistaPrevia();
+      return;
+    }
+    publishConfirmed = false;
+    if (previewCard) previewCard.classList.add('hidden');
+
+    const similar = detectarPublicacionSimilar(
+      editTitulo.value,
+      editDescripcion.value,
+      editUbicacion.value
+    );
+    if (similar) {
+      mostrarAlertaSimilar(similar);
+      return;
+    }
+
     const file = editImagen.files[0];
+    const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
+    const ubicacionFinal = privado ? 'Ubicación no publicada' : editUbicacion.value;
+
     const after = (card) => {
+      if (privado) {
+        let autorP = card.querySelector('.campo-autor');
+        if (!autorP) {
+          autorP = document.createElement('p');
+          autorP.innerHTML = '<strong>Autor:</strong> <span class="campo-autor"></span>';
+          const body = card.querySelector('.mis-pub-card-body');
+          const fechaP = body.querySelector('.pub-fecha');
+          if (fechaP && fechaP.nextSibling) {
+            body.insertBefore(autorP, fechaP.nextSibling);
+          } else {
+            body.insertBefore(autorP, body.firstChild);
+          }
+        }
+        autorP.querySelector('.campo-autor').textContent = 'Anónim@';
+        card.dataset.privado = '1';
+      } else {
+        card.dataset.privado = '0';
+      }
+
+      const ubicSpan = card.querySelector('.campo-ubicacion');
+      if (ubicSpan) ubicSpan.textContent = ubicacionFinal;
+
       showListView();
       simulateSync(card, 'Publicación creada correctamente.');
       sortPublications('recientes');
@@ -873,7 +972,7 @@ editForm.addEventListener('submit', (e) => {
       };
       reader.readAsDataURL(file);
     } else {
-      const card = createNewPublicationCard(''); // sin imagen
+      const card = createNewPublicationCard('');
       after(card);
     }
 
@@ -957,10 +1056,18 @@ editForm.addEventListener('submit', (e) => {
     simulateSync(editingCard, 'Edición satisfactoria.');
   }
 });
-
 // ===== GUARDAR BORRADOR =====
 btnGuardarBorrador.addEventListener('click', () => {
-  const sim2 = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim2){ mostrarAlertaSimilar(sim2); return; }
+  const similar = detectarPublicacionSimilar(
+    editTitulo.value,
+    editDescripcion.value,
+    editUbicacion.value
+  );
+  if (similar) {
+    mostrarAlertaSimilar(similar);
+    return;
+  }
+
   if (isCreating) {
     if (!canAddDraft()) return;
 
@@ -1224,7 +1331,6 @@ document.addEventListener('click', (e) => {
 // Enviar comentario
 commentForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const sim = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim){ mostrarAlertaSimilar(sim); return; }
   if (!currentCommentsCard) return;
 
   const status = currentCommentsCard.dataset.status;
@@ -1380,3 +1486,4 @@ updateDraftIndicator();
 purgeOldDeleted();
 sortPublications('recientes');
 setInterval(updateDeletedCountdowns, 1000);
+
