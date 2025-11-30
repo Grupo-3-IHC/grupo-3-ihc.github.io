@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botón de pánico</title>
+    <link rel="stylesheet" href="assets/styles/panicSvadm.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="panic-main-screen" class="container active-screen"> 
+        <header class="header">
+            <span class="material-icons back-icon" id="goBack">arrow_back</span> 
+            <h1>Botón de pánico</h1>
+        </header>
+
+        <main class="panic-card">
+            <p class="timer-message" id="panicHeaderText">PULSAR PARA ACTIVAR:</p>
+            
+            <div class="panic-trigger-area">
+                <button id="activatePanic" class="panic-button">
+                    <div class="panic-icon">
+                        <svg class="warning-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="warning-triangle" d="M12 4L22 20H2L12 4Z" fill="white"/> 
+                            <rect class="exclamation-bar" x="11" y="9" width="2" height="6" rx="1" fill="#E03957"/> 
+                            <rect class="exclamation-dot" x="11" y="17" width="2" height="2" rx="1" fill="#E03957"/> 
+                        </svg>
+                    </div>
+                </button>
+            </div>
+            
+            <button id="cancelPanic" class="btn-cancel hidden">CANCELAR</button>
+            
+            <p class="panic-message" id="panicStatus">Presiona el botón para enviar una alerta inmediata.</p>
+        </main>
+    </div>
+
+
+    <div id="panic-sent-screen" class="container hidden-screen">
+        <header class="header">
+            <h1>Alerta enviada</h1> 
+        </header>
+
+        <main class="sent-card">
+            <h2 class="sent-message">Alerta enviada</h2>
+            
+            <button class="btn-ver-mas" id="verMasPanicDetails">VER MÁS</button>
+        </main>
+    </div>
+
+
+    <div id="panic-details-screen" class="container hidden-screen">
+            <header class="header">
+                <span class="material-icons back-icon">arrow_back</span>
+                <h1>Botón de pánico</h1>
+            </header>
+
+            <main class="report-card">
+                <p class="details-intro-message">
+                    A CONTINUACIÓN SE ESTÁ MOSTRANDO LA SIGUIENTE INFORMACIÓN A TODOS TUS CONTACTOS CONFIGURADOS PARA RECIBIR LA ALARMA:
+                </p>
+
+                <section class="report-section">
+                    <h2>Ubicación actual:</h2>
+                    <p>Comas  Calle Los Pinos (32)</p>
+                </section>
+
+                <section class="report-section">
+                    <h2>Hora de activación del botón:</h2>
+                    <p>20:33 horas</p>
+                </section>
+
+                <section class="report-section">
+                    <h2>Tiempo transcurrido desde la pulsación:</h2>
+                    <p>10 minutos</p>
+                </section>
+                
+                <section class="report-section">
+                    <h2>Estado:</h2>
+                    <p>En peligro...</p>
+                </section>
+
+                <div class="inter-aviso-box hidden" id="interAvisoBox">
+                   <p class="inter-title">IMPORTANTE:</p>
+                   <p>Se identificó que no todos tus contactos tienen conexión. Al tener disponibilidad les llegará la notificación</p>
+                </div>
+
+                <div class="panic-action-buttons">
+                    <button class="btn-action-panic deactivate-btn" id="deactivatePanicButton">DESACTIVAR BOTÓN</button>
+                    <button class="btn-action-panic deactivate-btn" id="goToPrivacyAviso">1 HORA</button>                    
+                    <button class="btn-action-panic deactivate-btn" id="toggleInterAviso">INTER</button>                </div>
+            </main>
+    </div>
+
+    <div id="privacy-aviso-screen" class="container hidden-screen">
+        <header class="header">
+            <h1>Botón de pánico</h1>
+        </header>
+
+        <main class="review-card">
+            <div class="review-box privacy-box">
+                <p class="privacy-text">
+                    Por motivos de privacidad se dejará de compartir datos
+                </p>
+                <p class="privacy-question">
+                    Transcurrió una hora, ¿Desea seguir compartiendo?
+                </p>
+                
+                <div class="privacy-button-group">
+                    <button class="btn valid-btn" id="confirmShare">Sí</button>
+                    <button class="btn invalid-btn" id="denyShare">No</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="bottom-bar—barrainferior">
+    <a href="dashboard.html" class="btn—barrainferior">
+        <img src="assets/images/home.png" class="icon—barrainferior">
+    </a>
+
+    <a href="comunidad.html" class="btn—barrainferior">
+        <img src="assets/images/msg.png" class="icon—barrainferior">
+    </a>
+
+    <a href="panicSvadm.html" class="btn—barrainferior alerta-btn—barrainferior">
+        <img src="assets/images/button.png" class="icon—barrainferior alerta—barrainferior">
+    </a>
+
+    <a href="map.html" class="btn—barrainferior">
+        <img src="assets/images/map.png" class="icon—barrainferior">
+    </a>
+
+    <a href="config.html" class="btn—barrainferior">
+        <img src="assets/images/config.png" class="icon—barrainferior">
+    </a>
+</div>
+
+    <script src="assets/scripts/panicSvadm.js"></script>
+</body>
+</html>
