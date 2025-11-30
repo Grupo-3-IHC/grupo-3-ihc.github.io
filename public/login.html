@@ -3,37 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstAlert - Login</title>
+    <title>InstAlert - Login & Register</title>
     <link rel="stylesheet" href="./assets/styles/login.css">
 </head>
 <body>
 
-    <div class="login-container">
-
-        <h1 class="title">Inst<span class="alert">A</span>lert</h1>
-
-        <div class="big-button">
-            <img src="assets/images/LOGO.png" alt="Google Icon" class="icon">
+    <div class="main-wrapper">
+        
+        <div id="screen-login" class="screen active">
+            <h1 class="title">Inst<span class="alert">A</span>lert</h1>
+            <div class="big-button">
+                <img src="assets/images/LOGO.png" alt="Logo" class="logo-img">
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="login-email">Usuario/Correo</label>
+                    <input type="email" id="login-email" placeholder="Ejemplo@mail.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-black">Ingresar</button>
+            </form>
+            <div class="links">
+                <a href="#" id="btn-create-account">¿No tienes cuenta? Crea una</a>
+                <a href="#" id="btn-forgot-password">¿Olvidaste tu contraseña?</a>
+            </div>
         </div>
 
-        <form id="loginForm">
-
+        <div id="screen-forgot-email" class="screen">
+            <h1 class="subtitle">¿Olvidaste tu<br>contraseña?</h1>
+            <p class="description">Rellene los siguientes campos:</p>
             <div class="input-group">
-                <label for="email">Usuario/Correo</label>
-                <input type="email" id="email" placeholder="Ejemplo@mail.com" required>
+                <label>Correo de la cuenta</label>
+                <input type="email" id="recovery-email" placeholder="nombre@correo.com">
+                <span class="error-msg" id="error-email"></span>
+            </div>
+            <button class="btn-black" id="btn-send-code">Siguiente</button>
+            <a href="#" class="link-back" onclick="showScreen('screen-login')">Volver</a>
+        </div>
+
+        <div id="screen-enter-code" class="screen">
+            <h1 class="subtitle">¿Olvidaste tu<br>contraseña?</h1>
+            <p class="description">Hemos enviado un código a su correo.</p>
+            <div class="input-group">
+                <label>Código verificador</label>
+                <input type="text" id="verify-code" placeholder="Ej: 123456">
+                <span class="error-msg" id="error-code"></span>
+            </div>
+            <button class="btn-black" id="btn-verify-code">Siguiente</button>
+            <div class="links">
+                <a href="#" id="btn-resend-code">¿No encuentra el código? Reenviar</a>
+            </div>
+        </div>
+
+        <div id="screen-new-password" class="screen">
+            <h1 class="subtitle">¿Olvidaste tu<br>contraseña?</h1>
+            <div class="input-group">
+                <label>Nueva contraseña</label>
+                <input type="password" id="new-pass" placeholder="••••••••">
+            </div>
+            <div class="input-group">
+                <label>Repetir contraseña</label>
+                <input type="password" id="confirm-pass" placeholder="••••••••">
+                <span class="error-msg" id="error-password"></span>
+            </div>
+            <button class="btn-black" id="btn-change-pass">Confirmar</button>
+        </div>
+
+        <div id="screen-success" class="screen">
+            <h1 class="subtitle">¡Éxito!</h1>
+            <div class="big-button success-icon">✓</div>
+            <p class="description">Operación realizada correctamente</p>
+            <button class="btn-black" onclick="showScreen('screen-login')">Volver al Login</button>
+        </div>
+
+        <div id="screen-register" class="screen">
+            <h1 class="title" style="margin-bottom: 20px;">Crear Cuenta</h1>
+            
+            <div class="input-group">
+                <label>Correo</label>
+                <input type="email" id="reg-email" placeholder="Ejemplo@mail.com">
+            </div>
+            <div class="input-group">
+                <label>Usuario</label>
+                <input type="text" id="reg-user" placeholder="NombreUsuario">
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="reg-pass" placeholder="••••••••">
+            </div>
+            <div class="input-group">
+                <label>Repetir contraseña</label>
+                <input type="password" id="reg-confirm-pass" placeholder="••••••••">
+                <span class="error-msg" id="error-register"></span>
             </div>
 
-            <div class="input-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" placeholder="••••••••" required>
+            <button class="btn-black" id="btn-register-confirm">Confirmar</button>
+
+            <button class="btn-google" onclick="alert('Login con Google')">
+                Continuar con <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+            </button>
+            <button class="btn-facebook" onclick="alert('Login con Facebook')">
+                Continuar con Facebook
+            </button>
+
+            <div class="links">
+                <a href="#" onclick="showScreen('screen-login')">¿Ya tienes cuenta? Inicia sesión</a>
             </div>
-
-            <button type="submit" class="btn-login">Ingresar</button>
-        </form>
-
-        <div class="links">
-            <a href="#">¿No tienes cuenta? Crea una</a>
-            <a href="#">¿Olvidaste tu contraseña?</a>
         </div>
 
     </div>
