@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Devices</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vincular CSS -->
+    <link rel="stylesheet" href="assets/styles/stylesAD.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="site-header">
+        <div class="container header-content">
+            <!-- Botón/imagen a la izquierda -->
+            <a class="header-icon">
+                <img onclick="goBack()" src="/assets/images/atras.png" alt="Volver">
+            </a>
+            <!-- Título centrado -->
+            <div class="logo">Autoridades</div>
+
+            <!-- Espaciador para que el título quede realmente centrado -->
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+    <section class="section section-compact-bottom" id="intro">
+        <div class="container">
+            <p>
+            En esta sección se presentan las principales autoridades de respuesta ante emergencias, 
+            incluyendo la Policía, los Bomberos y los centros hospitalarios. 
+            Su función es atender situaciones críticas, brindar apoyo 
+            inmediato a la comunidad y coordinar acciones para garantizar la seguridad y el bienestar ciudadano.
+            </p>
+        </div>
+    </section>
+    <!-- Policia -->
+    <section class="section section-compact-top" id="Policia">
+    <div class="container">
+        <div class="authority-group">
+            <h2 class="authority-title">Estaciones de Policía</h2>
+            <!-- Estación 1 -->
+            <article class="authority-card">
+                <div class="authority-header">
+                    <div>
+                        <h3>CAI Centro</h3>
+                        <p class="authority-address">Calle 45 #23-12</p>
+                        <p class="authority-distance">Distancia: 0.8 km</p>
+                    </div>
+                    <span class="badge badge-ok">Disponible</span>
+                </div>
+                <div class="authority-actions">
+                    <a href="" class="btn-authority btn-call">
+                        📞 Llamar
+                    </a>
+                    <a href="estacion1.html" class="btn-authority btn-location">
+                        📍 Ubicación
+                    </a>
+                </div>
+            </article>
+            <!-- Estación 2 -->
+            <article class="authority-card">
+                <div class="authority-header">
+                    <div>
+                        <h3>CAI Norte</h3>
+                        <p class="authority-address">Carrera 15 #67-89</p>
+                        <p class="authority-distance">Distancia: 1.2 km</p>
+                    </div>
+                    <span class="badge badge-busy">Ocupado</span>
+                </div>
+
+                <div class="authority-actions">
+                    <a href="" class="btn-authority btn-call">
+                        📞 Llamar
+                    </a>
+                    <a href="" class="btn-authority btn-location">
+                        📍 Ubicación
+                    </a>
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+    <!-- Bomberos -->
+    <section class="section section-compact-top" id="Bomberos">
+        <div class="container">
+            <div class="authority-group">
+                <h2 class="authority-title">Estaciones de Bomberos</h2>
+                <!-- authority-card ... -->
+                <article class="authority-card">
+                    <div class="authority-header">
+                        <div>
+                            <h3>Bomberos Centro</h3>
+                            <p class="authority-address">Avenida 19 #34-56</p>
+                            <p class="authority-distance">Distancia: 1.5 km</p>
+                        </div>
+                        <span class="badge badge-ok">Disponible</span>
+                    </div>
+                    <div class="authority-actions">
+                    <a href="" class="btn-authority btn-call">
+                        📞 Llamar
+                    </a>
+                    <a href="" class="btn-authority btn-location">
+                        📍 Ubicación
+                    </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- Hospitales -->
+     <section class="section section-compact-top" id="Bomberos">
+        <div class="container">
+            <div class="authority-group">
+                <h2 class="authority-title">Hospitales</h2>
+                <!-- authority-card ... -->
+                <article class="authority-card">
+                    <div class="authority-header">
+                        <div>
+                            <h3>Hospital Central</h3>
+                            <p class="authority-address">Calle 50 #12-34</p>
+                            <p class="authority-distance">Distancia: 2.1 km</p>
+                        </div>
+                        <span class="badge badge-ok">Disponible</span>
+                    </div>
+                    <div class="authority-actions">
+                    <a href="" class="btn-authority btn-call">
+                        📞 Llamar
+                    </a>
+                    <a href="" class="btn-authority btn-location">
+                        📍 Ubicación
+                    </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>

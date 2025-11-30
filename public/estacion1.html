@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubicación - CAI Centro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/styles/stylesAD.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-content">
+            <!-- Botón/imagen a la izquierda -->
+            <a class="header-icon">
+                <img onclick="goBack()" src="../assets/images/atras.png" alt="Volver">
+            </a>
+            <!-- Título centrado -->
+            <div class="logo">Autoridades</div>
+
+            <!-- Espaciador para que el título quede realmente centrado -->
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+    <!-- Contenido principal -->
+    <section class="section small-padding">
+        <div class="container">
+            <div class="location-card">
+                <h2 class="location-title">Estaciones de Policía</h2>
+
+                <div class="map-wrapper">
+                    <!-- Aquí usas una imagen de mapa (mockup) -->
+                    <img src="../assets/images/mapa01.png" alt="Mapa CAI Centro">
+
+                    <!-- Tarjeta flotante sobre el mapa (opcional) -->
+                    <div class="map-info">
+    <h3>CVM</h3>
+    <p id="estado-badge" class="badge badge-ok">Disponible</p>
+    <p>Tel: 992 933 112</p>
+    <p>Horario: 07:30 - 22:00</p>
+    <p>Cerca: 0.5 km</p>
+    <p>Tiempo estimado: 10–20 min</p>
+    <button class="btn-secondary btn-small" id="btn-ruta">¿Cómo llegar?</button>
+    </div>
+                </div>
+
+                <div class="location-actions">
+                    <button class="btn btn-full" id="btn-actualizar">Actualizar</button>
+                </div>
+
+                <div class="location-back">
+                    <a href="../authorities.html" class="btn">Volver</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="../assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="../assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="../assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="../assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="../assets/images/config.png" class="icon">
+        </a>
+    </div>
+    <script>
+document.getElementById("btn-ruta").addEventListener("click", () => {
+    window.location.href = "guiaestacion1.html";
+});
+</script>
+<script src="../assets/scripts/app.js"></script>
+<script>
+document.getElementById("btn-actualizar").addEventListener("click", () => {
+    const badge = document.getElementById("estado-badge");
+
+    if (badge.classList.contains("badge-ok")) {
+        badge.classList.remove("badge-ok");
+        badge.classList.add("badge-busy");
+        badge.textContent = "Ocupado";
+    } else {
+        badge.classList.remove("badge-busy");
+        badge.classList.add("badge-ok");
+        badge.textContent = "Disponible";
+    }
+});
+</script>
+</body>
+</html>

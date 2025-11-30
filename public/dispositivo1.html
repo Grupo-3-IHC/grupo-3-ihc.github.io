@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dispositivo 1 - Detalles</title>
+    <link rel="stylesheet" href="../assets/styles/stylesAD.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <!-- Botón/imagen a la izquierda -->
+            <a class="header-icon">
+                <img onclick="goBack()" src="../assets/images/atras.png" alt="Volver">
+            </a>
+            <!-- Título centrado -->
+            <div class="logo">Dispositivos</div>
+
+            <!-- Espaciador para que el título quede realmente centrado -->
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+    <section class="section" id="inicio">
+    <div class="container device-detail">
+
+        <!-- Columna izquierda: info -->
+        <div class="device-info">
+    <h1 class="status-title status-title--online">P-IoT-01</h1>
+    <p>
+        Dispositivo IoT tipo pulsera que monitorea ubicación y actividad, envía
+        alertas en tiempo real, integra sensores básicos, conecta vía Bluetooth/WiFi
+        y sincroniza datos con una aplicación móvil para seguimiento continuo.
+    </p>
+                    
+    <!-- RESUMEN SIEMPRE VISIBLE -->
+    <div class="config-summary">
+        <h2>Resumen</h2>
+        <ul class="config-list">
+            <li>Estado: Activo</li>
+            <li>Batería: 67%</li>
+            <li>Última sincronización: Ayer</li>
+            <li>Modo de activación: <span id="res-modos">Ninguno</span></li>
+            <li>Atajos: <span id="res-atajos">Ninguno</span></li>
+        </ul>
+
+        <button class="btn btn-secondary" id="btn-abrir-config">
+            Configurar
+        </button>
+    </div>
+
+    <!-- PANEL DE CONFIGURACIÓN (OCULTO AL INICIO) -->
+    <div class="device-config hidden" id="config-panel">
+        <h2>Configuración</h2>
+
+        <div class="config-card">
+            <p><strong>Dispositivos:</strong></p>
+            <ul class="config-list">
+                <li>Estado: Activo</li>
+                <li>Batería: 67%</li>
+                <li>Última sincronización: Ayer</li>
+            </ul>
+
+            <div class="config-section">
+                <p class="config-title">Modo de activación:</p>
+
+                <div class="toggle-group">
+                    <label class="toggle-option">
+                        <span>Agitación</span>
+                        <label class="switch">
+                            <input type="checkbox" id="modo-agitacion">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+
+                    <label class="toggle-option">
+                        <span>Comando de voz</span>
+                        <label class="switch">
+                            <input type="checkbox" id="modo-voz">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <p class="config-title">Atajo:</p>
+                <select id="atajo-select" class="config-select">
+                    <option value="">Seleccionar opción</option>
+                    <option value="toques">Toques</option>
+                    <option value="giro">Giro de muñeca</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" id="guardar-config">
+                Confirmar configuración
+            </button>
+
+            <p id="mensaje-config" class="save-message"></p>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+        <!-- Columna derecha: imagen -->
+        <div class="device-image">
+            <img src="../assets/images/pulsera_IoT.jpg" alt="Icono servicio">
+        </div>
+
+    </div>
+</section>
+    <section class="section small-padding" id="volver">
+    <div class="container">
+        <a href="../maindevices.html" class="btn">Volver</a>
+    </div>
+</section>
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="../assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="../assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="../assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="../assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="../assets/images/config.png" class="icon">
+        </a>
+    </div>
+<script src="../assets/scripts/app.js"></script>
+</body>
+</html>
