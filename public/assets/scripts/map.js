@@ -114,17 +114,20 @@ document.querySelectorAll(".filter-option").forEach(option => {
 });
 
 /* ============================================================
-   PUBLICACIONES DE EJEMPLO
+   PUBLICACIONES DE EJEMPLO (ACTUALIZADO CON INFO DETALLADA)
 ============================================================ */
 const publicaciones = [
   {
     id: 1,
     titulo: "Asalto en micro",
-    ubicacion: "Callao",
+    ubicacion: "Callao, Av. Saenz Peña",
     fecha: "2025-06-13",
-    fechaTexto: "13/junio/2025",
+    fechaTexto: "13/Junio/2025",
+    hora: "18:45",
+    usuario: "Carlos_99",
     intensidad: 5,
     sospechoso: false,
+    descripcion: "Dos sujetos subieron al vehículo fingiendo ser pasajeros. Amenazaron al conductor y robaron celulares a los pasajeros de la parte posterior. Huyeron en una moto lineal negra.",
     imgs: [
       "assets/images/asalto1.png",
       "assets/images/asalto1.png"
@@ -133,11 +136,14 @@ const publicaciones = [
   {
     id: 2,
     titulo: "Robo a mano armada",
-    ubicacion: "La Victoria",
+    ubicacion: "La Victoria, Gamarra",
     fecha: "2025-06-12",
-    fechaTexto: "12/junio/2025",
+    fechaTexto: "12/Junio/2025",
+    hora: "14:20",
+    usuario: "SeguridadVecinal_LV",
     intensidad: 9,
     sospechoso: true,
+    descripcion: "Asalto violento a un transeúnte en la esquina. El agresor portaba un arma de fuego y actuó con violencia. Se recomienda evitar la zona a esta hora.",
     imgs: [
       "assets/images/Robo1.png",
       "assets/images/Robo1.png",
@@ -147,11 +153,14 @@ const publicaciones = [
   {
     id: 3,
     titulo: "Robo en estacionamiento",
-    ubicacion: "Miraflores",
+    ubicacion: "Miraflores, Malecón",
     fecha: "2025-05-30",
-    fechaTexto: "30/mayo/2025",
+    fechaTexto: "30/Mayo/2025",
+    hora: "21:10",
+    usuario: "AnaMaria.L",
     intensidad: 2,
     sospechoso: false,
+    descripcion: "Rompieron la ventana de mi auto estacionado y se llevaron una mochila con una laptop. No había personal de seguridad cerca en ese momento.",
     imgs: [
       "assets/images/Robo3.png"
     ]
@@ -226,7 +235,7 @@ function initSliders() {
 }
 
 /* ============================================================
-   VER DETALLES
+   VER DETALLES (ACTUALIZADO)
 ============================================================ */
 const overlayDetalles = $("overlayDetalles");
 const detalleContenido = $("detalleContenido");
@@ -242,12 +251,24 @@ function initDetalles() {
       const id = btn.dataset.id;
       const pub = publicaciones.find(p => p.id == id);
 
+      // Inyectamos la información detallada
       detalleContenido.innerHTML = `
-        <h2>${pub.titulo}</h2>
-        <p><strong>Ubicación:</strong> ${pub.ubicacion}</p>
-        <p><strong>Fecha:</strong> ${pub.fechaTexto}</p>
-        <img class="detalle-img" src="${pub.imgs[0]}">
-        <p><strong>Intensidad:</strong> ${pub.intensidad}</p>
+        <h2 style="margin-bottom: 5px;">${pub.titulo}</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+           Reportado por <strong>${pub.usuario}</strong>
+        </p>
+
+        <img class="detalle-img" src="${pub.imgs[0]}" style="width:100%; border-radius:10px; margin-bottom:15px;">
+        
+        <div style="background: #f5f5f5; padding: 15px; border-radius: 10px;">
+            <p style="margin-bottom: 8px;"><strong>📍 Ubicación:</strong> ${pub.ubicacion}</p>
+            <p style="margin-bottom: 8px;"><strong>📅 Fecha:</strong> ${pub.fechaTexto}</p>
+            <p style="margin-bottom: 8px;"><strong>⏰ Hora:</strong> ${pub.hora}</p>
+            <p style="margin-bottom: 8px;"><strong>📊 Intensidad:</strong> ${pub.intensidad}/10</p>
+        </div>
+
+        <h3 style="margin-top: 20px; font-size: 1.1rem;">Descripción del incidente:</h3>
+        <p style="line-height: 1.5; color: #444;">${pub.descripcion}</p>
       `;
 
       overlayDetalles.classList.remove("hidden");
@@ -345,7 +366,7 @@ if(zoomWrapper) {
 }
 
 /* ============================================================
-   VALIDACIÓN MODO TRAYECTO (NUEVO)
+   VALIDACIÓN MODO TRAYECTO
 ============================================================ */
 const btnActivarTrayecto = $("activarTrayectoBtn");
 const inputDestino = $("destinoInput");
