@@ -1,0 +1,240 @@
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== BODY: MAPA DE FONDO ===== */
+body {
+  background-image: url("../images/map1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* evita que el footer tape el contenido */
+  padding-bottom: 140px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  width: 100%;
+
+
+  background: #A1E3DC;
+  padding: 1rem;
+  border-radius: 0 0 12px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.back-btn {
+  position: absolute;
+  left: 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.content {
+  width: 100%;
+  max-width: 900px;
+  padding: 1rem;
+  margin-top: 30%;
+}
+
+/* ===== INFO CARD ===== */
+.info-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  padding: 1rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  font-size: 1rem;
+}
+
+/* ===== BOTONES PRINCIPALES ===== */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  transition: all ease 0.3s;
+}
+
+.btn-cancelar:hover{
+  transform: scale(1.02)
+
+}
+
+.btn-cancelar,
+.btn-llegado {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all ease 0.3s;
+}
+
+.btn-cancelar {
+  background: #333;
+  color: white;
+    transition: all ease 0.3s;
+}
+
+.btn-llegado {
+  background: #A1E3DC;
+  color: black;
+    transition: all ease 0.3s;
+}
+
+
+.btn-llegado:hover {
+   transform: scale(1.02);
+}
+
+.btn-cancelar:hover {
+   transform: scale(1.02);
+}
+
+
+/* ===== SEGUNDA FILA BOTONES ===== */
+.second-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+    transition: all ease 0.3s;
+}
+
+.btn-extender:hover {
+   transform: scale(1.02);
+}
+.btn-recalcular:hover {
+   transform: scale(1.02);
+}
+
+
+.btn-extender,
+.btn-recalcular {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 10px;
+  background: white;
+  border: 2px solid #ddd;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-recalcular img {
+  width: 20px;
+}
+
+/* ===== UBICACIÓN COMPARTIDA ===== */
+.ubicacion-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+/* ===== SWITCH ===== */
+.switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background: #86d1cb;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* ===== FOOTER NAV ===== */
+.footer-nav {
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  max-width: 900px;
+
+  background: white;
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-top: 2px solid #ccc;
+  border-radius: 12px 12px 0 0;
+}
+
+.footer-nav img {
+  width: 28px;
+}
+
+.alert-btn img {
+  width: 45px;
+}
+
