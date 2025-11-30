@@ -14,11 +14,20 @@ const newPostButton = document.getElementById('newPostButton');
 const draftsButton  = document.getElementById('draftsButton');
 const deletedButton = document.getElementById('deletedButton');
 const sortSelect    = document.getElementById('sortSelect');
+// Filtros
+const filterCategoryInput = document.getElementById('filterCategory');
+const filterZoneInput     = document.getElementById('filterZone');
+const filterDateFromInput = document.getElementById('filterDateFrom');
+const filterDateToInput   = document.getElementById('filterDateTo');
+const applyFiltersBtn     = document.getElementById('applyFilters');
+const clearFiltersBtn     = document.getElementById('clearFilters');
+
 
 const editForm        = document.getElementById('editForm');
 const editTitulo      = document.getElementById('editTitulo');
 const editDescripcion = document.getElementById('editDescripcion');
 const editEtiquetas   = document.getElementById('editEtiquetas');
+const modoPrivadoChk  = document.getElementById('modoPrivado');
 const editUbicacion   = document.getElementById('editUbicacion');
 const editImagen      = document.getElementById('editImagen');
 const btnGuardarBorrador = document.getElementById('btnGuardarBorrador');
@@ -27,6 +36,7 @@ const autoUbicacionChk   = document.getElementById('autoUbicacion');
 const cardsGrid      = document.querySelector('#view-list .mis-pub-grid');
 const draftsGrid     = document.getElementById('drafts-grid');
 const deletedGrid    = document.getElementById('deleted-grid');
+const previewCard    = document.getElementById('previewCard');
 const draftCountSpan = document.getElementById('draftCount');
 
 // Modales
@@ -75,6 +85,60 @@ const blockedUsersCountMap = new WeakMap(); // card -> número de usuarios bloqu
 let currentCommentsCard = null;
 let replyingToCommentId = null;
 let commentIdCounter    = 1;
+let publishConfirmed    = false;
+
+
+// ===== DETECCIÓN DE PUBLICACIONES SIMILARES =====
+function normalizarTexto(txt) {
+  return (txt || '')
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function detectarPublicacionSimilar(titulo, descripcion, ubicacion) {
+  const nuevaDesc = normalizarTexto(descripcion);
+  const nuevaUbic = normalizarTexto(ubicacion);
+
+  // Revisar publicaciones aprobadas y borradores
+  const tarjetas = [
+    ...document.querySelectorAll('#view-list .mis-pub-card'),
+    ...document.querySelectorAll('#view-drafts .mis-pub-card')
+  ];
+
+  for (const card of tarjetas) {
+    const descEl = card.querySelector('.campo-descripcion');
+    const ubicEl = card.querySelector('.campo-ubicacion');
+    if (!descEl || !ubicEl) continue;
+
+    const descExistente = normalizarTexto(descEl.textContent);
+    const ubicExistente = normalizarTexto(ubicEl.textContent);
+
+    const mismaUbicacion =
+      nuevaUbic && ubicExistente &&
+      (nuevaUbic.includes(ubicExistente) || ubicExistente.includes(nuevaUbic));
+
+    const descParecida =
+      nuevaDesc && descExistente &&
+      (nuevaDesc.includes(descExistente.substring(0, 30)) ||
+       descExistente.includes(nuevaDesc.substring(0, 30)));
+
+    if (mismaUbicacion && descParecida) {
+      return card;
+    }
+  }
+  return null;
+}
+
+function mostrarAlertaSimilar(card) {
+  if (!modal || !modalTexto) return;
+  const titulo = card.querySelector('.campo-titulo')?.textContent || '(sin título)';
+  const estado = card.dataset.status || 'desconocido';
+  modalTexto.textContent =
+    `Ya existe un reporte similar registrado: "${titulo}". Estado actual: ${estado}.`;
+  modal.classList.remove('hidden');
+}
 
 // ===== UTILIDADES =====
 function formatDateTime(date) {
@@ -145,6 +209,74 @@ function updateHeaderButtons() {
   }
 }
 
+
+// ===== FILTROS DE PUBLICACIONES =====
+function parseDateInput(dateStr) {
+  if (!dateStr) return null;
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return null;
+  const y = parseInt(parts[0], 10);
+  const m = parseInt(parts[1], 10);
+  const d = parseInt(parts[2], 10);
+  if (!y || !m || !d) return null;
+  return new Date(y, m - 1, d);
+}
+
+function filterPublications() {
+  if (!cardsGrid) return;
+
+  const category = filterCategoryInput ? filterCategoryInput.value.trim().toLowerCase() : '';
+  const zone     = filterZoneInput ? filterZoneInput.value.trim().toLowerCase() : '';
+
+  const fromDate = parseDateInput(filterDateFromInput ? filterDateFromInput.value : '');
+  const toDate   = parseDateInput(filterDateToInput ? filterDateToInput.value : '');
+
+  const fromTime = fromDate ? new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate(), 0, 0, 0, 0).getTime() : null;
+  const toTime   = toDate   ? new Date(toDate.getFullYear(),   toDate.getMonth(),   toDate.getDate(),   23, 59, 59, 999).getTime() : null;
+
+  const cards = Array.from(cardsGrid.querySelectorAll('.mis-pub-card'));
+
+  cards.forEach(card => {
+    const etiquetasEl  = card.querySelector('.campo-etiquetas');
+    const tituloEl     = card.querySelector('.campo-titulo');
+    const descEl       = card.querySelector('.campo-descripcion');
+    const ubicacionEl  = card.querySelector('.campo-ubicacion');
+
+    const etiquetas   = etiquetasEl  ? etiquetasEl.textContent.toLowerCase()  : '';
+    const titulo      = tituloEl     ? tituloEl.textContent.toLowerCase()     : '';
+    const descripcion = descEl       ? descEl.textContent.toLowerCase()       : '';
+    const ubicacion   = ubicacionEl  ? ubicacionEl.textContent.toLowerCase()  : '';
+
+    // 1) Filtro por categoría (tipo de incidente) en etiquetas, título o descripción
+    let matchesCategory = true;
+    if (category) {
+      matchesCategory =
+        etiquetas.includes(category) ||
+        titulo.includes(category) ||
+        descripcion.includes(category);
+    }
+
+    // 2) Filtro por zona (ubicación)
+    let matchesZone = true;
+    if (zone) {
+      matchesZone = ubicacion.includes(zone);
+    }
+
+    // 3) Filtro por rango de fechas (fecha de publicación de la card)
+    let matchesDate = true;
+    const cardTime = getCardDate(card);
+
+    if (fromTime !== null && cardTime < fromTime) {
+      matchesDate = false;
+    }
+    if (toTime !== null && cardTime > toTime) {
+      matchesDate = false;
+    }
+
+    const matchesAll = matchesCategory && matchesZone && matchesDate;
+    card.style.display = matchesAll ? '' : 'none';
+  });
+}
 function showInfo(text) {
   modalTexto.textContent = text;
   modal.classList.remove('hidden');
@@ -655,6 +787,33 @@ if (autoUbicacionChk) {
 if (sortSelect) {
   sortSelect.addEventListener('change', () => {
     sortPublications(sortSelect.value);
+    filterPublications();
+  });
+}
+
+// Aplicar filtros
+if (applyFiltersBtn) {
+  applyFiltersBtn.addEventListener('click', () => {
+    sortPublications(sortSelect ? sortSelect.value : 'recientes');
+    filterPublications();
+  });
+}
+
+// Quitar filtros
+if (clearFiltersBtn) {
+  clearFiltersBtn.addEventListener('click', () => {
+    if (filterCategoryInput) filterCategoryInput.value = '';
+    if (filterZoneInput)     filterZoneInput.value     = '';
+    if (filterDateFromInput) filterDateFromInput.value = '';
+    if (filterDateToInput)   filterDateToInput.value   = '';
+
+    if (cardsGrid) {
+      Array.from(cardsGrid.querySelectorAll('.mis-pub-card')).forEach(card => {
+        card.style.display = '';
+      });
+    }
+
+    sortPublications(sortSelect ? sortSelect.value : 'recientes');
   });
 }
 
@@ -824,12 +983,92 @@ function createNewDraftCard(imgSrc) {
 }
 
 // ===== SUBMIT PUBLICAR =====
+
+// ===== VISTA PREVIA & MODO PRIVADO =====
+function generarVistaPrevia() {
+  if (!previewCard) return;
+  const titulo = editTitulo.value;
+  const descripcion = editDescripcion.value;
+  const etiquetas = editEtiquetas.value;
+  const ubicacion = editUbicacion.value;
+  const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
+
+  const ubicacionMostrar = privado ? 'Ubicación no publicada' : (ubicacion || 'Sin ubicación');
+  const autorMostrar = privado ? 'Anónim@' : '(yo) Daniel';
+
+  previewCard.innerHTML = `
+    <div class="mis-pub-card-header">
+      <div class="title-status">
+        <h3>Vista previa</h3>
+        <span class="status-badge status-aprobada">Publicación</span>
+      </div>
+    </div>
+    <div class="mis-pub-card-body">
+      <p><strong>Autor:</strong> ${autorMostrar}</p>
+      <p><strong>Título:</strong> ${titulo}</p>
+      <p><strong>Descripción:</strong> ${descripcion}</p>
+      <p><strong>Etiquetas:</strong> ${etiquetas}</p>
+      <p><strong>Ubicación:</strong> ${ubicacionMostrar}</p>
+    </div>
+    <div class="preview-actions" style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+      <button type="button" id="btnPreviewConfirmar" class="edit-confirmar">Publicar ahora</button>
+      <button type="button" id="btnPreviewCancelar" class="edit-borrador">Cancelar</button>
+    </div>
+  `;
+
+  previewCard.classList.remove('hidden');
+
+  const btnConfirm = document.getElementById('btnPreviewConfirmar');
+  const btnCancel  = document.getElementById('btnPreviewCancelar');
+
+  if (btnConfirm) {
+    btnConfirm.onclick = () => {
+      publishConfirmed = true;
+      previewCard.classList.add('hidden');
+      // Dispara nuevamente el submit del formulario
+      editForm.requestSubmit();
+    };
+  }
+
+  if (btnCancel) {
+    btnCancel.onclick = () => {
+      publishConfirmed = false;
+      previewCard.classList.add('hidden');
+    };
+  }
+}
+
 editForm.addEventListener('submit', (e) => {
   e.preventDefault();
+
+  // Vista previa previa cuando se está creando una nueva publicación
+  if (isCreating && !publishConfirmed) {
+    const similar = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value);
+    if (similar) {
+      mostrarAlertaSimilar(similar);
+      return;
+    }
+    generarVistaPrevia();
+    return;
+  }
+
+  const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
+  publishConfirmed = false;
 
   if (isCreating) {
     const file = editImagen.files[0];
     const after = (card) => {
+      // Aplicar modo privado a la ubicación visible
+      const ubicSpan = card.querySelector('.campo-ubicacion');
+      if (ubicSpan) {
+        if (privado) {
+          ubicSpan.textContent = 'Ubicación no publicada';
+        } else {
+          ubicSpan.textContent = editUbicacion.value;
+        }
+      }
+      card.dataset.privado = privado ? '1' : '0';
+
       showListView();
       simulateSync(card, 'Publicación creada correctamente.');
       sortPublications('recientes');
@@ -932,6 +1171,12 @@ editForm.addEventListener('submit', (e) => {
 btnGuardarBorrador.addEventListener('click', () => {
   if (isCreating) {
     if (!canAddDraft()) return;
+
+    const similar = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value);
+    if (similar) {
+      mostrarAlertaSimilar(similar);
+      return;
+    }
 
     const file = editImagen.files[0];
     const after = (card) => {
@@ -1401,6 +1646,7 @@ updateDraftIndicator();
 purgeOldDeleted();
 sortPublications('recientes');
 setInterval(updateDeletedCountdowns, 1000);
+
 
 
 
