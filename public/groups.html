@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grupos</title>
+    <link rel="stylesheet" href="assets/styles/stylesChat.css" />
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <span class="back" onclick="openPage('comunidad.html')">⬅</span> Chats
+    </div>
+
+    <div class="tabs">
+        <div class="tab" onclick="openContactos('contacts.html')">Contactos</div>
+        <div class="tab active" onclick="openGrupos('groups.html')">Grupos</div>
+    </div>
+
+    <div class="chat-list">
+        <div class="chat-item" onclick="openChat('neighbors.html')">
+            <div class="avatar"></div>
+            <div>
+                <div class="name">Vecinos de la calle 1</div>
+                <div>Listo. Mañana reunión seguridad vecinal.</div>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="avatar"></div>
+            <div>
+                <div class="name">Vecinos de la calle 2</div>
+                <div>Estoy probando la app...</div>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="avatar"></div>
+            <div>
+                <div class="name">Vecinos de la calle 3</div>
+                <div>Ya llegué, estoy...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+         <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+</div>
+
+<script src="assets/scripts/scriptChat.js"></script>
+</body>
+</html>
