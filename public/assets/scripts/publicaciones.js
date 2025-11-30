@@ -23,12 +23,10 @@ const editUbicacion   = document.getElementById('editUbicacion');
 const editImagen      = document.getElementById('editImagen');
 const btnGuardarBorrador = document.getElementById('btnGuardarBorrador');
 const autoUbicacionChk   = document.getElementById('autoUbicacion');
-const modoPrivadoChk   = document.getElementById('modoPrivado');
 
 const cardsGrid      = document.querySelector('#view-list .mis-pub-grid');
 const draftsGrid     = document.getElementById('drafts-grid');
 const deletedGrid    = document.getElementById('deleted-grid');
-const previewCard   = document.getElementById('previewCard');
 const draftCountSpan = document.getElementById('draftCount');
 
 // Modales
@@ -70,99 +68,15 @@ let currentView       = 'list';
 let previousView      = 'list';
 let isCreating        = false;
 let editingFromDrafts = false;
-let publishConfirmed = false;
 
 const histories   = new WeakMap(); // card -> [{date,summary}]
 const commentsMap = new WeakMap(); // card -> [comments]
+const blockedUsersCountMap = new WeakMap(); // card -> número de usuarios bloqueados
 let currentCommentsCard = null;
 let replyingToCommentId = null;
 let commentIdCounter    = 1;
 
 // ===== UTILIDADES =====
-// ===== DETECCIÓN DE PUBLICACIONES SIMILARES =====
-function detectarPublicacionSimilar(titulo, descripcion, ubicacion) {
-  const cards = Array.from(document.querySelectorAll('#view-list .mis-pub-card'));
-  const normalizar = (txt) =>
-    txt.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const nuevaDesc = normalizar(descripcion || "");
-  const nuevaUbic = normalizar(ubicacion || "");
-  for (const card of cards) {
-    const descNode = card.querySelector('.campo-descripcion');
-    const ubicNode = card.querySelector('.campo-ubicacion');
-    if (!descNode || !ubicNode) continue;
-    const descExistente = normalizar(descNode.textContent);
-    const ubicExistente = normalizar(ubicNode.textContent);
-    const mismaUbicacion =
-      nuevaUbic && (nuevaUbic.includes(ubicExistente) || ubicExistente.includes(nuevaUbic));
-    const descParecida =
-      nuevaDesc && (
-        nuevaDesc.includes(descExistente.substring(0, 30)) ||
-        descExistente.includes(nuevaDesc.substring(0, 30))
-      );
-    if (mismaUbicacion && descParecida) {
-      return card;
-    }
-  }
-  return null;
-}
-
-function mostrarAlertaSimilar(card) {
-  const tituloNode = card.querySelector('.campo-titulo');
-  const titulo = tituloNode ? tituloNode.textContent.trim() : '(sin título)';
-  const estado = card.dataset.status || 'desconocido';
-  showInfo(`Ya existe un reporte similar registrado: "${titulo}". Estado actual: ${estado}.`);
-}
-
-// ===== VISTA PREVIA & MODO PRIVADO =====
-function generarVistaPrevia() {
-  if (!previewCard) return;
-  const titulo = editTitulo.value;
-  const descripcion = editDescripcion.value;
-  const etiquetas = editEtiquetas.value;
-  const ubicacion = editUbicacion.value;
-  const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
-
-  const ubicacionMostrar = privado ? "Ubicación no publicada" : (ubicacion || "Sin ubicación");
-  const autorMostrar = privado ? "Anónim@" : "(yo) Daniel";
-
-  previewCard.innerHTML = `
-    <div class="mis-pub-card-header">
-      <div class="title-status">
-        <h3>Vista previa</h3>
-        <span class="status-badge status-aprobada">Publicación</span>
-      </div>
-    </div>
-    <div class="mis-pub-card-body">
-      <p><strong>Autor:</strong> ${autorMostrar}</p>
-      <p><strong>Título:</strong> ${titulo}</p>
-      <p><strong>Descripción:</strong> ${descripcion}</p>
-      <p><strong>Etiquetas:</strong> ${etiquetas}</p>
-      <p><strong>Ubicación:</strong> ${ubicacionMostrar}</p>
-    </div>
-    <div class="preview-actions" style="margin-top:1rem; display:flex; gap:.5rem;">
-      <button id="btnPreviewPublicar" type="button" class="edit-confirmar">Publicar ahora</button>
-      <button id="btnPreviewCancelar" type="button" class="edit-borrador">Cancelar</button>
-    </div>
-  `;
-  previewCard.classList.remove("hidden");
-
-  const btnPubNow = document.getElementById('btnPreviewPublicar');
-  const btnCancel = document.getElementById('btnPreviewCancelar');
-
-  if (btnPubNow) {
-    btnPubNow.onclick = () => {
-      publishConfirmed = true;
-      editForm.requestSubmit();
-    };
-  }
-  if (btnCancel) {
-    btnCancel.onclick = () => {
-      publishConfirmed = false;
-      previewCard.classList.add('hidden');
-    };
-  }
-}
-
 function formatDateTime(date) {
   const d = String(date.getDate()).padStart(2, '0');
   const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -422,6 +336,7 @@ function renderComments() {
           <div class="comment-actions">
             <button class="comment-reply-btn" data-id="${c.id}">Responder</button>
             <button class="comment-report-btn" data-id="${c.id}">Reportar</button>
+            ${!isOwn ? `<button class="comment-block-btn" data-id="${c.id}">Bloquear</button>` : ''}
             ${isOwn ? `<button class="comment-edit-btn" data-id="${c.id}">Editar</button>` : ''}
             <button class="comment-delete-btn" data-id="${c.id}">Eliminar</button>
           </div>
@@ -710,8 +625,6 @@ draftsButton.addEventListener('click', () => showDraftsView());
 deletedButton.addEventListener('click', () => showDeletedView());
 
 newPostButton.addEventListener('click', () => {
-  publishConfirmed = false;
-  if (previewCard) previewCard.classList.add('hidden');
   isCreating = true;
   editingCard = null;
   editingFromDrafts = false;
@@ -915,50 +828,8 @@ editForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   if (isCreating) {
-    if (!publishConfirmed) {
-      generarVistaPrevia();
-      return;
-    }
-    publishConfirmed = false;
-    if (previewCard) previewCard.classList.add('hidden');
-
-    const similar = detectarPublicacionSimilar(
-      editTitulo.value,
-      editDescripcion.value,
-      editUbicacion.value
-    );
-    if (similar) {
-      mostrarAlertaSimilar(similar);
-      return;
-    }
-
     const file = editImagen.files[0];
-    const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
-    const ubicacionFinal = privado ? 'Ubicación no publicada' : editUbicacion.value;
-
     const after = (card) => {
-      if (privado) {
-        let autorP = card.querySelector('.campo-autor');
-        if (!autorP) {
-          autorP = document.createElement('p');
-          autorP.innerHTML = '<strong>Autor:</strong> <span class="campo-autor"></span>';
-          const body = card.querySelector('.mis-pub-card-body');
-          const fechaP = body.querySelector('.pub-fecha');
-          if (fechaP && fechaP.nextSibling) {
-            body.insertBefore(autorP, fechaP.nextSibling);
-          } else {
-            body.insertBefore(autorP, body.firstChild);
-          }
-        }
-        autorP.querySelector('.campo-autor').textContent = 'Anónim@';
-        card.dataset.privado = '1';
-      } else {
-        card.dataset.privado = '0';
-      }
-
-      const ubicSpan = card.querySelector('.campo-ubicacion');
-      if (ubicSpan) ubicSpan.textContent = ubicacionFinal;
-
       showListView();
       simulateSync(card, 'Publicación creada correctamente.');
       sortPublications('recientes');
@@ -972,7 +843,7 @@ editForm.addEventListener('submit', (e) => {
       };
       reader.readAsDataURL(file);
     } else {
-      const card = createNewPublicationCard('');
+      const card = createNewPublicationCard(''); // sin imagen
       after(card);
     }
 
@@ -1056,18 +927,9 @@ editForm.addEventListener('submit', (e) => {
     simulateSync(editingCard, 'Edición satisfactoria.');
   }
 });
+
 // ===== GUARDAR BORRADOR =====
 btnGuardarBorrador.addEventListener('click', () => {
-  const similar = detectarPublicacionSimilar(
-    editTitulo.value,
-    editDescripcion.value,
-    editUbicacion.value
-  );
-  if (similar) {
-    mostrarAlertaSimilar(similar);
-    return;
-  }
-
   if (isCreating) {
     if (!canAddDraft()) return;
 
@@ -1411,6 +1273,59 @@ document.addEventListener('click', (e) => {
     }
   }
 
+  if (e.target.classList.contains('comment-block-btn')) {
+    if (!currentCommentsCard) return;
+
+    const id = parseInt(e.target.dataset.id, 10);
+    const comments = getComments(currentCommentsCard);
+
+    // Evitar bloquear comentarios propios
+    const comment = comments.find(c => c.id === id);
+    if (comment && comment.own) {
+      showInfo('No puedes bloquear tus propios comentarios.');
+      return;
+    }
+
+    // Eliminar el comentario bloqueado y sus posibles respuestas
+    const removed = removeCommentTree(comments, id);
+    commentsMap.set(currentCommentsCard, comments);
+    renderComments();
+
+    // Actualizar contador de comentarios (píldora 💬)
+    const pills = Array.from(currentCommentsCard.querySelectorAll('.metric-pill'));
+    const commentPill = pills.find(
+      p => p.querySelector('.metric-icon')?.textContent.trim() === '💬'
+    );
+    adjustCount(commentPill, -removed);
+
+    // Mensaje al usuario
+    showInfo('Usuario bloqueado');
+
+    // Actualizar contador de usuarios bloqueados en esta publicación
+    let count = blockedUsersCountMap.get(currentCommentsCard) || 0;
+    count += 1;
+    blockedUsersCountMap.set(currentCommentsCard, count);
+
+    // Actualizar/crear entrada en historial
+    const prefix = 'Bloqueaste a ';
+    const list = histories.get(currentCommentsCard) || [];
+    const existing = list.find(entry => entry.summary.startsWith(prefix));
+    const summaryText = `${prefix}${count} usuario(s)`;
+
+    if (existing) {
+      existing.summary = summaryText;
+      existing.date = new Date();
+      histories.set(currentCommentsCard, list);
+    } else {
+      addHistoryEntry(currentCommentsCard, summaryText);
+    }
+
+    replyingToCommentId = null;
+    replyingInfo.classList.add('hidden');
+    return;
+  }
+
+
   if (e.target.classList.contains('comment-delete-btn')) {
     if (!currentCommentsCard) return;
     const id = parseInt(e.target.dataset.id, 10);
@@ -1486,5 +1401,6 @@ updateDraftIndicator();
 purgeOldDeleted();
 sortPublications('recientes');
 setInterval(updateDeletedCountdowns, 1000);
+
 
 
