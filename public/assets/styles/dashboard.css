@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
 }
@@ -56,26 +57,28 @@ body {
     padding: 10px;
     text-align: center;
     font-size: 28px;
+    color: white;
 }
 
 /* GRID PRINCIPAL */
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 80px; /* Increased from 40px to 80px */
     max-width: 1400px;
     margin: 30px auto;
     padding: 20px;
-}
-
+}   
 /*Zona actual*/
 .card {
     background: #ffffff;
     padding: 20px;
     border-radius: 16px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    
+    /* Add this line below */
+    margin-bottom: 40px; 
 }
-
 /* Mapa */
 .map img {
     width: 100%;
