@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/styles/filter_foro.css">
+  <link rel="stylesheet" href="assets/styles/barrabaja.css">
+  <title>Buscar en foros</title>
+</head>
+<body>
+
+<header class="main-header">
+  <button onclick="window.location.href='foro.html'" class="back-btn">←</button>
+  <h1>Buscar</h1>
+</header>
+
+<section class="form-wrapper">
+
+  <div class="form-section">
+
+    <div class="form-group">
+      <div class="search-group">
+        <input type="text" placeholder="Buscar..." class="search-bar" id="searchInput">
+        <button type="button" class="search-btn">🎙️</button>
+        <button type="button" class="search-btn" onclick="window.location.href='foro.html'">🔍</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de incidente:</label>
+      <select id="filterTipo">
+        <option value="">.....</option>
+        <option>Robo</option>
+        <option>Asalto</option>
+        <option>Extorsión</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Por fecha:</label>
+      <div id="filterFechaWrapper">
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label>Por ubicación:</label>
+      <select id="filterUbicacion">
+        <option value="">.....</option>
+        <option>Miraflores</option>
+        <option>Callao</option>
+        <option>Surco</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Usuario:</label>
+      <select id="filterUsuario">
+        <option value="">.....</option>
+        <option>Edgar Montañez</option>
+        <option>Jesús Cataño</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Otros:</label>
+      <select id="filterOtros">
+        <option value="">.....</option>
+        <option>Con video</option>
+        <option>Con fotos</option>
+      </select>
+    </div>
+
+    <h2 class="etiquetas-title">Etiquetas:</h2>
+
+    <div class="tags-grid" id="tagsGrid">
+      <span>#PrevenciónDelDelito</span>
+      <span>#AlertasVecinales</span>
+      <span>#SeguridadCiudadana</span>
+      <span>#SOS</span>
+      <span>#Autoprotección</span>
+      <span>#Denuncias</span>
+      <span>#Patrullaje</span>
+      <span>#BarrioSeguro</span>
+      <span>#VecinosUnidos</span>
+      <span>#ZonaComercial</span>
+      <span>#ApoyoEntreComerciantes</span>
+      <span>#ZonaResidencial</span>
+      <span>#MapeoDeRiesgo</span>
+      <span>#PuntosCríticos</span>
+      <span>#ExperienciasPersonales</span>
+      <span>#MejorasEnSeguridad</span>
+      <span>#PropuestasCiudadanas</span>
+      <span>#Recomendaciones</span>
+    </div>
+
+    <h3 class="selected-title">Etiquetas seleccionadas:</h3>
+    <div class="selected-tags" id="selectedTags"></div>
+
+  </div>
+
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+</section>
+
+<script src="assets/scripts/filter_foro.js"></script>
+</body>
+</html>
