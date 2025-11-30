@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/barrabaja.css">
+    <link rel="stylesheet" href="assets/styles/stylesAD.css">
+    <title>Cuenta</title>
+</head>
+<body>
+
+    <!-- HEADER reutilizando site-header -->
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="header-icon">
+                <!-- Usa la imagen que tengas como “volver” o cámbiala -->
+                <img src="assets/images/atras.png" alt="Volver" onclick="history.back()">
+            </div>
+            <div class="logo">Cuenta</div>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección principal de seguridad de la cuenta -->
+        <section class="section section-compact-top">
+            <div class="container">
+                <h1>Seguridad de la cuenta</h1>
+                <p class="section-subtitle">
+                    Gestiona las opciones de seguridad, incluyendo la doble autenticación para proteger tu cuenta.
+                </p>
+
+                <div class="device-config">
+                    <div class="config-card">
+                        <!-- Resumen / descripción -->
+                        <div class="config-section">
+                            <div class="config-title">Doble autenticación</div>
+                            <p>
+                                Añade una segunda capa de seguridad. Cada vez que inicies sesión, se te pedirá un código
+                                de verificación enviado a tu dispositivo.
+                            </p>
+                        </div>
+
+                        <!-- Toggle principal de 2FA -->
+                        <div class="config-section">
+                            <div class="toggle-group">
+                                <div class="toggle-option">
+                                    <span>Activar doble autenticación</span>
+                                    <label class="switch">
+                                        <!-- Solo visual; la lógica real la puedes manejar con JS o backend -->
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="section-subtitle" style="margin-top: 8px; font-size: 0.9rem;">
+                                Para completar la activación, deberás ingresar el código de verificación en el siguiente paso.
+                            </p>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="config-section">
+                            <button class="btn btn-secondary" type="button" onclick="history.back()">
+                                Cancelar
+                            </button>
+                            <!-- Enlace al paso de código -->
+                            <a href="cuenta-2fa.html" class="btn" style="margin-left: 8px;">
+                                Configurar doble autenticación
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BARRA INFERIOR reutilizada -->
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+</body>
+</html>

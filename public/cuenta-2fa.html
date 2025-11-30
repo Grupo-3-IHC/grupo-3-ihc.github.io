@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/barrabaja.css">
+    <link rel="stylesheet" href="assets/styles/stylesAD.css">
+    <title>Doble autenticación</title>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="header-icon">
+                <img src="assets/images/atras.png" alt="Volver" onclick="history.back()">
+            </div>
+            <div class="logo">Doble autenticación</div>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section section-compact-top">
+            <div class="container">
+                <h1>Verificar código</h1>
+                <p class="section-subtitle">
+                    Ingresa el código de verificación enviado a tu dispositivo para activar la doble autenticación.
+                </p>
+
+                <div class="device-config">
+                    <div class="config-card">
+                        <form id="form-2fa">
+                            <div class="config-section">
+                                <label for="codigo2fa" class="config-title">Código de verificación</label>
+                                <input
+                                    id="codigo2fa"
+                                    type="text"
+                                    maxlength="6"
+                                    placeholder="••••••"
+                                    style="text-align:center; letter-spacing:0.4em;"
+                                >
+                            </div>
+
+                            <!-- Mensaje de éxito (Escenario 1) -->
+                            <p id="msg-exito" class="save-message hidden">
+                                Doble autenticación activada correctamente. La seguridad de tu cuenta ha sido reforzada.
+                            </p>
+
+                            <!-- Mensaje de error (Escenario 2) -->
+                            <p id="msg-error" class="save-message hidden" style="color:#ef4444;">
+                                El código ingresado es incorrecto. Vuelve a intentarlo.
+                            </p>
+
+                            <div class="config-section" style="margin-top: 10px;">
+                                <button type="submit" class="btn btn-secondary">
+                                    Confirmar código
+                                </button>
+                                <button type="button" class="btn" style="margin-left: 8px;">
+                                    Reenviar código
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- BARRA INFERIOR -->
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+    <script>
+        const form = document.getElementById('form-2fa');
+        const inputCodigo = document.getElementById('codigo2fa');
+        const msgExito = document.getElementById('msg-exito');
+        const msgError = document.getElementById('msg-error');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const codigo = inputCodigo.value.trim();
+
+            // Escenario 1: código correcto (ejemplo: 123456)
+            if (codigo === '123456') {
+                msgExito.classList.remove('hidden');
+                msgError.classList.add('hidden');
+            } else {
+                // Escenario 2: código incorrecto
+                msgError.classList.remove('hidden');
+                msgExito.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>
