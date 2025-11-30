@@ -999,7 +999,12 @@
 
         <label class="edit-label">
           Ubicación del incidente:
-          <input type="text" id="editUbicacion" class="edit-input" placeholder="Obligatorio..." required>
+          <input type="text" id="editUbicacion" class="edit-input" placeholder="Opcional...">
+        </label>
+
+        <label class="edit-label privacy-row">
+          <input type="checkbox" id="modoPrivado">
+          Modo privado (ocultar nombre y ubicación)
         </label>
 
         <div class="auto-ubicacion-row">
@@ -1020,6 +1025,9 @@
           <button type="submit" class="edit-confirmar">Publicar</button>
         </div>
       </form>
+
+      <!-- Vista previa de publicación -->
+      <div id="previewCard" class="mis-pub-card hidden" style="margin-top:1rem;"></div>
     </section>
   </main>
 
@@ -1114,6 +1122,9 @@
         <button type="submit" class="comment-submit">Enviar</button>
       </form>
 
+      <!-- Vista previa de publicación -->
+      <div id="previewCard" class="mis-pub-card hidden" style="margin-top:1rem;"></div>
+
       <button id="modalCommentsClose" class="modal-ok">Cerrar</button>
     </div>
   </div>
@@ -1121,6 +1132,7 @@
   <script src="assets/scripts/publicaciones.js"></script>
 </body>
 </html>
+
 
 
 
