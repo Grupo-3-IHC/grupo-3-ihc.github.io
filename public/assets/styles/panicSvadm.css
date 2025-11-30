@@ -1,0 +1,454 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.active-screen {
+    display: block !important;
+}
+
+.hidden-screen {
+    display: none !important;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 600px; 
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background-color: #38c7b8; 
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.back-icon {
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DEL BOTÓN DE PÁNICO AJUSTADOS */
+/* ------------------------------------- */
+
+.panic-card {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 400px;
+}
+
+.panic-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+.panic-button {
+    background-color: #f4f4f9; 
+    border: 3px solid #ddd; 
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.panic-icon {
+    background-color: #e03957; 
+    border: 3px solid #e03957; 
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+
+.warning-svg {
+    width: 80%; 
+    height: 80%;
+    transform: translateY(-5px); 
+    position: absolute; 
+}
+
+/* Triangulo del warning */
+.warning-svg path {
+    fill: white; 
+}
+
+/* Exclamacion del warning */
+.warning-svg rect {
+    fill: #E03957; 
+}
+
+.panic-message {
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #777;
+}
+
+.activated-message {
+    color: #e03957;
+    font-weight: 700;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DEL BOTÓN CANCELAR */
+/* ------------------------------------- */
+
+.btn-cancel {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 12px 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+}
+
+.btn-cancel:hover {
+    background-color: #333;
+}
+
+/* Clase de utilidad para ocultar/mostrar elementos */
+.hidden {
+    display: none !important;
+}
+
+.warning-svg {
+    width: 80%;
+    height: 80%;
+    fill: #E03957; 
+}
+
+.panic-button.confirming .warning-svg path {
+    fill: white; 
+}
+.panic-button.confirming .warning-svg rect {
+    fill: #e03957; 
+}
+
+/* -------------------------------------      */
+/* ESTILOS DE PANTALLA ALERTA ENVIADA (Final) */
+/* -------------------------------------      */
+
+.sent-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    padding: 20px;
+}
+
+.sent-message {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.btn-ver-mas {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.btn-ver-mas:hover {
+    background-color: #333;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DEL MENSAJE DEL TEMPORIZADOR (NUEVO) */
+/* ------------------------------------- */
+.timer-message {
+    font-size: 1.2rem; 
+    font-weight: 500;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DE LA PANTALLA DE DETALLE */
+/* ------------------------------------- */
+
+.details-intro-message {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #cc0000; 
+    background-color: #ffeaea;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DE BOTONES DE ACCIÓN DE PÁNICO */
+/* ------------------------------------- */
+
+.panic-action-buttons {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    margin-top: 20px; 
+    gap: 8px; 
+}
+
+.btn-action-panic {
+    flex: 1; 
+    border: none;
+    padding: 12px 5px; 
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.2s, opacity 0.2s;
+    white-space: nowrap; 
+}
+
+.deactivate-btn {
+    background-color: #333; 
+    color: white;
+}
+
+.deactivate-btn:hover {
+    background-color: black;
+}
+
+
+.secondary-btn {
+    background-color: #f0f0f0; 
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.secondary-btn:hover {
+    background-color: #ddd;
+}
+
+/* ------------------------------------- */
+/* ESTILOS DEL MODAL DE PRIVACIDAD       */
+/* ------------------------------------- */
+
+.privacy-box {
+    max-width: 400px;
+}
+
+.privacy-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.privacy-question {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+
+/* ------------------------------------- */
+/* ESTILOS DEL MODAL DE PRIVACIDAD */
+/* ------------------------------------- */
+
+.review-box {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px; 
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center; 
+}
+
+.privacy-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    width: 100%;
+    margin-top: 20px;
+}
+
+.privacy-button-group .btn {
+    width: 120px; 
+    flex-grow: 0; 
+    flex-shrink: 0;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 10px; 
+    font-size: 1rem;
+    font-weight: 600; 
+    border-radius: 6px; 
+    transition: background-color 0.2s;
+}
+
+.privacy-button-group .btn:hover {
+    background-color: #333;
+}
+
+
+/* ------------------------------------- */
+/* ESTILOS DE REVISIÓN REPORTE (PANTALLA 3) */
+/* ------------------------------------- */
+.review-card {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    min-height: 400px; 
+    padding: 20px;
+}
+
+.review-box {
+    margin: auto; 
+}
+
+/* -------------------------------------    */
+/* ESTILOS DE AVISO DE CONECTIVIDAD (INTER) */
+/* -------------------------------------    */
+.inter-aviso-box {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.inter-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #cc0000; 
+    margin: 0 0 5px 0;
+}
+
+.inter-aviso-box p {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Contenedor Principal */
+.bottom-bar—barrainferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+    background: white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-top: 1px solid #ccc;
+    /* Aplicar el estilo del borde redondeado de tu diseño móvil */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* Estilo Base del Botón (a) */
+.btn—barrainferior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s, filter 0.2s;
+}
+
+.btn—barrainferior:hover {
+    background: rgba(0, 0, 0, 0.08);
+    filter: brightness(0.9);
+}
+
+/* Estilo del Icono (img) */
+.icon—barrainferior {
+    width: 28px;
+    height: 28px;
+}
+
+/* Botón Central de Alerta (Rojo) */
+.alerta-btn—barrainferior {
+    background: #e03957; /* Rojo ajustado similar al diseño de pánico */
+    padding: 12px;
+    border-radius: 50%; /* Lo hace circular */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Añade una sombra para destacarlo */
+}
+
+.alerta-btn—barrainferior:hover {
+    background: #cc0000;
+    filter: brightness(0.9);
+}
+
+/* Icono dentro del botón de Alerta */
+.alerta—barrainferior {
+    /* El icono de alerta suele ser más grande */
+    width: 32px; 
+    height: 32px;
+}
