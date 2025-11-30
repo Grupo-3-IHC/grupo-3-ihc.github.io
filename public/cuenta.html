@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>Cuenta</title>
     <link rel="stylesheet" href="assets/styles/barrabaja.css">
     <style>
         :root {
@@ -125,8 +125,7 @@
 
     <nav class="navbar">
         <div class="back-arrow" onclick="history.back()">&#8592;</div> 
-        
-        <div class="nav-title">Perfil</div>
+        <div class="nav-title">Cuenta</div>
     </nav>
 
     <div class="container">
@@ -161,14 +160,23 @@
             </div>
 
             <div class="actions-row">
-                <button class="btn-action" onclick = "window.location.href = 'publicaciones.html'">Publicaciones</button>
-                <button class="btn-action" onclick = "window.location.href = 'ReporteSvadm.html'">Reportes</button>
-                <button class="btn-action" onclick = "window.location.href = 'contacts.html'">Contactos</button>
-                <button class="btn-action btn-danger" id="btnEliminarCuenta" onclick="window.location.href = 'eliminar_cuenta.html'">Eliminar cuenta</button>
+                <button class="btn-action" onclick="window.location.href = 'publicaciones.html'">Publicaciones</button>
+                <button class="btn-action" onclick="window.location.href = 'ReporteSvadm.html'">Reportes</button>
+                <button class="btn-action" onclick="window.location.href = 'contacts.html'">Contactos</button>
+
+                <!-- NUEVO BOTÓN DE SEGURIDAD -->
+                <button class="btn-action" onclick="window.location.href = 'cuentaSeG.html'">
+                    Seguridad
+                </button>
+
+                <button class="btn-action btn-danger" id="btnEliminarCuenta" onclick="window.location.href = 'eliminar_cuenta.html'">
+                    Eliminar cuenta
+                </button>
             </div>
 
         </div>
     </div>
+
     <div class="bottom-bar">
         <a href="dashboard.html" class="btn">
             <img src="assets/images/home.png" class="icon">
