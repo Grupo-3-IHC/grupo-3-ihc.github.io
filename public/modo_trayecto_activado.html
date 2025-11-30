@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/styles/modo-trayecto-activo.css">
+  <link rel="stylesheet" href="assets/styles/barrabaja.css">
+  <title>Modo Trayecto Activo</title>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <a href="map.html" class="back-btn">←</a>
+  <h1>Modo Trayecto</h1>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<div class="content">
+
+  <!-- TARJETA DE INFORMACIÓN -->
+  <div class="info-card">
+
+    <div class="info-row">
+      <span>Distancia</span>
+      <span>45 km</span>
+    </div>
+
+    <div class="info-row">
+      <span>Tiempo Estimado</span>
+      <span>1:30 h</span>
+    </div>
+
+    <div class="info-row">
+      <span>Ruta Actual</span>
+      <span>A</span>
+    </div>
+
+    <div class="info-row">
+      <span>Destino</span>
+      <span>Ampos...</span>
+    </div>
+
+  </div>
+
+  <!-- BOTONES PRINCIPALES -->
+  <div class="action-buttons">
+    <button class="btn-cancelar">Cancelar modo</button>
+    <button class="btn-llegado">He llegado</button>
+  </div>
+
+  <!-- SEGUNDA FILA DE BOTONES -->
+  <div class="second-buttons">
+    <button class="btn-extender">Extender viaje</button>
+
+    <button class="btn-recalcular">
+      <img src="assets/images/refresh.png" alt="">
+      <span>Recalcular ruta</span>
+    </button>
+  </div>
+
+  <!-- SWITCH UBICACIÓN COMPARTIDA -->
+  <div class="ubicacion-option">
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider"></span>
+    </label>
+    <span>Ubicación compartida</span>
+  </div>
+
+</div>
+
+
+    <div class="bottom-bar">
+        <a href="_.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="_.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="_.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="_.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="_.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+    <!-- ========= SCRIPT PARA CAMBIAR EL MAPA ========= -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btnRecalcular = document.querySelector(".btn-recalcular");
+    if (!btnRecalcular) return;
+
+    // rutas de las imágenes de mapa (desde el HTML)
+    const maps = [
+      'url("assets/images/map1.png")',
+      'url("assets/images/map2.png")'
+    ];
+
+    let currentIndex = 0;
+
+    btnRecalcular.addEventListener("click", function () {
+      // siguiente mapa (cíclico)
+      currentIndex = (currentIndex + 1) % maps.length;
+      document.body.style.backgroundImage = maps[currentIndex];
+    });
+  });
+</script>
+</body>
+</html>
+

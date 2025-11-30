@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modo Trayecto</title>
+<link rel="stylesheet" href="assets/styles/modo_trayecto.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================ -->
+<header class="header">
+  <h1>Modo Trayecto</h1>
+</header>
+
+<!-- ============= PANTALLA 1 ============== -->
+<div id="pantalla1" class="screen active">
+
+  <div class="map-preview">
+    <img src="assets/images/map.png" alt="mapa">
+  </div>
+
+  <div class="trayecto-box">
+
+    <div class="dropdown" id="dropdownToggle">
+      <span>Modo trayecto</span>
+      <span class="arrow">▼</span>
+    </div>
+
+    <!-- MENU OCULTO -->
+    <div id="trayectoMenu" class="dropdown-content">
+
+      <label>Destino</label>
+      <input type="text" placeholder="Obligatorio...">
+
+      <div class="switch-row">
+        <span>Sugerir Ruta</span>
+        <input type="checkbox">
+      </div>
+
+      <div class="switch-row">
+        <span>Alerta de Inactividad</span>
+        <input type="checkbox">
+      </div>
+
+      <div class="switch-row">
+        <span>Activar supervisión</span>
+        <input type="checkbox">
+      </div>
+
+      <div class="switch-row">
+        <span>Alertar a contactos</span>
+        <input type="checkbox">
+      </div>
+
+      <button id="activarModoBtn" class="primary-btn" onclick = "window.location.href = 'modo_trayecto_activado.html'">
+        Activar modo
+      </button>
+
+      <button id="delimitarBtn" class="secondary-btn">
+        Delimitar zona segura
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ============= PANTALLA 2 ============== -->
+<div id="pantalla2" class="screen">
+
+  <header class="header">
+    <h1>Delimitar zona segura</h1>
+  </header>
+
+  <div class="map-area">
+    <img src="map_sample.jpg" alt="mapa">
+    <div class="draw-circle"></div>
+  </div>
+
+  <div class="confirm-box">
+    <p>¿Confirmar selección?</p>
+    <button class="yes-btn">Sí</button>
+    <button class="no-btn" id="volverBtn">No</button>
+  </div>
+
+</div>
+
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+    
+<script src="assets/scripts/modo_trayecto.js"></script>
+</body>
+</html>
