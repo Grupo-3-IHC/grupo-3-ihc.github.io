@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta</title>
+    <style>
+        :root {
+            --primary-mint: #A1E3DC;
+            --bg-beige: #F6F0E8;
+            --white: #ffffff;
+            --text-dark: #333;
+            --danger-red: #D32F2F;
+            --danger-hover: #b71c1c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-beige);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        .navbar {
+            background-color: var(--primary-mint);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-height: 70px;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .back-arrow {
+            position: absolute;
+            left: 2rem;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            transform: scale(1.1);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centrar verticalmente en la pantalla */
+        }
+
+        /* DELETE ACCOUNT CARD */
+        .delete-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #ffcccc; /* Borde rojo sutil */
+            text-align: center;
+        }
+
+        .warning-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--danger-red);
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* FORMULARIOS */
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--danger-red);
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        /* BOTÓN DE BORRAR */
+        .btn-delete {
+            background-color: var(--danger-red);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-delete:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-delete:active {
+            transform: scale(0.98);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 1rem;
+            }
+            .back-arrow {
+                left: 1rem;
+            }
+            .delete-card {
+                padding: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="back-arrow" onclick="history.back()">&#8592;</div>
+        <div class="nav-title">Cuenta</div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="delete-card">
+            <span class="warning-icon">⚠️</span>
+            <h2 class="card-title">Zona de Peligro</h2>
+            <p class="card-desc">
+                Estás a punto de eliminar tu cuenta permanentemente. Esta acción no se puede deshacer y perderás todos tus datos.
+            </p>
+
+            <div class="form-group">
+                <label for="password">Confirma tu contraseña:</label>
+                <input type="password" id="password" placeholder="Escribe tu contraseña aquí">
+            </div>
+
+            <button class="btn-delete" onclick="confirmDelete()">Borrar cuenta</button>
+        </div>
+
+    </div>
+
+    <script>
+        function confirmDelete() {
+            const password = document.getElementById('password').value;
+            if(password.trim() === "") {
+                alert("Por favor, escribe tu contraseña para confirmar.");
+            } else {
+                if(confirm("¿Estás absolutamente seguro de que quieres eliminar tu cuenta?")) {
+                    alert("Cuenta eliminada (Simulación)");
+                    // Aquí iría la lógica real de borrado
+                }
+            }
+        }
+
+        
+        const btnEliminar = document.getElementById('btnEliminarCuenta');
+
+        btnEliminar.addEventListener('click', () => {
+            alert('Tu cuenta ha sido eliminada (simulación para el prototipo).');
+        });
+    </script>
+
+</body>
+</html>

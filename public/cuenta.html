@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="assets/styles/barrabaja.css">
+    <style>
+        :root {
+            --primary-mint: #A1E3DC;
+            --bg-beige: #F6F0E8;
+            --white: #ffffff;
+            --btn-blue: #9DE5E0;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-beige); margin: 0; }
+        
+        /* HEADER MODIFICADO */
+        .navbar { 
+            background: var(--primary-mint); 
+            padding: 1rem 2rem; 
+            display: flex; 
+            justify-content: center; /* Centra el contenido (el título) */
+            align-items: center; 
+            position: sticky; 
+            top:0; 
+            z-index:10; 
+            min-height: 60px;
+        }
+
+        .nav-title { 
+            color: white; 
+            font-weight: bold; 
+            font-size: 1.5rem; 
+            text-align: center;
+        }
+
+        .back-arrow { 
+            position: absolute; /* Saca la flecha del flujo para ponerla a la izquierda */
+            left: 2rem;
+            color: white; 
+            cursor: pointer; 
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
+        .profile-wrapper {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        /* LEFT COLUMN (Avatar) */
+        .avatar-col {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .avatar-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-beige);
+            margin-bottom: 1rem;
+        }
+        .user-name-display { font-size: 1.5rem; font-weight: bold; color: #444; }
+
+        /* RIGHT COLUMN (Form) */
+        .form-col { flex: 2; min-width: 300px; }
+        
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: bold; color: #666; margin-bottom: 0.4rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.8rem;
+            border: 1px solid #ccc; border-radius: 8px;
+            font-family: inherit; font-size: 1rem;
+            box-sizing: border-box;
+        }
+        textarea { resize: vertical; min-height: 100px; }
+
+        /* BOTONES */
+        .actions-row {
+            width: 100%;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-action {
+            background-color: var(--btn-blue);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            max-width: 200px;
+            text-align: center;
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .btn-danger {
+            background-color: #D32F2F;
+        }
+        .btn-danger:hover {
+            background-color: #b71c1c;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="back-arrow" onclick="history.back()">&#8592;</div> 
+        
+        <div class="nav-title">Perfil</div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-wrapper">
+            
+            <div class="avatar-col">
+                <img src="https://i.pravatar.cc/300?img=5" alt="Avatar" class="avatar-circle">
+                <div class="user-name-display">Manuela Lopez</div>
+            </div>
+
+            <div class="form-col">
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" value="Manuel">
+                </div>
+                <div class="form-group">
+                    <label>Apellidos:</label>
+                    <input type="text" value="Lopez Delgado">
+                </div>
+                <div class="form-group">
+                    <label>Descripción:</label>
+                    <textarea>Me gustaria vivir tan solo un dia mas, junto a mi familia llegar a casa. Tan siquiera una vez mas..</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono:</label>
+                    <input type="text" value="982163412">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="date" value="2000-09-10">
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-action">Publicaciones</button>
+                <button class="btn-action">Reportes</button>
+                <button class="btn-action">Contactos</button>
+                <button class="btn-action btn-danger" id="btnEliminarCuenta" onclick="window.location.href = 'eliminar_cuenta.html'">Eliminar cuenta</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+</body>
+</html>

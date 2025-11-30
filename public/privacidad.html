@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/barrabaja.css">
+    <title>Privacidad</title>
+    <style>
+        :root {
+            --primary-mint: #A1E3DC;
+            --bg-beige: #F6F0E8;
+            --white: #ffffff;
+            --text-dark: #555;
+            --active-gray: #666;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-beige);
+            margin: 0;
+            color: var(--text-dark);
+        }
+        /* HEADER */
+        .navbar {
+            background-color: var(--primary-mint);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;   /* centra el título */
+            align-items: center;
+            position: relative;        /* para poder posicionar la flecha */
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .back-arrow {
+            cursor: pointer;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            color: white;
+            transform: translateY(-50%);
+        }
+
+        /* CONTENT */
+        .container { max-width: 600px; margin: 3rem auto; padding: 0 1rem; }
+
+        .privacy-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border: 1px solid #ddd;
+        }
+
+        h3 { margin-top: 0; margin-bottom: 1.5rem; color: #444; }
+
+        /* RADIO BUTTONS STYLED AS CARDS */
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+        .radio-option input { display: none; }
+        .radio-option label {
+            display: block;
+            background: #f0f0f0;
+            padding: 1rem 0.5rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+        .radio-option input:checked + label {
+            background: #fff;
+            border-color: var(--active-gray);
+            color: var(--active-gray);
+            font-weight: bold;
+        }
+        /* Toggle visual simulation inside label */
+        .fake-toggle {
+            display: block;
+            width: 40px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 20px;
+            margin: 10px auto 0;
+            position: relative;
+        }
+        .radio-option input:checked + label .fake-toggle {
+            background: var(--active-gray);
+        }
+        .fake-toggle::after {
+            content:''; position: absolute; top:2px; left:2px;
+            width:16px; height:16px; background:white; border-radius:50%;
+            transition: 0.2s;
+        }
+        .radio-option input:checked + label .fake-toggle::after {
+            left: 22px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <span class="back-arrow" onclick = "window.location.href = 'config.html'">&#8592;</span>
+        <div class="nav-logo">Privacidad</div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- PRIMERA TARJETA: PERFIL -->
+        <div class="privacy-card">
+            <h3>¿Quién puede ver mi perfil?</h3>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" name="profile_vis" id="none">
+                    <label for="none">
+                        Ninguno/a
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="profile_vis" id="contacts">
+                    <label for="contacts">
+                        Contactos
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="profile_vis" id="all" checked>
+                    <label for="all">
+                        Todos
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEGUNDA TARJETA: PUBLICACIONES -->
+        <div class="privacy-card">
+            <h3>¿Quién puede ver mis publicaciones?</h3>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" name="posts_vis" id="posts_contacts" checked>
+                    <label for="posts_contacts">
+                        Todos mis contactos
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="posts_vis" id="posts_onlyme">
+                    <label for="posts_onlyme">
+                        Solo yo
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="posts_vis" id="posts_public">
+                    <label for="posts_public">
+                        Público
+                        <span class="fake-toggle"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+</body>
+</html>

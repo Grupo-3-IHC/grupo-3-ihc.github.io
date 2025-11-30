@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carla Méndez</title>
+    <link rel="stylesheet" href="assets/styles/stylesChat.css" />
+
+</head>
+<body>
+
+<div class="phone-frame">
+
+    <div class="header">
+        <span class="back" onclick="goBack()">⬅</span> Carla Méndez
+    </div>
+
+    <div class="chat-messages">
+
+        <div class="message left">
+            <div class="avatar"></div>
+            <div class="bubble">Hola, ¿ya estás en camino?</div>
+        </div>
+
+        <div class="message right">
+            <div class="bubble">Sí, salí hace 5 minutos.</div>
+            <div class="avatar"></div>
+        </div>
+
+        <div class="message left">
+            <div class="avatar"></div>
+            <div class="bubble">Perfecto, entonces te espero adentro.<br>Estoy en la mesa del fondo.</div>
+        </div>
+
+        <div class="message right">
+            <div class="bubble">Listo, apenas llegue te aviso.</div>
+            <div class="avatar"></div>
+        </div>
+
+        <div class="message left">
+            <div class="avatar"></div>
+            <div class="bubble">Oki 😊<br>Ah, y no olvides traer el documento.</div>
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+    <div class="icons" id="defaultIcons">
+        <span id="clipBtn" class="clip">📎</span> 
+        <span id="micHold" class="mic-btn">🎤</span> 
+        📷
+    </div>
+
+    <input id="textInput" type="text" placeholder="Mensaje..." />
+
+    <button id="sendBtn" class="send">➤</button>
+</div>
+
+    <div id="fileMenu" class="file-menu">
+        <div class="file-option" onclick="sendImage()">🖼 Subir imagen</div>
+        <div class="file-option" onclick="sendFile()">📄 Subir archivo</div>
+    </div>
+    <div class="footer">
+         <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+    
+
+</div>
+
+<script src="assets/scripts/scriptChat.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+    background: white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-top: 1px solid #ccc;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s, filter 0.2s;
+}
+
+.btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    filter: brightness(0.9);
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+.alerta-btn {
+    background: red;
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.alerta-btn:hover {
+    background: #cc0000;
+    filter: brightness(0.9);
+}

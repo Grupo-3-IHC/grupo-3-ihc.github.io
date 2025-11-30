@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/barrabaja.css">
+    <title>Configuración</title>
+    <style>
+        /* ================= VARIABLES & RESET ================= */
+        :root {
+            --primary-mint: #A1E3DC;
+            --bg-beige: #F6F0E8;
+            --text-dark: #444;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-beige);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= NAVIGATION (Header Centrado) ================= */
+        .navbar {
+            background-color: var(--primary-mint);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 70px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-arrow {
+            cursor: pointer;
+            font-size: 1.8rem;
+            transition: transform 0.2s;
+        }
+
+        .back-arrow:hover {
+            transform: scale(1.1);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        /* ================= SETTINGS GRID ================= */
+        .settings-grid {
+            display: grid;
+            /* Crea columnas automáticamente según el ancho disponible */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .setting-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .setting-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-mint);
+        }
+
+        .card-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: #E8F8F6;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+            font-size: 1.2rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .arrow-icon {
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr; /* Apilar verticalmente en móvil */
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <span class="back-arrow" onclick="history.back()">&#8592;</span> 
+            Configuración
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <div class="settings-grid">
+            
+            <a href="#" class="setting-card" onclick = "window.location.href = 'perfil.html'">
+                <div class="card-content" >
+                    <div class="icon-placeholder">👤</div>
+                    <span class="card-title" >Perfil</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'cuenta.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">💳</div>
+                    <span class="card-title" >Cuenta</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'notificaciones.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">🔔</div>
+                    <span class="card-title" >Notificaciones</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'suscripciones.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">⭐</div>
+                    <span class="card-title" >Suscripciones</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'privacidad.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">🔒</div>
+                    <span class="card-title" >Privacidad</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'permisos.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">🔑</div>
+                    <span class="card-title" >Permisos</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card" onclick = "window.location.href = 'main-devices.html'">
+                <div class="card-content">
+                    <div class="icon-placeholder">📱</div>
+                    <span class="card-title" >Dispositivos</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+            <a href="#" class="setting-card">
+                <div class="card-content">
+                    <div class="icon-placeholder">📄</div>
+                    <span class="card-title">Políticas de Privacidad</span>
+                </div>
+                <span class="arrow-icon">&#10095;</span>
+            </a>
+
+        </div>
+
+        
+    </main>
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="comunidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+            <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+</body>
+</html>
