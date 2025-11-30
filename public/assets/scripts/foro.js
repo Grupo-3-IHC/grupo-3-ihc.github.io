@@ -106,3 +106,73 @@ function openFullPost(imgElement) {
 function closeFullView() {
   document.getElementById("fullView").style.display = "none";
 }
+
+
+// =========================
+// MODO ADMINISTRADOR
+// =========================
+let isAdmin = false;
+
+const adminToggleBtn = document.getElementById('adminToggle');
+const adminPopup = document.getElementById('adminPopup');
+
+if (adminToggleBtn) {
+  adminToggleBtn.addEventListener('click', () => {
+    isAdmin = !isAdmin;
+
+    // Cambia estilos y texto del botón
+    adminToggleBtn.classList.toggle('on', isAdmin);
+    adminToggleBtn.textContent = isAdmin
+      ? 'Administrador: ACTIVO'
+      : 'Administrador: INACTIVO';
+
+    // Mensaje pequeño opcional al activar / desactivar
+    if (adminPopup) {
+      adminPopup.classList.remove('error');
+      adminPopup.textContent = isAdmin
+        ? 'Modo administrador activado. Ahora puedes ver información sensible.'
+        : 'Modo administrador desactivado.';
+      adminPopup.style.display = 'block';
+      setTimeout(() => {
+        adminPopup.style.display = 'none';
+      }, 2500);
+    }
+  });
+}
+
+/**
+ * Muestra información sensible del usuario SOLO si el modo administrador está activo.
+ * Se usa en el nombre "Edgar Montañez".
+ */
+function showSensitiveInfo(element) {
+  if (!adminPopup) return;
+
+  // Si NO es admin -> mensaje de error
+  if (!isAdmin) {
+    adminPopup.classList.add('error');
+    adminPopup.textContent =
+      'No tienes permisos para ver información sensible. Activa el modo Administrador.';
+    adminPopup.style.display = 'block';
+    setTimeout(() => {
+      adminPopup.style.display = 'none';
+    }, 3000);
+    return;
+  }
+
+  // Si es admin -> mostrar datos sensibles del usuario
+  const userName = element.dataset.user || 'Usuario';
+
+  adminPopup.classList.remove('error');
+  adminPopup.innerHTML = `
+    <strong>${userName}</strong><br>
+    Cuenta creada: 15/03/2023<br>
+    Último inicio de sesión: 12/06/2025 21:34<br>
+    Correo: edgar.montanez@example.com<br>
+    Teléfono verificado: +51 987 654 321
+  `;
+  adminPopup.style.display = 'block';
+
+  setTimeout(() => {
+    adminPopup.style.display = 'none';
+  }, 5000);
+}
