@@ -123,7 +123,7 @@ function generarVistaPrevia() {
   const privado = !!(modoPrivadoChk && modoPrivadoChk.checked);
 
   const ubicacionMostrar = privado ? "Ubicación no publicada" : (ubicacion || "Sin ubicación");
-  const autorMostrar = privado ? "Anónim@" : "Tú";
+  const autorMostrar = privado ? "Anónim@" : "(yo) Daniel";
 
   previewCard.innerHTML = `
     <div class="mis-pub-card-header">
@@ -1486,4 +1486,5 @@ updateDraftIndicator();
 purgeOldDeleted();
 sortPublications('recientes');
 setInterval(updateDeletedCountdowns, 1000);
+
 
