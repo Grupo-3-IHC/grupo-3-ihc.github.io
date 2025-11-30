@@ -32,15 +32,15 @@
             flex-direction: column;
         }
 
-        /* ================= NAVIGATION (Header Centrado) ================= */
+        /* ================= NAVIGATION (Header Fix) ================= */
         .navbar {
             background-color: var(--primary-mint);
             padding: 1rem 2rem;
             display: flex;
-            justify-content: center; /* Centra el contenido horizontalmente */
+            justify-content: center; /* Centra el título */
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
+            position: sticky; /* Contexto de posición para la flecha absoluta */
             top: 0;
             z-index: 100;
             min-height: 70px;
@@ -50,19 +50,24 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            /* Se eliminó flex y gap para permitir el centrado absoluto del texto */
         }
 
         .back-arrow {
             cursor: pointer;
             font-size: 1.8rem;
             transition: transform 0.2s;
+            color: white; /* Aseguramos que sea blanca */
+            
+            /* --- FIX DE POSICIONAMIENTO --- */
+            position: absolute; /* Saca la flecha del flujo central */
+            left: 20px;         /* La pega a la izquierda */
+            top: 50%;           /* Centrado vertical */
+            transform: translateY(-50%);
         }
 
         .back-arrow:hover {
-            transform: scale(1.1);
+            transform: translateY(-50%) scale(1.1); /* Mantiene el centrado al hacer hover */
         }
 
         /* ================= MAIN CONTENT ================= */
@@ -161,8 +166,9 @@
 <body>
 
     <nav class="navbar">
+        <span class="back-arrow" onclick="history.back()">&#8592;</span> 
+        
         <div class="nav-logo">
-            <span class="back-arrow" onclick="history.back()">&#8592;</span> 
             Configuración
         </div>
     </nav>
