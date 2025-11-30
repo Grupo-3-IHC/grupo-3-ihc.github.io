@@ -8,5 +8,6 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
         alert("Por favor, completa todos los campos.");
         return;
     }
-    
+
+    window.location.href = "dashboard.html";
 });
