@@ -27,7 +27,7 @@ body {
 
 
 .header {
-    background-color: #38c7b8; 
+    background-color: #A1E3DC; 
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -597,4 +597,5 @@ body {
     /* El icono de alerta suele ser más grande */
     width: 32px; 
     height: 32px;
+
 }
