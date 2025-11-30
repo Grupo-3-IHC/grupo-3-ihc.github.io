@@ -1,0 +1,846 @@
+/* =========================
+   Estilos base / reset simple
+   ========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    padding-bottom: 80px;
+}
+
+/* Contenedor reutilizable */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* =========================
+   Header / Navbar
+   ========================= */
+.site-header {
+    background: #A1E3DC;
+    color: #fff;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* ahora tres columnas: icono - título - spacer */
+}
+
+/* Título centrado usando flex */
+.logo {
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: center;
+    flex: 1; /* ocupa el espacio central */
+}
+
+/* Contenedor del icono */
+.header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Tamaño del icono */
+.header-icon img {
+    width: 28px;      /* ajusta a gusto */
+    height: 28px;
+    cursor: pointer;
+}
+
+/* Espaciador a la derecha para que el título quede realmente centrado */
+.header-spacer {
+    width: 28px;      /* mismo ancho que el icono para equilibrar */
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+}
+
+.nav a:hover {
+    opacity: 0.7;
+}
+
+/* =========================
+   Hero / Portada
+   ========================= */
+.hero {
+    background: linear-gradient(135deg, #4a90e2, #6a5acd);
+    color: #fff;
+    padding: 30px 0;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    min-height: 10px;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 500px;
+    margin-bottom: 10px;
+}
+
+/* Botón reutilizable */
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background-color: #A1E3DC;
+    color: #1e1e2e;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0.9;
+}
+
+/* =========================
+   Secciones generales
+   ========================= */
+.section {
+    padding: 60px 0;
+    background-color: #f5f5f5;
+}
+
+.section.section-compact-top {
+    padding-top: 10px; 
+}
+
+.section.section-compact-bottom {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.section-alt {
+    background-color: #ffffff;
+}
+
+.section h2 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    margin-bottom: 35px;
+    color: #666;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   Acerca de (dos columnas)
+   ========================= */
+.two-columns {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.box {
+    background-color: #f8f8ff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0ff;
+}
+
+.box h3 {
+    margin-bottom: 10px;
+}
+
+.box ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.box li {
+    margin-bottom: 6px;
+}
+
+/* =========================
+   Formulario de contacto
+   ========================= */
+.contact-form {
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font: inherit;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 1px rgba(74,144,226,0.2);
+}
+
+/* =========================
+   Footer
+   ========================= */
+.site-footer {
+    background: #1e1e2e;
+    color: #ddd;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    gap: 10px;
+}
+
+.footer-links a {
+    color: #A1E3DC;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+
+.card img {
+    width: 300px;         /* tamaño */
+    height: 300px;
+    border-radius: 8px;
+    object-fit: contain; /* evita deformaciones */
+    margin-bottom: 10px;
+}
+
+
+.card-option {
+    cursor: pointer;
+}
+
+.custom-select {
+    position: relative;
+    width: 260px;          /* cambia el ancho si quieres */
+    font-size: 0.95rem;
+}
+
+/* Botón que muestra la opción seleccionada */
+.select-toggle {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Flechita simple usando pseudo-elemento (opcional) */
+.select-toggle::after {
+    content: "▾";
+    font-size: 0.75rem;
+}
+
+/* Menú desplegable */
+.select-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 4px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;              /* oculto por defecto */
+    z-index: 50;
+}
+
+/* Opción individual */
+.select-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+/* hover */
+.select-option:hover {
+    background-color: #f3f3f3;
+}
+
+/* opción seleccionada */
+.select-option.selected {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+/* estilo cuando está seleccionada */
+.card-option.seleccionado {
+    border: 2px solid #4a90e2;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+}
+
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block; /* o block si la card es de ancho completo */
+}
+
+.section.small-padding {
+    padding: 20px 0; /* más compacto */
+}
+
+/* Título con indicador de estado */
+.status-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Puntito base */
+.status-title::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Activos (verde) */
+.status-title--online::after {
+    background-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+}
+
+/* Inactivos (rojo) */
+.status-title--offline::after {
+    background-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+.device-detail {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Columna de texto */
+.device-info {
+    flex: 1;
+}
+
+/* Columna de imagen */
+.device-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.device-image img {
+    max-width: 100%;
+    max-height: 320px;
+    border-radius: 12px;   /* opcional: esquinas redondeadas */
+    object-fit: contain;
+}
+
+/* Contenedor general de la config */
+.device-config {
+    margin-top: 30px;
+}
+
+/* Tarjeta blanca como en el mockup */
+.config-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e5e5e5;
+    max-width: 420px;
+}
+
+/* Lista de resumen */
+.config-list {
+    margin: 8px 0 16px;
+    padding-left: 20px;
+}
+
+/* Títulos de bloques */
+.config-section {
+    margin-bottom: 16px;
+}
+
+.config-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* Select de configuración */
+.config-select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font: inherit;
+}
+
+/* Grupo de toggles en fila */
+.toggle-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.toggle-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 180px;
+    font-size: 0.95rem;
+}
+
+/* Toggle estilo iOS */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    border-radius: 24px;
+    transition: 0.2s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+/* ON */
+.switch input:checked + .slider {
+    background-color: #4a90e2;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(18px);
+}
+
+/* Botón oscuro para confirmar */
+.btn-secondary {
+    margin-top: 10px;
+    background-color: #222;
+    color: #fff;
+}
+
+/* Mensaje de guardado */
+.save-message {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #16a34a;
+}
+
+.hidden {
+    display: none;
+}
+
+.config-summary {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.config-summary h2 {
+    margin-bottom: 8px;
+}
+
+.authority-group {
+    background-color: #e5e5e5;
+    border-radius: 14px;
+    padding: 10px 10px 14px;
+    margin-bottom: 16px;
+}
+
+.authority-title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+/* Tarjeta blanca de cada estación */
+.authority-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 10px 12px 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    margin-bottom: 10px;
+}
+
+/* Cabecera: nombre + badge */
+.authority-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.authority-header h3 {
+    margin-bottom: 4px;
+}
+
+.authority-address,
+.authority-distance {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* Badges de estado */
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.badge-ok {
+    background-color: #22c55e;   /* verde */
+}
+
+.badge-busy {
+    background-color: #d97706;   /* naranja */
+}
+
+.badge-off {
+    background-color: #ef4444;   /* rojo */
+}
+
+/* Botones de acciones */
+.authority-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-authority {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+/* Llamar: rojo */
+.btn-call {
+    background-color: #ff3b30;
+    color: #ffffff;
+}
+
+/* Ubicación: blanco con borde */
+.btn-location {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #cccccc;
+}
+
+/* ==== Compactar la página de Autoridades ==== */
+
+/* Menos padding en las secciones de esta página */
+#intro.section,
+#Policia.section,
+#Bomberos.section,
+#Hospitales.section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Menos espacio entre subtítulo y tarjetas */
+#Policia .section-subtitle,
+#Bomberos .section-subtitle,
+#Hospitales .section-subtitle {
+    margin-bottom: 15px;
+}
+
+/* Compactar grupo gris (categoría) */
+.authority-group {
+    margin-bottom: 14px;
+    padding: 8px 10px 10px;
+}
+
+/* Compactar cada tarjeta blanca */
+.authority-card {
+    margin-bottom: 8px;
+    padding: 8px 10px 10px;
+}
+
+/* Menos espacio y botones un poquito más pequeños */
+.authority-actions {
+    margin-top: 6px;
+    gap: 6px;
+}
+
+.btn-authority {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+}
+
+/* Casi sin espacio debajo de la sección de Policía */
+#Policia.section {
+    padding-bottom: 20px;
+}
+
+/* Casi sin espacio arriba de Bomberos y Hospitales */
+#Bomberos.section,
+#Hospitales.section {
+    padding-top: 5px;
+}
+
+/* Reducir separación extra del último bloque de cada sección */
+#Policia .authority-group,
+#Bomberos .authority-group {
+    margin-bottom: 10px;
+}
+
+.location-card {
+    background-color: #f5f5f5;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.location-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.map-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.map-wrapper img {
+    width: 100%;
+    display: block;
+}
+
+/* Tarjeta flotante sobre el mapa */
+.map-info {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 8px 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-size: 0.85rem;
+    max-width: 180px;
+}
+
+.map-info h3 {
+    margin-bottom: 4px;
+}
+
+/* botón pequeño dentro de la card */
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 999px;
+}
+
+/* contenedores de botones debajo del mapa */
+.location-actions {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.btn-full {
+    width: 100%;
+    text-align: center;
+}
+
+.location-back {
+    margin-top: 12px;
+    text-align: center;
+}
+
+/*BARRA BAJA*/
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+    background: white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-top: 1px solid #ccc;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s, filter 0.2s;
+}
+
+.btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    filter: brightness(0.9);
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+.alerta-btn {
+    background: red;
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.alerta-btn:hover {
+    background: #cc0000;
+    filter: brightness(0.9);
+}
+
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .nav a {
+        margin-left: 0;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .hero {
+        padding: 50px 0;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+}
