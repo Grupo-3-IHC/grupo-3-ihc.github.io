@@ -171,6 +171,83 @@
       font-size: 0.9rem;
     }
 
+    /* ===== Personalización de alertas ===== */
+    .alerts-contacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .alerts-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .alerts-contact-item input[type="checkbox"] {
+      transform: scale(1.1);
+    }
+
+    .alerts-add-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .alerts-add-input {
+      flex: 1;
+      padding: 0.35rem 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+    }
+
+    .alerts-message {
+      width: 100%;
+      min-height: 70px;
+      resize: vertical;
+      padding: 0.5rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .alerts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .alerts-row > div {
+      flex: 1 1 200px;
+    }
+
+    .alerts-save-btn {
+      margin-top: 0.9rem;
+      border: none;
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      background: var(--accent);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .alerts-save-btn.small {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+    }
+
     @media (max-width: 768px) {
       .container {
         padding: 2rem 1rem 4rem;
@@ -189,6 +266,111 @@
 
   <main class="container">
     <h1>Seguridad</h1>
+
+    <!-- Bloque: Personalización de alertas de emergencia -->
+    <section class="seg-block">
+      <h3>Personalización de alertas de emergencia</h3>
+      <p>
+        Personaliza el contenido y los destinatarios de tus alertas de emergencia
+        para asegurarte de que la información enviada sea útil cuando uses el botón de pánico
+        (simulado).
+      </p>
+
+      <!-- Contactos preferidos -->
+      <div>
+        <strong>Selección de contactos preferidos</strong>
+        <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+          Elige a quiénes se enviaría la notificación por defecto:
+        </p>
+        <div class="alerts-contacts" id="alertsContactsContainer">
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="María" checked>
+            <span>María</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="Luis" checked>
+            <span>Luis</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="Juan" checked>
+            <span>Juan</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="Pedro">
+            <span>Pedro</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="Manolito">
+            <span>Manolito</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="checkbox" class="alert-contact" value="Pepe Mecánico">
+            <span>Pepe Mecánico</span>
+          </label>
+        </div>
+
+        <!-- Agregar nuevo contacto (al lado de la lista, en la misma zona) -->
+        <div class="alerts-add-wrapper">
+          <input
+            type="text"
+            id="newAlertContactName"
+            class="alerts-add-input"
+            placeholder="Agregar nuevo contacto"
+          >
+          <button type="button" id="addAlertContactBtn" class="alerts-save-btn small">
+            + Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Mensaje personalizado -->
+      <div style="margin-top: 0.75rem;">
+        <strong>Mensaje personalizado</strong>
+        <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+          Este mensaje se enviaría cada vez que presiones el botón de pánico (simulado).
+        </p>
+        <textarea id="alertMessage" class="alerts-message">es una emergencia mi vida peligra</textarea>
+      </div>
+
+      <!-- Idioma + tipo de alerta -->
+      <div class="alerts-row">
+        <div>
+          <strong>Configuración de idioma</strong>
+          <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+            Elige en qué idioma se enviaría la notificación:
+          </p>
+          <label class="alerts-contact-item">
+            <input type="radio" name="alertLang" id="langEs" checked>
+            <span>Español</span>
+          </label>
+          <label class="alerts-contact-item">
+            <input type="radio" name="alertLang" id="langEn">
+            <span>Inglés</span>
+          </label>
+        </div>
+
+        <div>
+          <strong>Diferenciación por tipo de alerta</strong>
+          <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+            Tipo de incidente que se usaría por defecto:
+          </p>
+          <select id="alertType" style="padding: 0.4rem 0.5rem; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
+            <option value="robo" selected>Robo</option>
+            <option value="asalto">Asalto</option>
+            <option value="agresión">Agresión</option>
+            <option value="secuestro">Secuestro</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="saveAlertConfig" type="button" class="alerts-save-btn">
+        💾 Guardar configuración de alertas
+      </button>
+
+      <p id="alertConfigStatus" class="seg-status-text">
+        Usa esta sección para configurar tus alertas de emergencia (simulado).
+      </p>
+    </section>
 
     <!-- Bloque: versión actual -->
     <section class="seg-block">
@@ -284,6 +466,7 @@
       const optionManual = document.getElementById('optionManual');
       const verifModeText = document.getElementById('verifModeText');
 
+      // ====== LÓGICA: Verificar versión (simulado) ======
       if (btnRefresh) {
         btnRefresh.addEventListener('click', () => {
           versionStatus.textContent = 'Buscando actualizaciones...';
@@ -299,8 +482,9 @@
         });
       }
 
+      // ====== LÓGICA: Modo de verificación ======
       function actualizarModo() {
-        if (verifAuto.checked) {
+        if (verifAuto && verifAuto.checked) {
           verifModeText.textContent = 'Modo actual: verificación automática.';
           optionAuto.classList.add('active');
           optionManual.classList.remove('active');
@@ -316,7 +500,73 @@
         verifManual.addEventListener('change', actualizarModo);
         actualizarModo();
       }
+
+      // ====== LÓGICA: Personalización de alertas de emergencia (simulado) ======
+      const contactsContainer  = document.getElementById('alertsContactsContainer');
+      const newContactInput    = document.getElementById('newAlertContactName');
+      const addContactBtn      = document.getElementById('addAlertContactBtn');
+
+      const alertMessageInput  = document.getElementById('alertMessage');
+      const langEsInput        = document.getElementById('langEs');
+      const langEnInput        = document.getElementById('langEn');
+      const alertTypeSelect    = document.getElementById('alertType');
+      const saveAlertConfigBtn = document.getElementById('saveAlertConfig');
+      const alertConfigStatus  = document.getElementById('alertConfigStatus');
+
+      // Agregar nuevo contacto dinámicamente
+      if (addContactBtn && newContactInput && contactsContainer) {
+        addContactBtn.addEventListener('click', () => {
+          const name = (newContactInput.value || '').trim();
+          if (!name) {
+            alert('Escribe un nombre para el contacto.');
+            return;
+          }
+
+          // Crear nuevo item tipo los demás
+          const label = document.createElement('label');
+          label.className = 'alerts-contact-item';
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'alert-contact';
+          checkbox.value = name;
+          checkbox.checked = true;
+
+          const span = document.createElement('span');
+          span.textContent = name;
+
+          label.appendChild(checkbox);
+          label.appendChild(span);
+          contactsContainer.appendChild(label);
+
+          newContactInput.value = '';
+        });
+      }
+
+      // Guardar configuración (simulado)
+      if (saveAlertConfigBtn) {
+        saveAlertConfigBtn.addEventListener('click', () => {
+          const alertContacts = document.querySelectorAll('.alert-contact');
+
+          const selectedNames = Array.from(alertContacts)
+            .filter(c => c.checked)
+            .map(c => c.value);
+
+          const message = (alertMessageInput.value || '').trim() || 'es una emergencia mi vida peligra';
+          const lang = (langEsInput && langEsInput.checked) ? 'Español' : 'Inglés';
+          const type = alertTypeSelect ? alertTypeSelect.value : 'robo';
+
+          const destinatarios = selectedNames.length
+            ? 'Se avisaría a: ' + selectedNames.join(', ') + '.'
+            : 'No hay contactos seleccionados.';
+
+          alertConfigStatus.textContent =
+            `Configuración de alertas guardada. ${destinatarios} ` +
+            `Mensaje base: "${message}". Idioma: ${lang}. Tipo de alerta por defecto: ${type}.`;
+        });
+      }
     });
   </script>
 </body>
 </html>
+
