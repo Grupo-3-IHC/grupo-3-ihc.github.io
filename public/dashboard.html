@@ -14,34 +14,40 @@
 
 <main class="grid-container">
 
-    <!-- Columna Izquierda -->
+    <!-- COLUMNA IZQUIERDA -->
     <section class="left-column">
 
-        <div class="card">
+        <!-- Zona actual -->
+        <div class="card current-zone">
             <h2>Zona actual</h2>
             <p>Miraflores Calle 42</p>
         </div>
 
-        <div class="card map">
-            <img src="assets/images/map_.png" alt="Mapa">
+        <!-- Mapa -->
+        <div class="card map-card">
+            <img src="assets/images/mapa.png" alt="Mapa de la zona" class="map-image">
         </div>
 
-        <div class="card notify">
+        <!-- Notificaciones -->
+        <div class="card notifications">
             <h2>Notificaciones</h2>
-            <div class="notification-item">
-                <strong>Ubicación:</strong> Callao <br>
-                <strong>Tipo:</strong> Robo armado
+
+            <div class="notif-item">
+                <p><strong>Ubicación:</strong> Callao</p>
+                <p><strong>Tipo:</strong> Robo armado</p>
             </div>
-            <div class="notification-item">
-                <strong>Ubicación:</strong> Comas
+
+            <div class="notif-item">
+                <p><strong>Ubicación:</strong> Comas</p>
             </div>
         </div>
 
     </section>
 
-    <!-- Columna Derecha -->
+    <!-- COLUMNA DERECHA -->
     <section class="right-column">
 
+        <!-- Estado del dispositivo -->
         <div class="card device-status">
             <h2>Estado del dispositivo</h2>
             <p><span class="dot"></span> Estado: Lorem</p>
@@ -49,40 +55,65 @@
             <p>Última sincronización</p>
         </div>
 
+        <!-- Mensajes -->
         <div class="card messages">
             <h2>Mensajes</h2>
             <div class="message-item">
-                <img src="https://i.pravatar.cc/300?img=5" class="avatar">
+                <img src="https://i.pravatar.cc/300?img=5" class="avatar" alt="Avatar">
                 <p>¡Hola!, ¿cómo estás?</p>
             </div>
         </div>
 
+        <!-- HORARIOS DE RIESGO (debajo de Mensajes) -->
+        <div class="card risk-config">
+            <h2>Horarios de riesgo</h2>
+            <p>Configura el horario en el que quieres recibir alertas preventivas.</p>
+
+            <div class="risk-row">
+                <div class="risk-field">
+                    <label for="risk-start">Inicio</label>
+                    <input type="time" id="risk-start">
+                </div>
+
+                <div class="risk-field">
+                    <label for="risk-end">Fin</label>
+                    <input type="time" id="risk-end">
+                </div>
+            </div>
+
+            <button id="save-risk-time" class="risk-save-btn">Guardar</button>
+            <p id="risk-message" class="risk-message"></p>
+        </div>
+
+        <!-- TARJETA DE ALERTA PREVENTIVA -->
+        <div id="risk-warning" class="card risk-warning" style="display:none;">
+            <h2>Alerta de horario de riesgo</h2>
+            <p id="risk-warning-text"></p>
+        </div>
+
     </section>
-
-    <div class="bottom-bar">
-        <a href="dashboard.html" class="btn">
-            <img src="assets/images/home.png" class="icon">
-        </a>
-
-        
-        <a href="comunidad.html" class="btn">
-            <img src="assets/images/msg.png" class="icon">
-        </a>
-
-        <a href="panicSvadm.html" class="btn alerta-btn">
-            <img src="assets/images/button.png" class="icon alerta">
-        </a>
-
-        <a href="map.html" class="btn">
-            <img src="assets/images/map.png" class="icon">
-        </a>
-
-        <a href="config.html" class="btn">
-        <img src="assets/images/config.png" class="icon">
-        </a>
-    </div>
 
 </main>
 
+<!-- Barra inferior -->
+<div class="bottom-bar">
+    <a href="comunidad.html" class="btn">
+        <img src="assets/images/msg.png" class="icon" alt="Comunidad">
+    </a>
+
+    <a href="panicSvadm.html" class="btn alerta-btn">
+        <img src="assets/images/button.png" class="icon alerta" alt="Botón de pánico">
+    </a>
+
+    <a href="map.html" class="btn">
+        <img src="assets/images/map.png" class="icon" alt="Mapa">
+    </a>
+
+    <a href="config.html" class="btn">
+        <img src="assets/images/config.png" class="icon" alt="Configuración">
+    </a>
+</div>
+
 <script src="assets/scripts/dashboard.js"></script>
 </body>
+</html>
