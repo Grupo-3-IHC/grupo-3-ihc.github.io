@@ -103,7 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LOGIN MOCK ---
     document.getElementById('loginForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        window.location.href = "dashboard.html"; // Simulate redirect
-    });
+    e.preventDefault();
+
+    const emailInput = document.getElementById('login-email').value;
+    const passwordInput = document.getElementById('login-password').value; // Aunque no se usa, es buena práctica recuperarlo.
+
+    // 1. Verificación de Administrador
+    if (emailInput === "admin@gmail.com") {
+        // Muestra la ventana emergente de confirmación
+        const isConfirmed = confirm("Inicio de Sesión Especial:\n\n¿Desea ingresar como Administrador?");
+
+        if (isConfirmed) {
+            alert("¡Bienvenido, Administrador! Redirigiendo a panel de administración.");
+            // Redirige al panel de administración (puedes cambiar esta ruta)
+            window.location.href = "dashboard.html"; 
+        } else {
+            alert("Ingresando como usuario normal.");
+            // Continúa a la página de usuario normal
+            window.location.href = "dashboard.html"; 
+        }
+    } else {
+        // 2. Comportamiento de Login Normal (mock en este caso)
+        alert("Iniciando sesión como usuario normal.");
+        window.location.href = "dashboard.html"; // Simular redirección a dashboard normal
+    }
+});
 });
