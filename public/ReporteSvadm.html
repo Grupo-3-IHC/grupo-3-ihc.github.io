@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Reportes</title>
+    <link rel="stylesheet" href="assets/styles/ReporteSvadm.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="reports-screen" class="container active-screen"> 
+    <header class="header">
+        <span class="material-icons back-icon">arrow_back</span> 
+        <h1>Reportes</h1>
+    </header>
+
+    <main class="reports-list-card">
+    
+    <div class="report-item" id="carlos-soto-item">
+        <div class="report-info">
+            <span class="material-icons person-icon">person_outline</span>
+            <span class="reporter-name">Carlos Soto 
+                <span class="destacado-label hidden-label">- DESTACADO</span>
+                <span class="sospechoso-label hidden-label">- SOSPECHOSO</span> 
+            </span> <p class="report-summary">Denunció el hurto de sus pertenencias dentro del transporte</p>
+        </div>
+        <button class="btn-more" id="verMasCarlos">Ver más</button>
+    </div>
+
+        <div class="report-item">
+            <div class="report-info">
+                <span class="material-icons person-icon">person_outline</span>
+                <span class="reporter-name">Lucía Fernández</span>
+                <p class="report-summary">Fue intimidada por desconocidos al salir de un cajero automático...</p>
+            </div>
+            <button class="btn-more">Ver más</button>
+        </div>
+        
+        <div class="report-item">
+            <div class="report-info">
+                <span class="material-icons person-icon">person_outline</span>
+                <span class="reporter-name">Rodrigo Vega</span>
+                <p class="report-summary">Presenció un asalto armado en un local comercial cercano...</p>
+            </div>
+            <button class="btn-more">Ver más</button>
+        </div>
+        
+        <div class="report-item">
+            <div class="report-info">
+                <span class="material-icons person-icon">person_outline</span>
+                <span class="reporter-name">María González</span>
+                <p class="report-summary">Ha sido víctima de un asalto camino al trabajo...</p>
+            </div>
+            <button class="btn-more">Ver más</button>
+        </div>
+        
+        <div class="report-item">
+            <div class="report-info">
+                <span class="material-icons person-icon">person_outline</span>
+                <span class="reporter-name">Alejandro Poblete</span>
+                <p class="report-summary">Ha sufrido un robo a mano armada cerca de tu zona...</p>
+            </div>
+            <button class="btn-more">Ver más</button>
+        </div>
+
+        <div class="action-buttons-group">
+            <button class="btn-main-action" id="goToPublish">Publicar un reporte</button>
+            <button class="btn-secondary-action" id="goToHistory">Ver historial de reportes</button>
+            <button class="btn-secondary-action revision-btn" id="goToReview">Solicitar revision de reporte</button>   
+    </main>
+    </div>
+
+
+    <div id="reporte-carlos-screen" class="container hidden-screen">
+    <header class="header">
+        <span class="material-icons back-icon">arrow_back</span>
+        <h1>Infor. reporte</h1>
+    </header>
+
+    <main class="report-card">
+        <section class="report-section">
+            <h2>Actividad ocurrida</h2>
+            <p>Denunció el hurto de sus pertenencias dentro del transporte</p>
+        </section>
+
+        <section class="report-section description-section">
+            <h2>Descripción:</h2>
+            <p>Carlos denunció el hurto de sus pertenencias dentro del transporte público. Mientras viajaba en un bus con dirección al centro de la ciudad, notó al descender que su mochila había sido abierta y que le faltaban su billetera y documentos personales.</p>
+        </section>
+
+        <section class="report-section">
+            <h2>Ubicación del incidente:</h2>
+            <p>Dentro de un bus del recorrido 210, en dirección al centro de Santiago, comuna de Estación Central.</p>
+        </section>
+
+        <section class="report-section">
+            <h2>Hora y fecha del incidente:</h2>
+            <p>Martes 22 de octubre de 2025, aproximadamente a las 07:45 a.m.</p>
+        </section>
+        
+        <section class="validation-section">
+            <p class="validation-question">¿Qué te pareció el reporte?</p>
+            <div class="button-group">
+                <button class="btn valid-btn" id="goToValidationReasons">Reporte válido</button>
+                <button class="btn invalid-btn" id="goToInvalidationReasons">Reporte no válido</button> </div>
+        </section>
+    </main>
+    </div>
+
+
+    <div id="publish-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Publicar reporte</h1>
+        </header>
+
+        <main class="publish-card">
+            <section class="report-field">
+                <label for="activity">Actividad ocurrida</label>
+                <input type="text" id="activity" value="Sufrir robo de pertenencias en la calle">
+            </section>
+
+            <section class="report-field">
+                <label for="description">Descripción:</label>
+                <textarea id="description">Mientras caminaba por la avenida principal rumbo a su trabajo, dos sujetos en motocicleta se acercaron y le arrebataron su cartera, donde llevaba su celular, documentos personales y dinero en efectivo. [PALABRA OFENSIVA ]</textarea>
+            </section>
+
+            <section class="report-field">
+                <label for="location">Ubicación del incidente:</label>
+                <input type="text" id="location" placeholder="Especifica....">
+            </section>
+
+            <section class="report-field">
+                <label for="datetime">Hora y fecha del incidente:</label>
+                <input type="text" id="datetime" placeholder="Especifica....">
+            </section>
+
+            <button class="btn-confirm">Confirmar reporte</button>
+        </main>
+    </div>
+
+
+    <div id="review-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Revisión reporte</h1>
+        </header>
+
+        <main class="review-card">
+            <div class="review-box">
+                <h2>Aviso</h2>
+                <p>Tu reporte no cumple con las normas de la comunidad. Por favor evita usar lenguaje ofensivo o proporcionar contenido inapropiado</p>
+                <button class="btn-ok" id="returnToPublish">Ok</button>
+            </div>
+        </main>
+    </div>
+    
+
+    <div id="success-screen" class="container hidden-screen">
+        <header class="header">
+            <h1>Publicar reporte</h1>
+        </header>
+
+        <main class="success-card">
+            <div class="success-box">
+                <p class="success-message">Reporte publicado<br>con éxito</p>
+                <button class="btn-close-success" id="closeSuccess">CERRAR</button>
+            </div>
+        </main>
+    </div>
+
+
+    <div id="history-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Historial reporte</h1>
+        </header>
+
+        <main class="history-card">
+            <h2 class="history-title">Tus reportes invalidados:</h2>
+
+            <div class="report-item history-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú)</span>
+                    <p class="report-summary">Fue asaltado al salir del cajero automático</p>
+                </div>
+                <button class="btn-more" id="viewHistoryReport1">Ver</button>
+            </div>
+
+            <div class="report-item history-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú)</span>
+                    <p class="report-summary">Denunció amenazas por parte de desconocidos</p>
+                </div>
+                <button class="btn-more">Ver</button>
+            </div>
+            
+            <div class="report-item history-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú)</span>
+                    <p class="report-summary">Reportó intento de asalto en la vía pública</p>
+                </div>
+                <button class="btn-more">Ver</button>
+            </div>
+
+            
+            <div class="report-item history-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú)</span>
+                    <p class="report-summary">Denunció allanamiento en su vivienda</p>
+                </div>
+                <button class="btn-more">Ver</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="validation-reasons-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Reportes</h1>
+        </header>
+
+        <main class="reasons-card">
+            <h2 class="reasons-title">Selecciona una razón por la que validas este reporte</h2>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Es confiable</h3>
+                    <p>Proviene de una fuente o situación que considero segura y verídica.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Está bien detallado</h3>
+                    <p>Incluye suficiente contexto, evidencia o explicación.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Es preciso</h3>
+                    <p>La información coincide con lo observado o con datos verificables.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="invalidation-reasons-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Reportes</h1>
+        </header>
+
+        <main class="reasons-card">
+            <h2 class="reasons-title">Selecciona una razón por la que no validas este reporte</h2>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Es sospechoso</h3>
+                    <p>La información parece falsa, manipulada o dudosa.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Está incompleto o poco claro</h3>
+                    <p>No tiene suficiente información para ser evaluado.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+
+            <div class="reason-item">
+                <div class="reason-info">
+                    <h3>Contiene errores</h3>
+                    <p>Datos incorrectos, desactualizados o contradictorios.</p>
+                </div>
+                <button class="btn-select validation-reason-btn">Seleccionar</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="view-history-report-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Ver reporte</h1>
+        </header>
+
+        <main class="report-card">
+            <section class="report-section">
+                <h2>Actividad ocurrida</h2>
+                <p>Sufrir robo de pertenencias en la calle</p>
+            </section>
+
+            <section class="report-section description-section">
+                <h2>Descripción:</h2>
+                <p>Sufrió el robo de sus pertenencias en plena vía pública. Mientras caminaba por la avenida principal rumbo a su trabajo, dos sujetos en motocicleta se acercaron y le arrebataron su cartera, donde llevaba su celular, documentos personales y dinero en efectivo.</p>
+            </section>
+
+            <section class="report-section">
+                <h2>Ubicación del incidente:</h2>
+                <p>Comas – Calle Los Pinos (32)</p>
+            </section>
+
+            <section class="report-section">
+                <h2>Hora y fecha del incidente:</h2>
+                <p>9:35 p.m. - 20/10/2025</p>
+            </section>
+        </main>
+    </div>
+
+    <div id="review-list-screen" class="container hidden-screen">
+        <header class="header">
+            <span class="material-icons back-icon">arrow_back</span>
+            <h1>Revisión reporte</h1>
+        </header>
+
+        <main class="history-card">
+            <h2 class="history-title">Tus reportes invalidados:</h2>
+
+            <div class="report-item history-item history-invalid-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú) - <span class="history-invalid-label">SOSPECHOSO</span></span>
+                    <p class="report-summary">Fue asaltado al salir del cajero automático</p>
+                </div>
+                <button class="btn-more" id="goToModerationAviso">Revisar</button>
+            </div>
+
+            <div class="report-item history-item history-invalid-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú) - <span class="history-invalid-label">SOSPECHOSO</span></span>
+                    <p class="report-summary">Denunció amenazas por parte de desconocidos</p>
+                </div>
+                <button class="btn-more">Revisar</button>
+            </div>
+            
+            <div class="report-item history-item history-invalid-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú) - <span class="history-invalid-label">SOSPECHOSO</span></span>
+                    <p class="report-summary">Reportó intento de asalto en la vía pública</p>
+                </div>
+                <button class="btn-more">Revisar</button>
+            </div>
+
+            <div class="report-item history-item history-invalid-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú) - <span class="history-invalid-label">SOSPECHOSO</span></span>
+                    <p class="report-summary">Denunció acoso por parte de un desconocido en la vía pública</p>
+                </div>
+                <button class="btn-more">Revisar</button>
+            </div>
+            
+            <div class="report-item history-item history-invalid-item">
+                <div class="report-info">
+                    <span class="material-icons person-icon">person_outline</span>
+                    <span class="reporter-name">Sebastian Diaz (Tú) - <span class="history-invalid-label">SOSPECHOSO</span></span>
+                    <p class="report-summary">Denunció allanamiento en su vivienda</p>
+                </div>
+                <button class="btn-more">Revisar</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="moderation-aviso-screen" class="container hidden-screen">
+        <header class="header">
+            <h1>Revisión reporte</h1>
+        </header>
+
+        <main class="review-card">
+            <div class="review-box">
+                <h2>Aviso</h2>
+                <p>Se ha enviado a un moderador la publicación para determinar si ha sido correctamente invalidado tu reporte.</p>
+                <button class="btn-ok" id="goToValidationAviso">Ok</button> 
+            </div>
+        </main>
+    </div>
+
+    <div id="validation-accepted-aviso-screen" class="container hidden-screen">
+        <header class="header">
+            <h1>Revisión reporte</h1>
+        </header>
+
+        <main class="review-card">
+            <div class="review-box">
+                <h2>Aviso</h2>
+                <p>Tu solicitud ha sido aceptada y validada por un administrador</p>
+                <button class="btn-ok" id="returnToReviewList">Ok</button> 
+            </div>
+        </main>
+    </div>
+
+    <div class="bottom-bar—barrainferior">
+    <a href="dashboard.html" class="btn—barrainferior">
+        <img src="assets/images/home.png" class="icon—barrainferior">
+    </a>
+
+    <a href="comunidad.html" class="btn—barrainferior">
+        <img src="assets/images/msg.png" class="icon—barrainferior">
+    </a>
+
+    <a href="panicSvadm.html" class="btn—barrainferior alerta-btn—barrainferior">
+        <img src="assets/images/button.png" class="icon—barrainferior alerta—barrainferior">
+    </a>
+
+    <a href="map.html" class="btn—barrainferior">
+        <img src="assets/images/map.png" class="icon—barrainferior">
+    </a>
+
+    <a href="config.html" class="btn—barrainferior">
+        <img src="assets/images/config.png" class="icon—barrainferior">
+    </a>
+</div>
+
+
+    <script src="assets/scripts/ReporteSvadm.js"></script>
+</body>
+</html>
