@@ -26,14 +26,25 @@ body {
     padding: 15px;
     display: flex;
     align-items: center;
+    position: relative;  
     font-size: 22px;
     font-weight: bold;
 }
+
+.titleChat {
+    color: #FFF;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);  
+    font-size: 22px;
+}
+
 
 .back {
     margin-right: 10px;
     cursor: pointer;
     transition: transform 0.2s;
+    color: #FFFF;
 }
 
 .back:hover {
