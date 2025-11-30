@@ -16,7 +16,7 @@ body {
 /* HEADER */
 
 .header {
-  background: #2ec9b9;
+  background: #A1E3DC;
   padding: 0.9rem 1rem;
   display: flex;
   align-items: center;
@@ -620,5 +620,6 @@ main {
 #view-drafts .mis-pub-actions .btn-eliminar {
   display: inline-flex;      /* o inline-block */
 }
+
 
 
