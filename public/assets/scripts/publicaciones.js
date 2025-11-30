@@ -75,6 +75,37 @@ let currentCommentsCard = null;
 let replyingToCommentId = null;
 let commentIdCounter    = 1;
 
+
+// ===== DETECCIÓN DE PUBLICACIONES SIMILARES =====
+function detectarPublicacionSimilar(titulo, descripcion, ubicacion) {
+  const cards = Array.from(document.querySelectorAll('#view-list .mis-pub-card'));
+  const normalizar = (txt) =>
+    txt.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const nuevaDesc = normalizar(descripcion);
+  const nuevaUbic = normalizar(ubicacion);
+  for (const card of cards) {
+    const descExistente = normalizar(card.querySelector('.campo-descripcion').textContent);
+    const ubicExistente = normalizar(card.querySelector('.campo-ubicacion').textContent);
+    const mismaUbicacion =
+      nuevaUbic.includes(ubicExistente) || ubicExistente.includes(nuevaUbic);
+    const descParecida =
+      nuevaDesc.includes(descExistente.substring(0, 30)) ||
+      descExistente.includes(nuevaDesc.substring(0, 30));
+    if (mismaUbicacion && descParecida) {
+      return card; 
+    }
+  }
+  return null;
+}
+
+function mostrarAlertaSimilar(card) {
+  const titulo = card.querySelector('.campo-titulo').textContent;
+  const estado = card.dataset.status;
+  modalTexto.textContent =
+    `Ya existe un reporte similar registrado: "${titulo}". Estado actual: ${estado}.`;
+  modal.classList.remove('hidden');
+}
+
 // ===== UTILIDADES =====
 function formatDateTime(date) {
   const d = String(date.getDate()).padStart(2, '0');
@@ -824,6 +855,7 @@ function createNewDraftCard(imgSrc) {
 // ===== SUBMIT PUBLICAR =====
 editForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  const sim = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim){ mostrarAlertaSimilar(sim); return; }
 
   if (isCreating) {
     const file = editImagen.files[0];
@@ -928,6 +960,7 @@ editForm.addEventListener('submit', (e) => {
 
 // ===== GUARDAR BORRADOR =====
 btnGuardarBorrador.addEventListener('click', () => {
+  const sim2 = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim2){ mostrarAlertaSimilar(sim2); return; }
   if (isCreating) {
     if (!canAddDraft()) return;
 
@@ -1191,6 +1224,7 @@ document.addEventListener('click', (e) => {
 // Enviar comentario
 commentForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  const sim = detectarPublicacionSimilar(editTitulo.value, editDescripcion.value, editUbicacion.value); if(sim){ mostrarAlertaSimilar(sim); return; }
   if (!currentCommentsCard) return;
 
   const status = currentCommentsCard.dataset.status;
