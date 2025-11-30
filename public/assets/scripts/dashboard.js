@@ -67,9 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const schedule = { start, end };
     localStorage.setItem("riskSchedule", JSON.stringify(schedule));
 
-    // Reiniciamos las marcas de notificación para el día
-    localStorage.removeItem("riskNotifiedStartDate");
-    localStorage.removeItem("riskNotifiedEndDate");
+    // Reiniciamos la marca de notificación para el día
+    localStorage.removeItem("riskNotifiedDate");
 
     showMessage("Horario de riesgo guardado correctamente.", "success");
   });
@@ -106,50 +105,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date();
     const nowMinutes = now.getHours() * 60 + now.getMinutes();
     const startMinutes = parseTimeToMinutes(start);
-    const endMinutes = parseTimeToMinutes(end);
 
     const todayStr = getTodayString();
-    const notifiedStartDate = localStorage.getItem("riskNotifiedStartDate");
-    const notifiedEndDate = localStorage.getItem("riskNotifiedEndDate");
+    const notifiedDate = localStorage.getItem("riskNotifiedDate");
 
-    // Minutos que faltan para inicio y fin
-    const diffToStart = startMinutes - nowMinutes;
-    const diffToEnd = endMinutes - nowMinutes;
+    // Solo avisar una vez por día
+    if (notifiedDate === todayStr) {
+      return;
+    }
 
-    // Rango deseado: entre 20 y 15 minutos antes
-    const MIN_BEFORE = 15;
-    const MAX_BEFORE = 20;
+    // Minutos que faltan para el inicio
+    const diff = startMinutes - nowMinutes;
 
-    // ---- Aviso antes de INICIO ----
-    if (
-      diffToStart <= MAX_BEFORE &&
-      diffToStart >= MIN_BEFORE &&
-      notifiedStartDate !== todayStr
-    ) {
+    // Si faltan entre 0 y 5 minutos para el inicio → alerta preventiva
+    // (puedes cambiar 5 por 10 o el número que quieras)
+    if (diff >= 0 && diff <= 5) {
       if (warningCard && warningText) {
         warningText.textContent =
           `Tu periodo de riesgo configurado está por iniciar (${start} - ${end}). ` +
-          `Faltan aproximadamente ${diffToStart} minutos. Toma precauciones al abrir tu negocio.`;
+          `Toma precauciones al abrir o cerrar tu negocio.`;
         warningCard.style.display = "block";
       }
 
-      localStorage.setItem("riskNotifiedStartDate", todayStr);
-    }
-
-    // ---- Aviso antes de FIN ----
-    if (
-      diffToEnd <= MAX_BEFORE &&
-      diffToEnd >= MIN_BEFORE &&
-      notifiedEndDate !== todayStr
-    ) {
-      if (warningCard && warningText) {
-        warningText.textContent =
-          `Tu periodo de riesgo configurado está por terminar (${start} - ${end}). ` +
-          `Faltan aproximadamente ${diffToEnd} minutos. Toma precauciones al cerrar tu negocio.`;
-        warningCard.style.display = "block";
-      }
-
-      localStorage.setItem("riskNotifiedEndDate", todayStr);
+      // Marcamos que ya notificamos hoy
+      localStorage.setItem("riskNotifiedDate", todayStr);
     }
   }
 
@@ -158,3 +137,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Y luego cada minuto
   setInterval(checkRiskSchedule, 60 * 1000);
 });
+
+
