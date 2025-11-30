@@ -52,6 +52,41 @@
             <option value="relevancia_asc">Menor relevancia</option>
           </select>
         </div>
+
+      <!-- FILTROS -->
+      <div class="filters-wrapper">
+        <div class="filter-group">
+          <label for="filterCategory">Filtrar por tipo de incidente</label>
+          <input
+            type="text"
+            id="filterCategory"
+            placeholder='Ej: "robo", "accidente"...'
+          >
+        </div>
+
+        <div class="filter-group">
+          <label for="filterZone">Filtrar por zona</label>
+          <input
+            type="text"
+            id="filterZone"
+            placeholder='Ej: "Miraflores", "San Juan de Lurigancho"...'
+          >
+        </div>
+
+        <div class="filter-group">
+          <label>Filtrar por rango de fechas</label>
+          <div class="filter-dates-row">
+            <input type="date" id="filterDateFrom">
+            <span class="filter-date-separator">a</span>
+            <input type="date" id="filterDateTo">
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" id="applyFilters">Aplicar filtros</button>
+          <button type="button" id="clearFilters">Quitar filtros</button>
+        </div>
+      </div>
       </div>
 
       <div class="mis-pub-grid">
@@ -1004,8 +1039,9 @@
 
         <label class="edit-label privacy-row">
           <input type="checkbox" id="modoPrivado">
-          Modo privado (ocultar nombre y ubicación)
+          Modo privado (ocultar mi nombre y ubicación)
         </label>
+
 
         <div class="auto-ubicacion-row">
            <label>
@@ -1122,9 +1158,6 @@
         <button type="submit" class="comment-submit">Enviar</button>
       </form>
 
-      <!-- Vista previa de publicación -->
-      <div id="previewCard" class="mis-pub-card hidden" style="margin-top:1rem;"></div>
-
       <button id="modalCommentsClose" class="modal-ok">Cerrar</button>
     </div>
   </div>
@@ -1132,6 +1165,7 @@
   <script src="assets/scripts/publicaciones.js"></script>
 </body>
 </html>
+
 
 
 
