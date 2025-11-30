@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Web</title>
+    <link rel="stylesheet" href="assets/styles/dashboard.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>Hola, Álvaro</h1>
+</header>
+
+<main class="grid-container">
+
+    <!-- Columna Izquierda -->
+    <section class="left-column">
+
+        <div class="card">
+            <h2>Zona actual</h2>
+            <p>Miraflores Calle 42</p>
+        </div>
+
+        <div class="card map">
+            <img src="assets/img/mapa_real.png" alt="Mapa">
+        </div>
+
+        <div class="card notify">
+            <h2>Notificaciones</h2>
+            <div class="notification-item">
+                <strong>Ubicación:</strong> Callao <br>
+                <strong>Tipo:</strong> Robo armado
+            </div>
+            <div class="notification-item">
+                <strong>Ubicación:</strong> Comas
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Columna Derecha -->
+    <section class="right-column">
+
+        <div class="card device-status">
+            <h2>Estado del dispositivo</h2>
+            <p><span class="dot"></span> Estado: Lorem</p>
+            <p>Batería: X%</p>
+            <p>Última sincronización</p>
+        </div>
+
+        <div class="card messages">
+            <h2>Mensajes</h2>
+            <div class="message-item">
+                <img src="https://via.placeholder.com/60" class="avatar">
+                <p>¡Hola!, ¿cómo estás?</p>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="bottom-bar">
+        <a href="dashboard.html" class="btn">
+            <img src="assets/images/home.png" class="icon">
+        </a>
+
+        <a href="communidad.html" class="btn">
+            <img src="assets/images/msg.png" class="icon">
+        </a>
+
+        <a href="panicSvadm.html" class="btn alerta-btn">
+            <img src="assets/images/button.png" class="icon alerta">
+        </a>
+
+        <a href="map.html" class="btn">
+            <img src="assets/images/map.png" class="icon">
+        </a>
+
+        <a href="config.html" class="btn">
+        <img src="assets/images/config.png" class="icon">
+        </a>
+    </div>
+
+</main>
+
+<script src="assets/scripts/dashboard.js"></script>
+</body>
