@@ -82,6 +82,37 @@ body {
     vertical-align: middle;
 }
 
+
+.report-card {
+   
+    padding: 20px; 
+}
+
+.report-section {
+    background-color: #fcfcfc; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 15px 20px;
+    margin-bottom: 15px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
+}
+
+.report-section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.report-section p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 0; 
+}
+
+
 .person-icon {
     color: #38c7b8;
     font-size: 1.3rem;
@@ -598,4 +629,5 @@ body {
     height: 32px;
 
 }
+
 
