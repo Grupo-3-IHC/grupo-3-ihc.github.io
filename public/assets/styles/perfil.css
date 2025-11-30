@@ -6,7 +6,8 @@ body {
 
 /* Top bar */
 .topbar {
-    background: #b4efe9;
+    background: #A1E3DC;
+    color: white;
     padding: 15px;
     display: flex;
     align-items: center;
