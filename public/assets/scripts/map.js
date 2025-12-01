@@ -145,9 +145,9 @@ const publicaciones = [
     sospechoso: true,
     descripcion: "Asalto violento a un transeúnte en la esquina. El agresor portaba un arma de fuego y actuó con violencia. Se recomienda evitar la zona a esta hora.",
     imgs: [
-      "assets/images/Robo1.png",
-      "assets/images/Robo1.png",
-      "assets/images/Robo1.png"
+      "assets/images/robo1.png",
+      "assets/images/robo1.png",
+      "assets/images/robo1.png"
     ]
   },
   {
@@ -162,7 +162,7 @@ const publicaciones = [
     sospechoso: false,
     descripcion: "Rompieron la ventana de mi auto estacionado y se llevaron una mochila con una laptop. No había personal de seguridad cerca en ese momento.",
     imgs: [
-      "assets/images/Robo3.png"
+      "assets/images/robo3.png"
     ]
   }
 ];
@@ -391,3 +391,4 @@ if (btnActivarTrayecto && inputDestino) {
     }
   });
 }
+
