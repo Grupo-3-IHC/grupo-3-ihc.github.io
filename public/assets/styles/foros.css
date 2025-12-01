@@ -10,6 +10,8 @@
 
 body {
   background-color: #F8F3ED;
+  /* Espacio extra para que no se oculte nada tras la barra */
+  padding-bottom: 80px; 
 }
 
 /* =======================
@@ -47,15 +49,16 @@ body {
   width: 5rem;
   height: 2rem;
   border: none;
-  background: white;
+  background: transparent;
   border-radius: 8px;
   cursor: pointer;
+  color: white;
+  font-size: 1.5rem; 
   transition: .3s;
 }
 
 .main-header-back button:hover {
   transform: translateY(-50%) translateY(-5px);
-  background: #e2e2e2;
 }
 
 /* =======================
@@ -203,7 +206,6 @@ body {
   width: 100%;
 }
 
-
 .mini-button {
   display: flex;
   align-items: center;
@@ -233,18 +235,6 @@ body {
   width: 100%;
 }
 
-.mini-button-1 {
-  display: flex;
-  align-items: center;
-  gap: .3rem;
-  padding: .4rem .8rem;
-  border-radius: 6px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: .3s;
-  background: #E0E0E0;
-}
-
 .mini-button.active,
 .mini-button-1.active {
   border-color: #A1E3DC;
@@ -259,14 +249,6 @@ body {
 .stat-bar-ul li {
   width: 100%;
 }
-
-.mini-button,
-.mini-button-1 {
-  width: 100%;
-  justify-content: center;
-}
-
-
 
 .mini-button:hover,
 .mini-button-1:hover {
@@ -345,7 +327,12 @@ body {
 .comment-delete {
   margin-left: .75rem;
   font-size: .75rem;
-  color: #c0c0c0;
+  color: #ff4444; /* Rojo para destacar */
+  cursor: pointer;
+}
+
+.comment-delete:hover {
+  text-decoration: underline;
 }
 
 /* burbuja del comentario */
@@ -384,29 +371,28 @@ body {
 }
 
 /* =======================
-   POPUP SOSPECHOSO
+   POPUP SOSPECHOSO (FIXED OVERLAP)
 ======================= */
 .report-popup {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: white;
-  border: 2px solid #A1E3DC;
+  /* Levantado para no chocar con el bottom-bar (70px) */
+  bottom: 90px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 50px;
   display: none;
   animation: fadeIn .3s ease-out;
+  /* Z-index mayor que el bottom-bar (1000) */
+  z-index: 2000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }
 
 /* =======================
@@ -420,7 +406,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  z-index: 999;
+  z-index: 3000;
 }
 
 .fullview-card {
@@ -431,9 +417,9 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  max-height: 90vh;
 }
 
-/* header tipo pantalla "Post" */
 .fullview-header {
   background: #A1E3DC;
   padding: 0.8rem 1rem;
@@ -460,78 +446,60 @@ body {
   width: 1.4rem;
 }
 
-/* cuerpo scrollable del post completo */
 .fullview-body {
   padding: 1rem 1.2rem 1.5rem;
-  max-height: calc(100vh - 90px);
   overflow-y: auto;
 }
 
 /* =======================
-   RESPONSIVE
+   BOTTOM BAR (UNMODIFIED)
 ======================= */
-@media (max-width: 600px) {
-  .comment-delete {
-    display: none;
-  }
-
-  .fullview-card {
-    max-width: 100%;
-    border-radius: 0;
-  }
-
-  .fullview-overlay {
-    padding: 0;
-  }
-}
-
 .bottom-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    height: 70px;
-    background: white;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    border-top: 1px solid #ccc;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  z-index: 1000;
 }
 
 .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 8px;
-    border-radius: 10px;
-    transition: background 0.2s, filter 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px;
+  transition: background 0.2s, filter 0.2s;
 }
 
 .btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-    filter: brightness(0.9);
+  background: rgba(0, 0, 0, 0.08);
+  filter: brightness(0.9);
 }
 
 .icon {
-    width: 28px;
-    height: 28px;
+  width: 28px;
+  height: 28px;
 }
 
 .alerta-btn {
-    background: red;
-    padding: 12px;
-    border-radius: 50%;
+  background: red;
+  padding: 12px;
+  border-radius: 50%;
+  width: 55px; height: 55px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  display: flex; justify-content: center; align-items: center;
 }
 
 .alerta-btn:hover {
-    background: #cc0000;
-    filter: brightness(0.9);
+  background: #cc0000;
+  filter: brightness(0.9);
 }
-
 
 /* =======================
    BOTÓN ADMINISTRADOR
@@ -553,7 +521,6 @@ body {
   transform: translateY(-3px);
 }
 
-/* estado ACTIVO */
 .btn-admin.on {
   border-color: #A1E3DC;
   background: #E0FFFB;
@@ -561,7 +528,7 @@ body {
 }
 
 /* =======================
-   POPUP ADMIN (INFO SENSIBLE)
+   POPUP ADMIN
 ======================= */
 .admin-popup {
   position: fixed;
@@ -578,15 +545,42 @@ body {
   z-index: 1000;
 }
 
-/* modo error (sin permisos) */
 .admin-popup.error {
   border-color: #f87171;
   color: #b91c1c;
 }
 
+/* =======================
+   MODAL PARA REPORTAR USUARIO (NUEVO)
+======================= */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 2500;
+  display: none; /* hidden by default */
+  justify-content: center; align-items: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: #fff; padding: 25px; width: 85%; max-width: 350px;
+  border-radius: 12px; text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.modal-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #333; }
+.modal-text { font-size: 0.95rem; margin-bottom: 20px; color: #555; }
+.modal-actions { display: flex; gap: 10px; justify-content: center; }
+.btn-modal { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-cancel { background: #e0e0e0; color: #333; }
+.btn-confirm { background: #ff4444; color: white; }
 
 /* =======================
-   MAIN CONTENT LAYOUT (TWO COLUMNS)
+   MAIN CONTENT LAYOUT
 ======================= */
 .main-content-layout {
   display: flex;
@@ -595,24 +589,20 @@ body {
 }
 
 .main-content {
-  /* La columna principal (posts) ocupará más espacio */
   flex: 3;
-  min-width: 0; /* Asegura que el contenido se encoja correctamente */
+  min-width: 0;
 }
 
 .weekly-summary-card {
-  /* La columna del resumen ocupará menos espacio */
   flex: 1;
-  min-width: 250px; /* Ancho mínimo para la tarjeta */
-  max-width: 300px; /* Ancho máximo para la tarjeta */
-  
-  /* Estilos de la tarjeta */
+  min-width: 250px;
+  max-width: 300px;
   background: white;
   border: 2px solid #D9D9D9;
   border-radius: 12px;
   padding: 1.5rem;
-  height: fit-content; /* Se ajusta a su contenido */
-  position: sticky; /* Se mantiene visible al hacer scroll */
+  height: fit-content;
+  position: sticky;
   top: 1rem;
 }
 
@@ -647,17 +637,9 @@ body {
   font-weight: bold;
 }
 
-.stat-item.danger .stat-value {
-  color: #d9534f; /* Rojo */
-}
-
-.stat-item.warning .stat-value {
-  color: #f0ad4e; /* Amarillo/Naranja */
-}
-
-.stat-item.safe .stat-value {
-  color: #00C1AA; /* Verde/Cian */
-}
+.stat-item.danger .stat-value { color: #d9534f; }
+.stat-item.warning .stat-value { color: #f0ad4e; }
+.stat-item.safe .stat-value { color: #00C1AA; }
 
 .zone-list {
   list-style: disc;
@@ -671,51 +653,25 @@ body {
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.4;
-  color: #333 !important; /* Sobrescribe el color para un mejor contraste */
+  color: #333 !important;
 }
-
 
 /* =======================
-   RESPONSIVE ADJUSTMENTS FOR NEW LAYOUT
+   RESPONSIVE
 ======================= */
 @media (max-width: 950px) {
-  /* Cuando el viewport es más pequeño, el resumen desaparece */
-  .weekly-summary-card {
-    display: none;
-  }
-
-  /* La columna principal debe ocupar todo el ancho */
-  .main-content {
-    flex: 1;
-  }
-
-  .main-content-layout {
-    /* Elimina el margen superior para compactar el diseño */
-    margin-top: 0;
-  }
-
-  /* Ajustar el contenedor de posts para que ocupe todo el wrapper */
-  .post-container {
-    max-width: none;
-    padding: 0; /* Para aprovechar el padding del wrapper */
-  }
-
-  /* Ajustar los anchos máximos internos del contenido para que usen el 100% del main-content */
-  .navbar-foros {
-    max-width: none;
-  }
-  .search-form {
-    max-width: none;
-  }
-  .btn-relevante-reciente {
-    max-width: none;
-  }
+  .weekly-summary-card { display: none; }
+  .main-content { flex: 1; }
+  .main-content-layout { margin-top: 0; }
+  .post-container { max-width: none; padding: 0; margin-left: 0; margin-right: 0; }
+  .navbar-foros, .search-form, .btn-relevante-reciente { max-width: none; }
 }
 
-/* Ajustes a elementos existentes para que respeten la nueva columna */
-/* Eliminamos el max-width de 700px en post-container para que se ajuste mejor al diseño de 2 columnas. */
-.post-container {
-  max-width: none; /* Antes era 700px. Lo eliminamos para que el contenido fluya. */
-  margin-left: 0;
-  margin-right: 0;
+@media (max-width: 600px) {
+  /* En móvil, quizás quieras que el botón de eliminar siga visible, 
+     quita esta línea si quieres verlo */
+  /* .comment-delete { display: none; } */
+  
+  .fullview-card { max-width: 100%; border-radius: 0; }
+  .fullview-overlay { padding: 0; }
 }
