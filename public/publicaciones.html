@@ -35,61 +35,62 @@
     <!-- VISTA: MIS PUBLICACIONES -->
     <section id="view-list" class="mis-pub">
       <div class="mis-pub-header mis-pub-header-main">
-        <div>
+        <div class="mis-pub-header-left">
           <h2>Mis publicaciones</h2>
           <p class="mis-pub-subtitle">
             Gestiona tus reportes y borradores de incidentes en la ciudad.
           </p>
         </div>
 
-        <!-- Selector de orden -->
-        <div class="sort-wrapper">
-          <label for="sortSelect">Ordenar por:</label>
-          <select id="sortSelect">
-            <option value="recientes">Más recientes</option>
-            <option value="antiguas">Más antiguas</option>
-            <option value="relevancia_desc">Mayor relevancia</option>
-            <option value="relevancia_asc">Menor relevancia</option>
-          </select>
-        </div>
+        <div class="mis-pub-header-right">
+          <!-- Selector de orden -->
+          <div class="sort-wrapper">
+            <label for="sortSelect">Ordenar por:</label>
+            <select id="sortSelect">
+              <option value="recientes">Más recientes</option>
+              <option value="antiguas">Más antiguas</option>
+              <option value="relevancia_desc">Mayor relevancia</option>
+              <option value="relevancia_asc">Menor relevancia</option>
+            </select>
+          </div>
 
-      <!-- FILTROS -->
-      <div class="filters-wrapper">
-        <div class="filter-group">
-          <label for="filterCategory">Filtrar por tipo de incidente</label>
-          <input
-            type="text"
-            id="filterCategory"
-            placeholder='Ej: "robo", "accidente"...'
-          >
-        </div>
+          <!-- Filtros -->
+          <div class="filters-wrapper">
+            <div class="filter-group">
+              <label for="filterCategory">Filtrar por tipo de incidente</label>
+              <input
+                type="text"
+                id="filterCategory"
+                placeholder='Ej: "robo", "accidente"...'
+              >
+            </div>
 
-        <div class="filter-group">
-          <label for="filterZone">Filtrar por zona</label>
-          <input
-            type="text"
-            id="filterZone"
-            placeholder='Ej: "Miraflores", "San Juan de Lurigancho"...'
-          >
-        </div>
+            <div class="filter-group">
+              <label for="filterZone">Filtrar por zona</label>
+              <input
+                type="text"
+                id="filterZone"
+                placeholder='Ej: "Miraflores", "San Juan de Lurigancho"...'
+              >
+            </div>
 
-        <div class="filter-group">
-          <label>Filtrar por rango de fechas</label>
-          <div class="filter-dates-row">
-            <input type="date" id="filterDateFrom">
-            <span class="filter-date-separator">a</span>
-            <input type="date" id="filterDateTo">
+            <div class="filter-group">
+              <label>Filtrar por rango de fechas</label>
+              <div class="filter-dates-row">
+                <input type="date" id="filterDateFrom">
+                <span class="filter-date-separator">a</span>
+                <input type="date" id="filterDateTo">
+              </div>
+            </div>
+
+            <div class="filter-actions">
+              <button type="button" id="applyFilters">Aplicar filtros</button>
+              <button type="button" id="clearFilters">Quitar filtros</button>
+            </div>
           </div>
         </div>
-
-        <div class="filter-actions">
-          <button type="button" id="applyFilters">Aplicar filtros</button>
-          <button type="button" id="clearFilters">Quitar filtros</button>
-        </div>
       </div>
-      </div>
-
-      <div class="mis-pub-grid">
+<div class="mis-pub-grid">
         <!-- Publicación Aprobada 1 -->
         <article class="mis-pub-card" data-status="aprobada">
           <div class="mis-pub-card-header">
