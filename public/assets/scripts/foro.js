@@ -8,19 +8,20 @@ document.querySelectorAll(".vote-up, .vote-down").forEach(btn => {
 });
 
 /* ============================================================
-   MARCAR COMO SOSPECHOSO → POPUP (DELEGACIÓN)
-   Funciona tanto en la vista normal como en el full view
+   GLOBAL EVENT LISTENER (DELEGATION)
+   Handles: Suspicious, Delete Comment, Report User
 ============================================================ */
 let reportTimeoutId = null;
+const reportModal = document.getElementById('reportModal');
 
 document.addEventListener("click", (e) => {
-  // Botón "Marcar como sospechoso"
+  // 1. Botón "Marcar como sospechoso"
   const suspiciousBtn = e.target.closest(".mark-suspicious");
   if (suspiciousBtn) {
     const popup = document.getElementById("reportPopup");
     if (popup) {
       popup.style.display = "block";
-
+      // Clear prev timeout to ensure it stays if clicked rapidly
       if (reportTimeoutId) clearTimeout(reportTimeoutId);
       reportTimeoutId = setTimeout(() => {
         popup.style.display = "none";
@@ -28,13 +29,30 @@ document.addEventListener("click", (e) => {
     }
   }
 
-  // Botón "Eliminar comentario 🗑"
+  // 2. Botón "Eliminar comentario 🗑"
   const deleteBtn = e.target.closest(".comment-delete");
   if (deleteBtn) {
-    const commentItem = deleteBtn.closest(".comment-item");
-    if (commentItem) {
-      commentItem.remove();
+    if(confirm("¿Estás seguro de que quieres eliminar este comentario?")) {
+        const commentItem = deleteBtn.closest(".comment-item");
+        if (commentItem) {
+            commentItem.remove();
+        }
     }
+  }
+
+  // 3. Botón "Reportar usuario" (Opens Modal)
+  const reportBtn = e.target.closest(".comment-report");
+  if (reportBtn) {
+    if (reportModal) reportModal.classList.add("active");
+  }
+
+  // 4. Modal Actions
+  if (e.target.id === "cancelReport") {
+    reportModal.classList.remove("active");
+  }
+  if (e.target.id === "confirmReport") {
+    reportModal.classList.remove("active");
+    alert("Usuario reportado. Gracias por tu colaboración.");
   }
 });
 
@@ -55,19 +73,21 @@ function sendComment(e, inputElement) {
 
   newComment.innerHTML = `
     <div class="comment-header">
-      <div class="avatar-circle">T</div>
+      <div class="avatar-circle" style="background-color:#A1E3DC; color:#004040;">T</div>
       <span class="comment-header-name">Tú</span>
       <span class="comment-report">
         <span class="comment-report-icon">⚠</span>
         Reportar usuario
       </span>
+      <span class="comment-delete" style="color:#ff4444; cursor:pointer;">Eliminar comentario 🗑</span>
     </div>
     <div class="comment-bubble">
       ${text}
     </div>
   `;
 
-  thread.appendChild(newComment);
+  // Insertar al principio del hilo
+  thread.prepend(newComment);
   inputElement.value = "";
 }
 
@@ -92,7 +112,7 @@ function openFullPost(imgElement) {
   const postSection = imgElement.closest(".post-container");
   const clone = postSection.cloneNode(true);
 
-  // En el clon solo quitamos el onclick de la imagen para no abrir otro full view dentro
+  // En el clon quitamos el onclick para evitar recursión
   clone.querySelectorAll("img.main-img").forEach(img => {
     img.removeAttribute("onclick");
   });
@@ -108,9 +128,9 @@ function closeFullView() {
 }
 
 
-// =========================
-// MODO ADMINISTRADOR
-// =========================
+/* ============================================================
+   MODO ADMINISTRADOR & INFO SENSIBLE
+============================================================ */
 let isAdmin = false;
 
 const adminToggleBtn = document.getElementById('adminToggle');
@@ -126,11 +146,11 @@ if (adminToggleBtn) {
       ? 'Administrador: ACTIVO'
       : 'Administrador: INACTIVO';
 
-    // Mensaje pequeño opcional al activar / desactivar
+    // Mensaje pequeño opcional
     if (adminPopup) {
       adminPopup.classList.remove('error');
       adminPopup.textContent = isAdmin
-        ? 'Modo administrador activado. Ahora puedes ver información sensible.'
+        ? 'Modo administrador activado.'
         : 'Modo administrador desactivado.';
       adminPopup.style.display = 'block';
       setTimeout(() => {
@@ -140,18 +160,12 @@ if (adminToggleBtn) {
   });
 }
 
-/**
- * Muestra información sensible del usuario SOLO si el modo administrador está activo.
- * Se usa en el nombre "Edgar Montañez".
- */
 function showSensitiveInfo(element) {
   if (!adminPopup) return;
 
-  // Si NO es admin -> mensaje de error
   if (!isAdmin) {
     adminPopup.classList.add('error');
-    adminPopup.textContent =
-      'No tienes permisos para ver información sensible. Activa el modo Administrador.';
+    adminPopup.textContent = 'No tienes permisos. Activa el modo Administrador.';
     adminPopup.style.display = 'block';
     setTimeout(() => {
       adminPopup.style.display = 'none';
@@ -159,7 +173,6 @@ function showSensitiveInfo(element) {
     return;
   }
 
-  // Si es admin -> mostrar datos sensibles del usuario
   const userName = element.dataset.user || 'Usuario';
 
   adminPopup.classList.remove('error');
@@ -167,8 +180,7 @@ function showSensitiveInfo(element) {
     <strong>${userName}</strong><br>
     Cuenta creada: 15/03/2023<br>
     Último inicio de sesión: 12/06/2025 21:34<br>
-    Correo: edgar.montanez@example.com<br>
-    Teléfono verificado: +51 987 654 321
+    Correo: email@example.com
   `;
   adminPopup.style.display = 'block';
 
