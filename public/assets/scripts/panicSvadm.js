@@ -26,46 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let confirmationTimeout;
     const COUNTDOWN_SECONDS = 5;
 
-    // --- Control de uso del botón de pánico ---
-    let alertCount = 0;
-    const MAX_ALERTS = 3;
-    const ALERT_COOLDOWN_MS = 3 * 1000; // 60 segundos de bloqueo
+    // --- Cooldown del botón de pánico (10 segundos) ---
+    const ALERT_COOLDOWN_MS = 10 * 1000; // 10 segundos
     let lastAlertTimestamp = 0;
-
-    // Guardar/leer estado para que se mantenga aunque el usuario salga y vuelva
-    const STORAGE_KEY = 'panicAlertControl_v1';
-
-    function saveAlertState() {
-        try {
-            const data = {
-                alertCount,
-                lastAlertTimestamp
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch (e) {
-            console.error('Error guardando estado de alerta:', e);
-        }
-    }
-
-    function loadAlertState() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) return;
-
-            const data = JSON.parse(raw);
-            if (typeof data.alertCount === 'number') {
-                alertCount = data.alertCount;
-            }
-            if (typeof data.lastAlertTimestamp === 'number') {
-                lastAlertTimestamp = data.lastAlertTimestamp;
-            }
-        } catch (e) {
-            console.error('Error cargando estado de alerta:', e);
-        }
-    }
-
-    // Cargar estado al entrar a la pantalla (por ejemplo, desde la barra inferior)
-    loadAlertState();
 
     function navigatePanic(showScreen, hideScreen) {
         if (hideScreen) {
@@ -105,10 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(confirmationTimeout);
             isPanicActive = false; 
 
-            // Registrar envío de alerta
-            alertCount++;
+            // Registrar momento del envío para el cooldown
             lastAlertTimestamp = Date.now();
-            saveAlertState(); // 💾 se guarda para futuras visitas desde la barra inferior
 
             console.log("ALERTA DE PÁNICO ENVIADA DEFINITIVAMENTE.");
             if (panicMainScreen && panicSentScreen) {
@@ -171,16 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 2) Bloqueo temporal + máximo de envíos (se mantiene aunque vuelva desde la barra)
+            // 2) Cooldown de 10 segundos después de una alerta enviada
             const now = Date.now();
             const inCooldown = lastAlertTimestamp && (now - lastAlertTimestamp) < ALERT_COOLDOWN_MS;
-            const reachedMax = alertCount >= MAX_ALERTS;
 
-            if (inCooldown || reachedMax) {
-                alert('ya se envio una alerta reciente, bloqueo temporal');
+            if (inCooldown) {
+                alert('ya se envió una alerta hace poco, espera unos segundos');
 
                 if (panicStatus) {
-                    panicStatus.textContent = 'ya se envio una alerta reciente, bloqueo temporal';
+                    panicStatus.textContent = 'ya se envió una alerta hace poco, espera unos segundos';
                     panicStatus.style.color = '#E03957';
                 }
                 return;
@@ -202,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Flecha de regresar (mantiene tu comportamiento)
+    // Flecha de regresar
     if (goBackButton) {
         goBackButton.addEventListener('click', () => {
             if (isPanicActive) {
@@ -271,5 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+
 
 
