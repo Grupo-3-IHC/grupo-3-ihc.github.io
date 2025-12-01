@@ -46,7 +46,7 @@
             min-height: 70px;
         }
 
-        .nav-logo {
+       .nav-logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
@@ -55,11 +55,15 @@
             gap: 15px;
         }
 
-        .back-arrow {
-            cursor: pointer;
-            font-size: 1.8rem;
-            transition: transform 0.2s;
+       .back-arrow {
+        position: absolute; /* Takes the arrow out of the flow */
+        left: 2rem; /* Pins it to the left padding */
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: white;
+        transition: transform 0.2s;
         }
+        
 
         .back-arrow:hover {
             transform: scale(1.1);
@@ -271,5 +275,6 @@
     </div>
 </body>
 </html>
+
 
 
