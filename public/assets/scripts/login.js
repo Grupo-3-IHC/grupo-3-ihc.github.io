@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('screen-forgot-email');
     });
 
-    // Go to Register (From Login)
+    // Go to Register
     document.getElementById('btn-create-account').addEventListener('click', (e) => {
         e.preventDefault();
         showScreen('screen-register');
@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-send-code').addEventListener('click', () => {
         const email = document.getElementById('recovery-email').value;
         const errorSpan = document.getElementById('error-email');
-        // Simple mock validation
         if (email.includes('@')) {
             showScreen('screen-enter-code');
         } else {
@@ -73,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- REGISTER FLOW (NEW) ---
-
+    // --- REGISTER FLOW ---
     document.getElementById('btn-register-confirm').addEventListener('click', () => {
         const email = document.getElementById('reg-email').value;
         const user = document.getElementById('reg-user').value;
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirm = document.getElementById('reg-confirm-pass').value;
         const errorSpan = document.getElementById('error-register');
 
-        // Basic Validation
         if (!email || !user || !pass || !confirm) {
             errorSpan.innerText = "Todos los campos son obligatorios.";
             errorSpan.style.display = 'block';
@@ -95,37 +92,54 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Simulate success registration
-        // We reuse the success screen but you could make a specific one
         alert("Cuenta creada con éxito. Ahora puedes iniciar sesión.");
         showScreen('screen-login');
     });
 
-    // --- LOGIN MOCK ---
+
+    // --------------------------------------------------------
+    // ------------------- LOGIN COMPLETO ---------------------
+    // --------------------------------------------------------
+
     document.getElementById('loginForm').addEventListener('submit', (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const emailInput = document.getElementById('login-email').value;
-    const passwordInput = document.getElementById('login-password').value; // Aunque no se usa, es buena práctica recuperarlo.
+        const emailInput = document.getElementById('login-email').value;
+        const passwordInput = document.getElementById('login-password').value;
 
-    // 1. Verificación de Administrador
-    if (emailInput === "admin@gmail.com") {
-        // Muestra la ventana emergente de confirmación
-        const isConfirmed = confirm("Inicio de Sesión Especial:\n\n¿Desea ingresar como Administrador?");
+        const errorSpan = document.getElementById('error-login');
 
-        if (isConfirmed) {
-            alert("¡Bienvenido, Administrador! Redirigiendo a panel de administración.");
-            // Redirige al panel de administración (puedes cambiar esta ruta)
-            window.location.href = "dashboard.html"; 
+        // Credenciales válidas
+        const adminEmail = "admin@gmail.com";
+        const adminPass = "1234";
+
+        const userEmail = "user@gmail.com";
+        const userPass = "1234";
+
+        // ---------- ADMIN ----------
+        if (emailInput === adminEmail && passwordInput === adminPass) {
+
+            const isConfirmed = confirm("Inicio de Sesión Especial:\n\n¿Desea ingresar como Administrador?");
+
+            if (isConfirmed) {
+                alert("¡Bienvenido, Administrador! Redirigiendo al panel de administración.");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Ingresando como usuario normal.");
+                window.location.href = "dashboard.html";
+            }
+
+        // ---------- USUARIO NORMAL ----------
+        } else if (emailInput === userEmail && passwordInput === userPass) {
+
+            alert("Iniciando sesión como usuario normal.");
+            window.location.href = "dashboard.html";
+
+        // ---------- ERROR DE CREDENCIALES ----------
         } else {
-            alert("Ingresando como usuario normal.");
-            // Continúa a la página de usuario normal
-            window.location.href = "dashboard.html"; 
+            errorSpan.innerText = "Correo o contraseña equivocado.";
+            errorSpan.style.display = 'block';
         }
-    } else {
-        // 2. Comportamiento de Login Normal (mock en este caso)
-        alert("Iniciando sesión como usuario normal.");
-        window.location.href = "dashboard.html"; // Simular redirección a dashboard normal
-    }
-});
+    });
+
 });
