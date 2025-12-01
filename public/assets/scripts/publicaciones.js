@@ -987,6 +987,7 @@ function createNewDraftCard(imgSrc) {
 // ===== VISTA PREVIA & MODO PRIVADO =====
 function generarVistaPrevia() {
   if (!previewCard) return;
+
   const titulo = editTitulo.value;
   const descripcion = editDescripcion.value;
   const etiquetas = editEtiquetas.value;
@@ -996,45 +997,65 @@ function generarVistaPrevia() {
   const ubicacionMostrar = privado ? 'Ubicación no publicada' : (ubicacion || 'Sin ubicación');
   const autorMostrar = privado ? 'Anónim@' : '(yo) Daniel';
 
-  previewCard.innerHTML = `
-    <div class="mis-pub-card-header">
-      <div class="title-status">
-        <h3>Vista previa</h3>
-        <span class="status-badge status-aprobada">Publicación</span>
+  let imagenHTML = '';
+  const file = editImagen.files[0];
+
+  // Función auxiliar para pintar la vista previa (con o sin imagen)
+  function renderizarPreview(imagenHTMLLocal) {
+    previewCard.innerHTML = `
+      <div class="mis-pub-card-header">
+        <div class="title-status">
+          <h3>Vista previa</h3>
+          <span class="status-badge status-aprobada">Publicación</span>
+        </div>
       </div>
-    </div>
-    <div class="mis-pub-card-body">
-      <p><strong>Autor:</strong> ${autorMostrar}</p>
-      <p><strong>Título:</strong> ${titulo}</p>
-      <p><strong>Descripción:</strong> ${descripcion}</p>
-      <p><strong>Etiquetas:</strong> ${etiquetas}</p>
-      <p><strong>Ubicación:</strong> ${ubicacionMostrar}</p>
-    </div>
-    <div class="preview-actions" style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
-      <button type="button" id="btnPreviewConfirmar" class="edit-confirmar">Publicar ahora</button>
-      <button type="button" id="btnPreviewCancelar" class="edit-borrador">Cancelar</button>
-    </div>
-  `;
+      <div class="mis-pub-card-body">
+        <p><strong>Autor:</strong> ${autorMostrar}</p>
+        <p><strong>Título:</strong> ${titulo}</p>
+        <p><strong>Descripción:</strong> ${descripcion}</p>
+        <p><strong>Etiquetas:</strong> ${etiquetas}</p>
+        <p><strong>Ubicación:</strong> ${ubicacionMostrar}</p>
+        ${imagenHTMLLocal}
+      </div>
+      <div class="preview-actions" style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+        <button type="button" id="btnPreviewConfirmar" class="edit-confirmar">Publicar ahora</button>
+        <button type="button" id="btnPreviewCancelar" class="edit-borrador">Cancelar</button>
+      </div>
+    `;
 
-  previewCard.classList.remove('hidden');
+    previewCard.classList.remove('hidden');
 
-  const btnConfirm = document.getElementById('btnPreviewConfirmar');
-  const btnCancel  = document.getElementById('btnPreviewCancelar');
+    const btnConfirm = document.getElementById('btnPreviewConfirmar');
+    const btnCancel  = document.getElementById('btnPreviewCancelar');
 
-  if (btnConfirm) {
-    btnConfirm.onclick = () => {
-      publishConfirmed = true;
-      previewCard.classList.add('hidden');
-      // Dispara nuevamente el submit del formulario
-      editForm.requestSubmit();
-    };
+    if (btnConfirm) {
+      btnConfirm.onclick = () => {
+        publishConfirmed = true;
+        previewCard.classList.add('hidden');
+        // Dispara nuevamente el submit del formulario
+        editForm.requestSubmit();
+      };
+    }
+
+    if (btnCancel) {
+      btnCancel.onclick = () => {
+        publishConfirmed = false;
+        previewCard.classList.add('hidden');
+      };
+    }
   }
 
-  if (btnCancel) {
-    btnCancel.onclick = () => {
-      publishConfirmed = false;
-      previewCard.classList.add('hidden');
+  // Si hay archivo, lo leemos y luego renderizamos con la imagen
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagenHTML = `<img src="${reader.result}" alt="Vista previa de la imagen" class="mis-pub-img" style="margin-top:.8rem;">`;
+      renderizarPreview(imagenHTML);
     };
+    reader.readAsDataURL(file);
+  } else {
+    // Sin imagen, se muestra solo el texto
+    renderizarPreview('');
   }
 }
 
@@ -1646,6 +1667,8 @@ updateDraftIndicator();
 purgeOldDeleted();
 sortPublications('recientes');
 setInterval(updateDeletedCountdowns, 1000);
+
+
 
 
 
