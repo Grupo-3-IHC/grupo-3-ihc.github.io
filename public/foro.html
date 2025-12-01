@@ -3,424 +3,244 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/styles/foros.css">
   <title>Foros</title>
+  <link rel="stylesheet" href="assets/styles/foros.css">
 </head>
 
 <body>
 
-<header class="main-header-back">
-  <button onclick="history.back()">Back</button>
-  <h1>Foros</h1>
-</header>
+  <header class="main-header-back">
+    <button onclick="history.back()">⬅</button>
+    <h1>Foros</h1>
+  </header>
 
-<div class="wrapper">
+  <div class="wrapper">
+    <div class="main-content-layout">
 
-  <div class="main-content-layout">
+      <main class="main-content">
 
-    <!-- ========= COLUMNA PRINCIPAL ========= -->
-    <main class="main-content">
+        <nav class="navbar-foros">
+          <form class="search-form" onsubmit="event.preventDefault()">
+            <input type="text" class="search-bar" placeholder="Buscar..." onclick="window.location.href = 'filter_foro.html'">
+            <button class="search-btn">Buscar</button>
+          </form>
 
-      <nav class="navbar-foros">
-        <form class="search-form">
-          <input type="text" class="search-bar" placeholder="Buscar..." onclick = "window.location.href = 'filter_foro.html'">
-          <button class="search-btn" >Buscar</button>
-        </form>
+          <form class="btn-relevante-reciente">
+            <button type="button" class="btn-relevante">Relevante</button>
+            <button type="button" class="btn-reciente">Recientes</button>
+          </form>
 
-        <form class="btn-relevante-reciente">
-          <button type="button" class="btn-relevante">Relevante</button>
-          <button type="button" class="btn-reciente">Recientes</button>
-        </form>
+          <button type="button" id="adminToggle" class="btn-admin">
+            Administrador: INACTIVO
+          </button>
+        </nav>
 
-        <!-- BOTÓN ADMINISTRADOR -->
-        <button type="button" id="adminToggle" class="btn-admin">
-          Administrador: INACTIVO
-        </button>
-      </nav>
+        <section class="post-container">
+          <div class="main-post-card">
+            <div class="post-header-row">
+              <h1>Robo en Miraflores ✔</h1>
+              <button type="button" class="mark-suspicious">
+                Marcar como sospechoso ⚠
+              </button>
+            </div>
 
-      <!-- =============================
-           POST 1
-      ============================= -->
-      <section class="post-container">
-        <div class="main-post-card">
-          <div class="post-header-row">
-            <h1>Robo en Miraflores ✔</h1>
-            <button type="button" class="mark-suspicious">
-              Marcar como sospechoso ⚠
-            </button>
+            <p class="date-post">Fecha de publicación: 12/junio/2025</p>
+
+            <img src="assets/images/post_image.png" class="main-img" onclick="openFullPost(this)">
+
+            <p class="post-description">
+              Ahora último estuve yendo, estuve caminando por esta zona y cuando me subí
+              a un micro me robaron 3 personas, siempre lo mismo, deberían hacer algo.
+            </p>
           </div>
 
-          <p class="date-post">Fecha de publicación: 12/junio/2025</p>
+          <div class="stat-bar">
+            <ul class="stat-bar-ul">
+              <li><button class="mini-button-1"><img src="assets/images/views.png">132</button></li>
+              <li><button class="mini-button-1"><img src="assets/images/comments.png">12</button></li>
+              <li><button class="mini-button vote-down"><img src="assets/images/vote_down.png">69</button></li>
+              <li><button class="mini-button vote-up"><img src="assets/images/vote_up.png">67</button></li>
+            </ul>
+          </div>
 
-          <img
-            src="assets/images/post_image.png"
-            class="main-img"
-            onclick="openFullPost(this)"
-          >
+          <div class="post-comments-card">
+            <input class="comment-box" placeholder="Comenta algo (Enter)..." onkeypress="sendComment(event, this)">
+            
+            <div class="comment-thread">
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="avatar-circle">E</div>
+                  <span class="comment-header-name user-sensitive" data-user="Edgar Montañez" onclick="showSensitiveInfo(this)">Edgar Montañez</span>
+                  
+                  <span class="comment-report">
+                    <span class="comment-report-icon">⚠</span> Reportar usuario
+                  </span>
+                  
+                  <span class="comment-delete">Eliminar comentario 🗑</span>
+                </div>
+                <div class="comment-bubble">¿Qué pasó exactamente?</div>
+                
+                <span class="reply-toggle" onclick="toggleReplies(this)">Ver 1 respuestas ▼</span>
 
-          <p class="post-description">
-            Ahora último estuve yendo, estuve caminando por esta zona y cuando me subí
-            a un micro me robaron 3 personas, siempre lo mismo, deberían hacer algo.
-          </p>
-        </div>
-
-        <!-- STAT BAR -->
-        <div class="stat-bar">
-          <ul class="stat-bar-ul">
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/views.png" alt="vistas">132
-              </button>
-            </li>
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/comments.png" alt="comentarios">12
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-down">
-                <img src="assets/images/vote_down.png" alt="down">69
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-up">
-                <img src="assets/images/vote_up.png" alt="up">67
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <!-- COMENTARIOS -->
-        <div class="post-comments-card">
-          <input
-            class="comment-box"
-            placeholder="Comenta algo..."
-            onkeypress="sendComment(event, this)"
-          >
-
-          <div class="comment-thread">
-
-            <!-- Comentario principal: Edgar -->
-            <div class="comment-item">
-              <div class="comment-header">
-                <div class="avatar-circle">E</div>
-                <span
-                  class="comment-header-name user-sensitive"
-                  data-user="Edgar Montañez"
-                  onclick="showSensitiveInfo(this)"
-                >
-                  Edgar Montañez
-                </span>
-
-                <span class="comment-report">
-                  <span class="comment-report-icon">⚠</span>
-                  Reportar usuario
-                </span>
-
-                <span class="comment-delete">
-                  Eliminar comentario 🗑
-                </span>
-              </div>
-
-              <div class="comment-bubble">
-                ¿Qué pasó exactamente?
-              </div>
-
-              <span class="reply-toggle" onclick="toggleReplies(this)">
-                Ver 2 respuestas ▼
-              </span>
-
-              <!-- Bloque de respuestas (colapsable) -->
-              <div class="replies" style="display: none;">
-
-                <!-- Respuesta 1: Álvaro -->
-                <div class="comment-item">
-                  <div class="comment-header">
-                    <div class="avatar-circle">A</div>
-                    <span class="comment-header-name">Álvaro Fernandez</span>
-
-                    <span class="comment-report">
-                      <span class="comment-report-icon">⚠</span>
-                      Reportar usuario
-                    </span>
-                  </div>
-
-                  <div class="comment-bubble">
-                    Me la hicieron en medio de la subida al micro y en un momento
-                    de la nada me jalaron el celular.
+                <div class="replies" style="display: none;">
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <div class="avatar-circle">A</div>
+                      <span class="comment-header-name">Álvaro Fernandez</span>
+                      <span class="comment-report"><span class="comment-report-icon">⚠</span> Reportar usuario</span>
+                    </div>
+                    <div class="comment-bubble">Me la hicieron en medio de la subida al micro.</div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <!-- Respuesta 2: Jesús -->
-                <div class="comment-item">
-                  <div class="comment-header">
-                    <div class="avatar-circle">J</div>
-                    <span class="comment-header-name">Jesús Cataño</span>
+        <section class="post-container">
+          <div class="main-post-card">
+            <div class="post-header-row">
+              <h1>Asalto en bus de SJL</h1>
+              <button type="button" class="mark-suspicious">
+                Marcar como sospechoso ⚠
+              </button>
+            </div>
+            <p class="date-post">Fecha de publicación: 03/mayo/2025</p>
+            <img src="assets/images/robo3.png" class="main-img" onclick="openFullPost(this)">
+            <p class="post-description">Iba en la ruta San Juan de Lurigancho...</p>
+          </div>
 
-                    <span class="comment-report">
-                      <span class="comment-report-icon">⚠</span>
-                      Reportar usuario
-                    </span>
-                  </div>
+          <div class="stat-bar">
+            <ul class="stat-bar-ul">
+              <li><button class="mini-button-1"><img src="assets/images/views.png">248</button></li>
+              <li><button class="mini-button-1"><img src="assets/images/comments.png">8</button></li>
+              <li><button class="mini-button vote-down"><img src="assets/images/vote_down.png">21</button></li>
+              <li><button class="mini-button vote-up"><img src="assets/images/vote_up.png">54</button></li>
+            </ul>
+          </div>
 
-                  <div class="comment-bubble">
-                    ¿Fueron carteristas?
-                  </div>
+          <div class="post-comments-card">
+            <input class="comment-box" placeholder="Comenta algo (Enter)..." onkeypress="sendComment(event, this)">
+            <div class="comment-thread">
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="avatar-circle">M</div>
+                  <span class="comment-header-name">María López</span>
+                  <span class="comment-report"><span class="comment-report-icon">⚠</span> Reportar usuario</span>
                 </div>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- =============================
-           POST 2
-      ============================= -->
-      <section class="post-container">
-        <div class="main-post-card">
-          <div class="post-header-row">
-            <h1>Asalto en bus de SJL</h1>
-            <button type="button" class="mark-suspicious">
-              Marcar como sospechoso ⚠
-            </button>
-          </div>
-
-          <p class="date-post">Fecha de publicación: 03/mayo/2025</p>
-
-          <img
-            src="assets/images/robo3.png"
-            class="main-img"
-            onclick="openFullPost(this)"
-          >
-
-          <p class="post-description">
-            Iba en la ruta San Juan de Lurigancho – Centro de Lima alrededor de las
-            7:30 pm. Subieron dos sujetos simulando ser pasajeros y a la altura
-            de la Av. Abancay sacaron un arma, hicieron bajar a todos y empezaron
-            a quitar celulares y mochilas. Nadie de la empresa de transporte se hizo responsable.
-          </p>
-        </div>
-
-        <div class="stat-bar">
-          <ul class="stat-bar-ul">
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/views.png" alt="vistas">248
-              </button>
-            </li>
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/comments.png" alt="comentarios">8
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-down">
-                <img src="assets/images/vote_down.png" alt="down">21
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-up">
-                <img src="assets/images/asalto1.png" alt="up">54
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <div class="post-comments-card">
-          <input
-            class="comment-box"
-            placeholder="Comenta algo..."
-            onkeypress="sendComment(event, this)"
-          >
-
-          <div class="comment-thread">
-            <div class="comment-item">
-              <div class="comment-header">
-                <div class="avatar-circle">M</div>
-                <span class="comment-header-name">María López</span>
-
-                <span class="comment-report">
-                  <span class="comment-report-icon">⚠</span>
-                  Reportar usuario
-                </span>
-              </div>
-
-              <div class="comment-bubble">
-                Esa misma ruta siempre es peligrosa en la noche. Mejor bajarse
-                antes de la Av. Abancay y caminar un tramo.
+                <div class="comment-bubble">Esa misma ruta siempre es peligrosa.</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- =============================
-           POST 3
-      ============================= -->
-      <section class="post-container">
-        <div class="main-post-card">
-          <div class="post-header-row">
-            <h1>Robo de bicicletas en Surco</h1>
-            <button type="button" class="mark-suspicious">
-              Marcar como sospechoso ⚠
-            </button>
+        <section class="post-container">
+          <div class="main-post-card">
+            <div class="post-header-row">
+              <h1>Robo de bicicletas en Surco</h1>
+              <button type="button" class="mark-suspicious">
+                Marcar como sospechoso ⚠
+              </button>
+            </div>
+            <p class="date-post">Fecha de publicación: 27/abril/2025</p>
+            <img src="assets/images/robo1.png" class="main-img" onclick="openFullPost(this)">
+            <p class="post-description">En los últimos días han estado robando bicicletas...</p>
           </div>
 
-          <p class="date-post">Fecha de publicación: 27/abril/2025</p>
+          <div class="stat-bar">
+            <ul class="stat-bar-ul">
+              <li><button class="mini-button-1"><img src="assets/images/views.png">310</button></li>
+              <li><button class="mini-button-1"><img src="assets/images/comments.png">15</button></li>
+              <li><button class="mini-button vote-down"><img src="assets/images/vote_down.png">12</button></li>
+              <li><button class="mini-button vote-up"><img src="assets/images/vote_up.png">89</button></li>
+            </ul>
+          </div>
 
-          <img
-            src="assets/images/robo1.png"
-            class="main-img"
-            onclick="openFullPost(this)"
-          >
-
-          <p class="post-description">
-            En los últimos días han estado robando bicicletas en los edificios
-            cerca del parque Los Próceres. Rompen las cadenas del estacionamiento
-            del condominio y se van en menos de un minuto. Varias cámaras ya captaron
-            al mismo sujeto con gorra negra y mochila gris.
-          </p>
-        </div>
-
-        <div class="stat-bar">
-          <ul class="stat-bar-ul">
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/views.png" alt="vistas">310
-              </button>
-            </li>
-            <li>
-              <button class="mini-button-1">
-                <img src="assets/images/comments.png" alt="comentarios">15
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-down">
-                <img src="assets/images/vote_down.png" alt="down">12
-              </button>
-            </li>
-            <li>
-              <button class="mini-button vote-up">
-                <img src="assets/images/vote_up.png" alt="up">89
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <div class="post-comments-card">
-          <input
-            class="comment-box"
-            placeholder="Comenta algo..."
-            onkeypress="sendComment(event, this)"
-          >
-
-          <div class="comment-thread">
-            <div class="comment-item">
-              <div class="comment-header">
-                <div class="avatar-circle">R</div>
-                <span class="comment-header-name">Ricardo Pérez</span>
-
-                <span class="comment-report">
-                  <span class="comment-report-icon">⚠</span>
-                  Reportar usuario
-                </span>
-              </div>
-
-              <div class="comment-bubble">
-                A mi vecino también le robaron su bici ahí. La administración ya
-                está coordinando con serenazgo, pero todavía no hay patrullaje fijo.
+          <div class="post-comments-card">
+            <input class="comment-box" placeholder="Comenta algo (Enter)..." onkeypress="sendComment(event, this)">
+            <div class="comment-thread">
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="avatar-circle">R</div>
+                  <span class="comment-header-name">Ricardo Pérez</span>
+                  <span class="comment-report"><span class="comment-report-icon">⚠</span> Reportar usuario</span>
+                </div>
+                <div class="comment-bubble">A mi vecino también le robaron.</div>
               </div>
             </div>
           </div>
+        </section>
+
+      </main>
+
+      <aside class="weekly-summary-card">
+        <h2>📊 Resumen Semanal de Exposición</h2>
+        <p class="summary-date-range">Del 24 Nov al 01 Dic</p>
+        <div class="summary-stats">
+          <div class="stat-item danger">
+            <h3>Tiempo Total en Zonas de Riesgo</h3>
+            <p class="stat-value">4h 15m</p>
+          </div>
+          <div class="stat-item warning">
+            <h3>Mayor Exposición Diaria</h3>
+            <p class="stat-value">1h 30m (Miércoles)</p>
+          </div>
+          <div class="stat-item safe">
+            <h3>Zonas de Riesgo Visitadas</h3>
+            <p class="stat-value">3</p>
+            <ul class="zone-list">
+              <li>San Juan de Lurigancho (120m)</li>
+              <li>Centro de Lima (90m)</li>
+              <li>Miraflores (45m)</li>
+            </ul>
+          </div>
+          <div class="stat-item safe">
+            <h3>Sugerencia</h3>
+            <p class="stat-value suggestion">Considera reducir tus trayectos nocturnos en SJL y CL.</p>
+          </div>
         </div>
-      </section>
+      </aside>
 
-    </main>
-
-    <!-- ========= ASIDE RESUMEN SEMANAL ========= -->
-    <aside class="weekly-summary-card">
-      <h2>📊 Resumen Semanal de Exposición</h2>
-      <p class="summary-date-range">Del 24 Nov al 01 Dic</p>
-
-      <div class="summary-stats">
-        <div class="stat-item danger">
-          <h3>Tiempo Total en Zonas de Riesgo</h3>
-          <p class="stat-value">4h 15m</p>
-        </div>
-        <div class="stat-item warning">
-          <h3>Mayor Exposición Diaria</h3>
-          <p class="stat-value">1h 30m (Miércoles)</p>
-        </div>
-        <div class="stat-item safe">
-          <h3>Zonas de Riesgo Visitadas</h3>
-          <p class="stat-value">3</p>
-          <ul class="zone-list">
-            <li>San Juan de Lurigancho (120m)</li>
-            <li>Centro de Lima (90m)</li>
-            <li>Miraflores (45m)</li>
-          </ul>
-        </div>
-        <div class="stat-item safe">
-          <h3>Sugerencia</h3>
-          <p class="stat-value suggestion">
-            Considera reducir tus trayectos nocturnos en SJL y CL.
-          </p>
-        </div>
-      </div>
-    </aside>
-
-  </div>
-</div>
-
-<!-- POPUP PARA SOSPECHOSO -->
-<div class="report-popup" id="reportPopup">
-  Publicación marcada como sospechosa 👌
-</div>
-
-<!-- POPUP ADMIN (INFO SENSIBLE / ERRORES) -->
-<div class="admin-popup" id="adminPopup"></div>
-
-<!-- PANTALLA "POST" COMPLETO -->
-<div class="fullview-overlay" id="fullView">
-  <div class="fullview-card">
-    <header class="fullview-header">
-      <button class="back-full" onclick="closeFullView()">←</button>
-      <h1>Post</h1>
-      <div class="fullview-header-spacer"></div>
-    </header>
-
-    <div class="fullview-body" id="fullViewContent">
-      <!-- aquí se clona el contenido del post -->
     </div>
   </div>
-</div>
 
-<div class="bottom-bar">
-  <a href="dashboard.html" class="btn">
-    <img src="assets/images/home.png" class="icon">
-  </a>
+  <div class="report-popup" id="reportPopup">
+    Publicación marcada como sospechosa 👌
+  </div>
 
-  <a href="comunidad.html" class="btn">
-    <img src="assets/images/msg.png" class="icon">
-  </a>
+  <div class="admin-popup" id="adminPopup"></div>
 
-  <a href="panicSvadm.html" class="btn alerta-btn">
-    <img src="assets/images/button.png" class="icon alerta">
-  </a>
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-content">
+      <div class="modal-title">Reportar Usuario</div>
+      <p class="modal-text">¿Estás seguro de que deseas reportar este comentario por contenido inapropiado?</p>
+      <div class="modal-actions">
+        <button class="btn-modal btn-cancel" id="cancelReport">Cancelar</button>
+        <button class="btn-modal btn-confirm" id="confirmReport">Reportar</button>
+      </div>
+    </div>
+  </div>
 
-  <a href="map.html" class="btn">
-    <img src="assets/images/map.png" class="icon">
-  </a>
+  <div class="fullview-overlay" id="fullView">
+    <div class="fullview-card">
+      <header class="fullview-header">
+        <button class="back-full" onclick="closeFullView()">←</button>
+        <h1>Post</h1>
+        <div class="fullview-header-spacer"></div>
+      </header>
+      <div class="fullview-body" id="fullViewContent">
+        </div>
+    </div>
+  </div>
 
-  <a href="config.html" class="btn">
-    <img src="assets/images/config.png" class="icon">
-  </a>
-</div>
+  <div class="bottom-bar">
+    <a href="dashboard.html" class="btn"><img src="assets/images/home.png" class="icon"></a>
+    <a href="comunidad.html" class="btn"><img src="assets/images/msg.png" class="icon"></a>
+    <a href="panicSvadm.html" class="btn alerta-btn"><img src="assets/images/button.png" class="icon alerta"></a>
+    <a href="map.html" class="btn"><img src="assets/images/map.png" class="icon"></a>
+    <a href="config.html" class="btn"><img src="assets/images/config.png" class="icon"></a>
+  </div>
 
-<script src="./assets/scripts/foro.js"></script>
+  <script src="assets/scripts/foro.js"></script>
 </body>
 </html>
-
-
