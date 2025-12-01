@@ -119,34 +119,61 @@ main {
   color: #444;
 }
 
-/* cabecera principal con selector de orden */
+/* cabecera principal con selector de orden + filtros */
 
 .mis-pub-header-main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
+.mis-pub-header-left {
+  max-width: 50%;
+  min-width: 220px;
+}
+
+/* Panel derecho completo: Ordenar + filtros en la misma tarjeta */
+.mis-pub-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 260px;
+  background-color: #f3ffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Ordenar por: label arriba, select abajo, alineado con filtros */
 .sort-wrapper {
   display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
   font-size: 0.85rem;
   color: #444;
+  width: 100%;
 }
 
 .sort-wrapper label {
-  white-space: nowrap;
+  white-space: normal;
+  font-weight: 500;
 }
 
 #sortSelect {
   border-radius: 999px;
   border: 1px solid #d0d0d0;
-  padding: 0.25rem 0.7rem;
+  padding: 0.35rem 0.75rem;
   font-size: 0.85rem;
   background: #ffffff;
+  width: 100%;
+  max-width: 230px;
 }
+
+/* GRID DE PUBLICACIONES */
 
 .mis-pub-grid {
   display: grid;
@@ -620,6 +647,71 @@ main {
 #view-drafts .mis-pub-actions .btn-eliminar {
   display: inline-flex;      /* o inline-block */
 }
+
+/* Bloque de filtros dentro del panel derecho */
+
+.filters-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.filter-group label {
+  font-weight: 500;
+}
+
+.filters-wrapper input[type="text"],
+.filters-wrapper input[type="date"] {
+  width: 100%;
+  max-width: 230px;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.filter-dates-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.filter-date-separator {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.filter-actions button {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Ajuste responsive: apilar en pantallas pequeñas */
+@media (max-width: 768px) {
+  .mis-pub-header-left {
+    max-width: 100%;
+  }
+
+  .mis-pub-header-right {
+    width: 100%;
+  }
+
+  .filters-wrapper input[type="text"],
+  .filters-wrapper input[type="date"],
+  .filter-dates-row input[type="date"] {
+    max-width: 100%;
+  }
+}
+
 
 
 
