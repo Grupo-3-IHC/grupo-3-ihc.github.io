@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Control de uso del botón de pánico ---
     let alertCount = 0;
     const MAX_ALERTS = 3;
-    const ALERT_COOLDOWN_MS = 60 * 1000; // 60 segundos de bloqueo
+    const ALERT_COOLDOWN_MS = 10 * 1000; // 60 segundos de bloqueo
     let lastAlertTimestamp = 0;
 
     // Guardar/leer estado para que se mantenga aunque el usuario salga y vuelva
@@ -271,3 +271,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
